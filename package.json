@@ -1,0 +1,34 @@
+{
+  "name": "nandenjin-portfolio-gae-node",
+  "version": "1.0.0",
+  "description": "https://www.nandenjin.com/",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "deploy": "gcloud app deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://nandenjin@github.com/nandenjin/portfolio_gae-node.git"
+  },
+  "keywords": [
+    "gae",
+    "node",
+    "nuxt"
+  ],
+  "author": "Kazumi Inada <hello@nandenjin.com>",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/nandenjin/portfolio_gae-node/issues"
+  },
+  "homepage": "https://github.com/nandenjin/portfolio_gae-node#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "node-sass": "^4.9.0",
+    "nuxt": "^1.4.1",
+    "sass-loader": "^7.0.3"
+  }
+}
