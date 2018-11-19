@@ -1,7 +1,8 @@
 
 module.exports = { 
 
-  srcDir: 'nuxt',
+  srcDir: 'src',
+  buildDir: 'functions/build',
 
   head: {
 
@@ -24,10 +25,37 @@ module.exports = {
 
   },
 
+  transition: {
+
+    name: 'page-fade',
+    mode: 'out-in',
+
+  },
+
   css: [
 
     '~/assets/scss/global.scss',
 
   ],
+
+  generate: {
+
+    dir: 'hosting',
+
+  },
+
+  build: {
+
+    extractCSS: true,
+
+    extend( config ) {
+
+      const vueLoader = config.module.rules.find((rule) => rule.loader === 'vue-loader');
+      vueLoader.options.transformAssetUrls['image-box'] = 'src';
+      vueLoader.options.transformAssetUrls['work-page-renderer'] = 'thumbnail';
+
+    } 
+
+  },
 
 };

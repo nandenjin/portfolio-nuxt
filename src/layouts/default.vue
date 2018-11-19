@@ -53,7 +53,7 @@
       .logo-container {
 
         flex: 1 1 auto;
-        margin: 15px 0;
+        margin: 35px 0 15px 0;
         cursor: pointer;
         transition: opacity 0.3s ease 0s;
 

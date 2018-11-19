@@ -3,7 +3,7 @@
   
   <main class="theme--document">
     
-    <h1>Works</h1>
+    <h1 class="theme--title">Works</h1>
 
     <content-list class="theme-margin-lr"></content-list>
 

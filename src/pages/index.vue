@@ -50,7 +50,7 @@
     flex: 1 1 100%;
     margin: 0;
     padding: 0;
-    background-image: url( '~/assets/img/eye-catch.jpg' );
+    background-image: url( '~assets/img/eye-catch.jpg' );
     background-color: #000;
     background-position: center;
     background-size: cover;
