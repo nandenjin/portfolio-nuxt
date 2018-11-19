@@ -17,24 +17,21 @@
 
 </script>
 
-<style lang="scss" scoped>
+<style lang="sass" scoped>
   
-  .image-box {
+  .image-box 
+    position: relative
+    overflow: hidden
 
-    position: relative;
-    overflow: hidden;
+    background-color: #eee
 
-    background-color: #eee;
-
-    img {
-
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      width: 100%;
-      margin: auto;
-
-    }
-
-  }
+    img
+      position: absolute
+      top: 0
+      left: 0
+      right: 0
+      bottom: 0
+      width: 100%
+      margin: auto
   
 </style>

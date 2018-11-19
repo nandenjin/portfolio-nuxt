@@ -11,8 +11,8 @@
 
 <script></script>
 
-<style lang="scss" scoped>
+<style lang="sass" scoped>
   
-  @import '~/assets/scss/themes.scss';
+  @import '~/assets/style/themes.sass'
 
 </style>

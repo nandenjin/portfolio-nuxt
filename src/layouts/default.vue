@@ -22,126 +22,78 @@
 
 </template>
 
-<style lang="scss" scoped>
+<style lang="sass" scoped>
 
-  @import '~/assets/scss/media.scss';
-  
-  .layout-container {
+  @import '~/assets/style/media.sass'
 
-    display: flex;
-    flex-direction: column;
+  .layout-container
+    display: flex
+    flex-direction: column
 
-    @include mq(md) {
+    +mq(md)
+      flex-direction: row
 
-      flex-direction: row;
+    & > .header
+      display: flex
+      flex: 0 0 auto
+      background-color: #fff
+      flex-direction: row
 
-    }
+      +mq(md)
+        flex-direction: column
 
-    &>.header {
+      .logo-container
+        flex: 1 1 auto
+        margin: 35px 0 15px 0
+        cursor: pointer
+        transition: opacity 0.3s ease 0s
 
-      display: flex;
-      flex: 0 0 auto;
-      background-color: #fff;
-      flex-direction: row;
+        +mq(md)
+          flex: 0 0 auto
 
-      @include mq(md) {
+        &:hover
+          opacity: 0.5
 
-        flex-direction: column;
+        .logo
+          height: 25px
+          margin: 0 40px
 
-      }
+          +mq(md)
+            margin: 0 35px
 
-      .logo-container {
+      .vertical-nav
+        flex: 1 1 auto
 
-        flex: 1 1 auto;
-        margin: 35px 0 15px 0;
-        cursor: pointer;
-        transition: opacity 0.3s ease 0s;
+        & > .item
+          display: block
+          -ms-writing-mode: vertical-rl
+          writing-mode: vertical-rl
+          width: 35px
+          margin: 20px 25px
+          padding: 15px 0
+          color: #000
+          font-size: 14px
+          font-family: Helvetica
+          letter-spacing: 0.3em
+          text-transform: uppercase
+          transition: opacity 0.3s ease 0s
 
-        @include mq(md) {
+          &:hover
+            opacity: 0.5
 
-          flex: 0 0 auto;
+      .menu-open
+        flex: 0 0 auto
 
-        }
+        .menu-button
+          width: 40px
+          height: 45px
+          margin: 15px 25px
+          font-size: 30px
+          line-height: 50px
+          text-align: center
 
-        &:hover {
-
-          opacity: 0.5;
-
-        }
-
-        .logo {
-
-          height: 25px;
-          margin: 0 40px;
-
-          @include mq(md) {
-
-            margin: 0 35px;
-
-          }
-
-        }
-
-      }
-
-      .vertical-nav {
-
-        flex: 1 1 auto;
-
-        &>.item {
-
-          display: block;
-          -ms-writing-mode: vertical-rl;
-          writing-mode: vertical-rl;
-
-          width: 35px;
-          margin: 20px 25px;
-          padding: 15px 0;
-
-          color: #000;
-          font-size: 14px;
-          font-family: Helvetica;
-          letter-spacing: 0.3em;
-          text-transform: uppercase;
-
-          transition: opacity 0.3s ease 0s;
-
-          &:hover {
-
-            opacity: 0.5;
-
-          }
-
-        }
-
-      }
-
-      .menu-open {
-
-        flex: 0 0 auto;
-
-        .menu-button {
-
-          width: 40px;
-          height: 45px;
-          margin: 15px 25px;
-          font-size: 30px;
-          line-height: 50px;
-          text-align: center;
-
-        }
-
-      }
-
-    }
-
-    &>.content {
-
-      flex: 1 1 auto;
-
-    }
-
-  }
+    & > .content
+      flex: 1 1 auto
 
 </style>
 

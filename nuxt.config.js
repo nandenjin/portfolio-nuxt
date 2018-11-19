@@ -34,7 +34,7 @@ module.exports = {
 
   css: [
 
-    '~/assets/scss/global.scss',
+    '~/assets/style/global.sass',
 
   ],
 

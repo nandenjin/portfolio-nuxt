@@ -29,176 +29,116 @@
 
 </template>
 
-<style lang="scss" scoped>
+<style lang="sass" scoped>
 
-  @import '~/assets/scss/media.scss';
+  @import '~/assets/style/media.sass'
 
-  .top-container {
+  .top-container
+    display: flex
+    height: 100vh
+    flex-direction: column
 
-    display: flex;
-    height: 100vh;
-    flex-direction: column;
+    +mq(md)
+      flex-direction: row
 
-    @include mq(md) {
-      flex-direction: row;
-    }
+  .eye-catch
+    flex: 1 1 100%
+    margin: 0
+    padding: 0
+    background-image: url("~assets/img/eye-catch.jpg")
+    background-color: #000
+    background-position: center
+    background-size: cover
 
-  }
+  .content
+    position: relative
+    flex: 1 1 161%
 
-  .eye-catch {
+    .centering
+      margin: 50px 40px 30px 40px
 
-    flex: 1 1 100%;
-    margin: 0;
-    padding: 0;
-    background-image: url( '~assets/img/eye-catch.jpg' );
-    background-color: #000;
-    background-position: center;
-    background-size: cover;
+      +mq(md)
+        position: absolute
+        top: 0
+        left: 0
+        right: 0
+        bottom: 0
+        margin: auto 20%
+        height: 500px
 
-  }
+      .logo
+        display: block
+        height: 25px
+        margin: 30px 0
 
-  .content {
+        +mq(md)
+          height: 40px
+          margin: 45px 0
 
-    position: relative;
-    flex: 1 1 161%;
+      .kazumi-inada
+        display: block
+        height: 15px
+        margin: 25px 0
 
-    .centering {
+        +mq(md)
+          height: 20px
+          margin: 45px 0
 
-      margin: 50px 40px 30px 40px;
+      .nav
+        .item
+          display: inline-block
+          margin: 0 25px 0 0
+          color: #000
+          font: normal 13px sans-serif
+          text-transform: uppercase
+          letter-spacing: 0.15em
+          transition: color 0.15s ease 0s
 
-      @include mq(md) {
+          +mq(md)
+            font-size: 15px
 
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        margin: auto 20%;
-        height: 500px;
+          &:hover
+            color: #aaa
+      .news
+        display: flex
+        margin: 30px 0
+        cursor: pointer
+        transition: color 0.15s ease 0s
 
-      }
+        &:hover
+          color: #aaa
 
-      .logo {
+        h3
+          display: flex
+          flex: 0 0 auto
+          margin-right: 20px
+          font: bold 11px sans-serif
+          -webkit-align-items: center
+          align-items: center
 
-        display: block;
-        height: 25px;
-        margin: 30px 0;
+          +mq(md)
+            font-size: 13px
 
-        @include mq(md) {
-          height: 40px;
-          margin: 45px 0;
-        }
+        p
+          float: 1 1 auto
+          font-size: 11px
 
-      }
+          +mq(md)
+            font-size: 13px
 
-      .kazumi-inada {
+    .eye-catch-info
+      position: absolute
+      right: 30px
+      bottom: 30px
 
-        display: block;
-        height: 15px;
-        margin: 25px 0;
+      h3, p
+        margin: 0
+        padding: 0
+        font-size: 9px
+        text-align: right
 
-        @include mq(md) {
-          height: 20px;
-          margin: 45px 0;
-        }
-
-      }
-
-      .nav {
-
-        .item {
-
-          display: inline-block;
-          margin: 0 25px 0 0;
-          color: #000;
-          font: normal 13px sans-serif;
-          text-transform: uppercase;
-          letter-spacing: 0.15em;
-
-          transition: color 0.15s ease 0s;
-
-          @include mq(md) {
-            font-size: 15px;
-          }
-
-          &:hover {
-
-            color: #aaa;
-
-          }
-
-        }
-
-      }
-
-      .news {
-
-        display: flex;
-        margin: 30px 0;
-        cursor: pointer;
-        transition: color 0.15s ease 0s;
-
-        &:hover {
-
-          color: #aaa;
-
-        }
-
-        h3 {
-
-          display: flex;
-          flex: 0 0 auto;
-          margin-right: 20px;
-          font: bold 11px sans-serif;
-          -webkit-align-items: center;
-          align-items: center;
-
-          @include mq(md) {
-
-            font-size: 13px;
-
-          }
-
-        }
-
-        p {
-
-          float: 1 1 auto;
-          font-size: 11px;
-
-          @include mq(md) {
-
-            font-size: 13px;
-
-          }
-
-        }
-
-      }
-
-    }
-
-    .eye-catch-info {
-
-      position: absolute;
-      right: 30px;
-      bottom: 30px;
-
-      h3, p {
-
-        margin: 0;
-        padding: 0;
-        font-size: 9px;
-        text-align: right;
-
-        @include mq(md) {
-
-          font-size: 11px;
-
-        }
-
-      }
-
-    }
-
-  }
+        +mq(md)
+          font-size: 11px
 
 </style>
 

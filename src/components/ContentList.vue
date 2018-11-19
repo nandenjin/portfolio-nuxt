@@ -99,74 +99,51 @@
 
 </script>
 
-<style lang="scss" scoped>
+<style lang="sass" scoped>
 
-  @import '~/assets/scss/media.scss';
-  
-  .list-container {
+  @import '~/assets/style/media.sass'
 
-    &>.item {
+  .list-container
 
-      display: inline-block;
-      transition: transform 0.3s ease 0s;
-      margin: 15px;
+    & > .item
+      display: inline-block
+      transition: transform 0.3s ease 0s
+      margin: 15px
+      
+      +mq(md)
+        margin: 25px
 
-      @include mq(md) {
+      &:hover
+        transform: scale3d(1.05, 1.05, 1)
 
-        margin: 25px;
+      & > .link
+        display: block
+        color: #000
 
-      }
+      .thumbnail
+        position: relative
+        width: 300px
+        height: (300px / 1.67)
+        overflow: hidden
+        border-radius: 15px
 
-      &:hover {
+        img
+          position: absolute
+          top: 0
+          left: 0
+          right: 0
+          bottom: 0
+          width: 100%
+          margin: auto
 
-        transform: scale3d( 1.05, 1.05, 1 );
+      .title
+        margin-top: 20px
 
-      }
-
-      &>.link {
-
-        display: block;
-        color: #000;
-
-      }
-
-      .thumbnail {
-
-        position: relative;
-        width: 300px;
-        height: ( 300px / 1.67 );
-        overflow: hidden;
-        border-radius: 15px;
-
-        img {
-
-          position: absolute;
-          top: 0; left: 0; right: 0; bottom: 0;
-          width: 100%;
-          margin: auto;
-
-        }
-
-      }
-
-      .title {
-
-        margin-top: 20px;
-
-        h2{
-
-          display: table-cell;
-          height: 30px;
-          vertical-align: middle;
-          font-size: 14px;
-          overflow-x: hidden;
-
-        }
-
-      }
-
-    }
-
-  }
+        h2
+          display: table-cell
+          height: 30px
+          vertical-align: middle
+          font-size: 14px
+          overflow-x: hidden
 
 </style>

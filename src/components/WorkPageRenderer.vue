@@ -41,8 +41,8 @@
 
 <style lang="sass" scoped>
   
-  @import '~/assets/scss/themes.scss'
-  @import '~assets/scss/media.scss'
+  @import '~/assets/style/themes.sass'
+  @import '~assets/style/media.sass'
 
   .main
     margin: 20px 0
