@@ -8,6 +8,7 @@
     "start": "nuxt",
     "dev": "nuxt dev",
     "build": "nuxt build",
+    "generate": "nuxt generate",
     "deploy": "firebase deploy"
   },
   "repository": {
