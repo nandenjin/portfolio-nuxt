@@ -1,5 +1,5 @@
 
-module.exports = { 
+module.exports = {
 
   srcDir: 'src',
   buildDir: 'functions/build',
@@ -47,7 +47,7 @@ module.exports = {
 
   generate: {
 
-    dir: 'hosting',
+    dir: 'dist',
 
   },
 
@@ -61,7 +61,7 @@ module.exports = {
       vueLoader.options.transformAssetUrls['image-box'] = 'src';
       vueLoader.options.transformAssetUrls['work-page-renderer'] = 'thumbnail';
 
-    } 
+    }
 
   },
 
