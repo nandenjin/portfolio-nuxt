@@ -32,6 +32,13 @@ module.exports = {
 
   },
 
+  layoutTransition: {
+
+    name: 'page-fade',
+    mode: 'out-in',
+
+  },
+
   css: [
 
     '~/assets/style/global.sass',
