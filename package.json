@@ -18,11 +18,10 @@
   "author": "Kazumi Inada <hello@nandenjin.com>",
   "license": "UNLICENSED",
   "dependencies": {
-    "material-design-icons": "^3.0.1",
-    "nuxt": "^2.1.0"
+    "nuxt": "^2.4.3"
   },
   "devDependencies": {
-    "node-sass": "^4.9.3",
+    "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0"
   }
 }
