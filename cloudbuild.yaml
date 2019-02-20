@@ -1,0 +1,18 @@
+secrets:
+- kmsKeyName: projects/nandenjinlab/locations/global/keyRings/firebase/cryptoKeys/firebase
+  secretEnv:
+    FIREBASE_TOKEN: CiQAWCIG9BcUpzgXI8QpbhaJ71bZyh93xABp3a155I49BTEPhvoSVgClBGFlAYBmhu7z/U6Ss1aQ2s2yuc/5j/9fL/viqtoAdQG8vVPi6XDHnfYjIfbHPrDtfwaecJ5lhSiMGGIqqdRiqCJS2KwdCDOAnONFDCxva4uvf1n8
+steps:
+- id: 'install'
+  name: 'gcr.io/cloud-builders/yarn'
+  entrypoint: yarn
+  args: [ 'install', '-D' ]
+- id: 'generate'
+  name: 'gcr.io/cloud-builders/yarn'
+  entrypoint: yarn
+  args: [ 'generate' ]
+- id: 'deploy'
+  name: 'gcr.io/cloud-builders/yarn'
+  entrypoint: yarn
+  args: [ 'deploy', '--project', '$PROJECT_ID' ]
+  secretEnv: ['FIREBASE_TOKEN']
