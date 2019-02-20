@@ -3,7 +3,7 @@
   
   <main class="theme--document">
     
-    <h1>News</h1>
+    <h1 class="theme--title">News</h1>
 
   </main>
 
