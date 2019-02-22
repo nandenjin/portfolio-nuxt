@@ -2,7 +2,6 @@
 module.exports = {
 
   srcDir: 'src',
-  buildDir: 'functions/build',
 
   head: {
 
