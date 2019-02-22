@@ -1,8 +1,8 @@
 
 <template>
-  
+
   <main class="top-container">
-    
+
     <figure class="eye-catch"></figure>
     <div class="content">
       <div class="centering">
@@ -28,6 +28,8 @@
   </main>
 
 </template>
+
+<script></script>
 
 <style lang="sass" scoped>
 
