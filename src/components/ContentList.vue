@@ -63,7 +63,7 @@
         const isMobile = lengthPerRow === 1;
 
         const width = ( isMobile ? 350 : 300 ) * scale;
-        const marginLR = isMobile ? 0 : ( w - width * lengthPerRow ) / lengthPerRow / 2;
+        const marginR = isMobile ? 0 : ( w - width * lengthPerRow ) / ( lengthPerRow - 1 );
 
         const items = container.getElementsByClassName( 'item' );
         const thumbs = container.getElementsByClassName( 'thumbnail' );
@@ -71,8 +71,8 @@
         for( let i = 0; i < items.length; i++ ) {
 
           items[ i ].style.width  = width + 'px';
-          items[ i ].style.marginLeft  = marginLR + 'px';
-          items[ i ].style.marginRight = marginLR + 'px';
+          items[ i ].style.marginRight = ( i % lengthPerRow !== lengthPerRow - 1 ? marginR : 0 ) + 'px';
+          items[ i ].style.marginLeft = '0px';
 
         }
 
@@ -87,7 +87,7 @@
 
       requestAnimationFrame( step );
 
-    }, 
+    },
 
     destroyed() {
 
@@ -109,7 +109,7 @@
       display: inline-block
       transition: transform 0.3s ease 0s
       margin: 15px
-      
+
       +mq(md)
         margin: 25px
 
