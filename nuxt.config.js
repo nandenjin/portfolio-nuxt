@@ -1,7 +1,17 @@
 
+const axios = require( 'axios' );
+
+const cmsDomain = 'cms-dot-nandenjinlab.appspot.com';
+const cmsPath = 'wp-json/wp/v2';
+
 module.exports = {
 
   srcDir: 'src',
+
+  env: {
+    cmsDomain,
+    cmsPath,
+  },
 
   head: {
 
@@ -47,6 +57,37 @@ module.exports = {
   generate: {
 
     dir: 'dist',
+    routes: async () => {
+
+      const [ worksReq, newsReq ] = await Promise.all( [
+        axios.get( `https://${ cmsDomain }/${ cmsPath }/works?_embed` ),
+        axios.get( `https://${ cmsDomain }/${ cmsPath }/news?_embed` ),
+      ] );
+
+      const works = worksReq.data;
+      const news = newsReq.data;
+
+      const routes = [
+        {
+          route: '/works',
+          payload: works,
+        }, {
+          route: '/news',
+          payload: news,
+        },
+        ...works.map( w => ( {
+          route: `/works/${ w.slug }`,
+          payload: w,
+        } ) ),
+        ...news.map( n => ( {
+          route: `/news/${ n.slug }`,
+          payload: n,
+        } ) ),
+      ];
+
+      return routes;
+
+    },
 
   },
 

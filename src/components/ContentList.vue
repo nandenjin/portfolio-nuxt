@@ -2,48 +2,31 @@
 <template>
 
   <div class="list-container" ref="container">
-    
-    <article class="item" v-for="content in contents">
+
+    <article class="item" v-for="content in src">
       <nuxt-link class="link" :to="content.url">
         <figure>
           <div class="thumbnail">
             <img :src="content.thumbnail" alt="">
           </div>
           <figcaption class="title">
-            <h2>{{ content.title_ja }}</h2>
+            <h2>{{ content.title }}</h2>
           </figcaption>
         </figure>
       </nuxt-link>
     </article>
 
   </div>
-  
+
 </template>
 
 <script>
 
   import sampleImg from '~/assets/img/eye-catch.jpg';
-  
+
   export default {
 
     props: [ 'src' ],
-
-    data() {
-
-      return {
-
-        contents: [
-          { id: 'xxx', thumbnail: sampleImg, url: '/works/xxx', title_ja: '現代人形劇「おとしもの」' },
-          { id: 'xxx', thumbnail: sampleImg, url: '/works/xxx', title_ja: '現代人形劇「おとしもの」' },
-          { id: 'xxx', thumbnail: sampleImg, url: '/works/xxx', title_ja: '現代人形劇「おとしもの」' },
-          { id: 'xxx', thumbnail: sampleImg, url: '/works/xxx', title_ja: '現代人形劇「おとしもの」' },
-          { id: 'xxx', thumbnail: sampleImg, url: '/works/xxx', title_ja: '現代人形劇「おとしもの」' },
-          { id: 'xxx', thumbnail: sampleImg, url: '/works/xxx', title_ja: '現代人形劇「おとしもの」' },
-        ],
-
-      };
-
-    },
 
     mounted() {
 

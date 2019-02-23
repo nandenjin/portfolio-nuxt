@@ -18,6 +18,7 @@
   "author": "Kazumi Inada <hello@nandenjin.com>",
   "license": "UNLICENSED",
   "dependencies": {
+    "axios": "^0.18.0",
     "nuxt": "^2.4.3"
   },
   "devDependencies": {
