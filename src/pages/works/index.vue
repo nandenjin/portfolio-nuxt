@@ -29,8 +29,6 @@
 
     async asyncData( { env, payload } ) {
 
-      console.log( payload );
-
       if( payload ) return { works: payload };
       else return { works: ( await axios.get( `https://${ env.cmsDomain }/${ env.cmsPath }/works?_embed` ) ).data };
 

@@ -21,8 +21,6 @@
 
     async asyncData( { params, env, payload } ) {
 
-      console.log( payload );
-
       if( !payload ) {
         payload = ( await ( axios.get( `https://${ env.cmsDomain }/${ env.cmsPath }/news?_embed&slug=${ params.id }` ) ) ).data[ 0 ];
       }
