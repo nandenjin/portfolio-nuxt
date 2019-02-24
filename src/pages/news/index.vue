@@ -22,7 +22,7 @@ export default {
   async asyncData( { env, payload } ) {
 
     if( payload ) return { news: payload };
-    else return { news: ( await axios.get( `https://${ env.cmsDomain }/${ env.cmsPath }/news?_embed` ) ).data };
+    else return { news: ( await axios.get( `https://${ env.cmsDomain }/${ env.cmsPath }/posts?_embed` ) ).data };
 
   },
 

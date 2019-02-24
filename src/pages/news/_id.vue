@@ -22,7 +22,7 @@
     async asyncData( { params, env, payload } ) {
 
       if( !payload ) {
-        payload = ( await ( axios.get( `https://${ env.cmsDomain }/${ env.cmsPath }/news?_embed&slug=${ params.id }` ) ) ).data[ 0 ];
+        payload = ( await ( axios.get( `https://${ env.cmsDomain }/${ env.cmsPath }/posts?_embed&slug=${ params.id }` ) ) ).data[ 0 ];
       }
 
       return {
