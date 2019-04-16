@@ -5,7 +5,7 @@
 
     <h1 class="title theme--title">{{ title }}</h1>
 
-    <div class="text" v-html="content"></div>
+    <div class="theme-text" v-html="content"></div>
 
   </main>
 
