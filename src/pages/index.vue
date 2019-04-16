@@ -14,9 +14,9 @@
           <nuxt-link class="item" to="/works">Works</nuxt-link>
           <nuxt-link class="item" to="/profile">Profile</nuxt-link>
         </nav>
-        <nuxt-link tag="section" class="news" to="/news">
+        <nuxt-link tag="section" class="news" :to="`/news/${ news.slug }`">
           <h3>NEWS</h3>
-          <p>演出を手がけた現代人形劇「おとしもの」の上演が終了しました。</p>
+          <p>{{ news.title.rendered }}</p>
         </nuxt-link>
       </div>
       <nuxt-link tag="section" class="eye-catch-info" to="/works/the_lost_thing">
@@ -29,7 +29,32 @@
 
 </template>
 
-<script></script>
+<script>
+
+import axios from 'axios';
+
+  export default {
+
+    async asyncData( { getPayload, env, payload, route } ) {
+
+      return {
+        news:　payload || await getPayload( route.path ) || await ( axios.get( `https://${ env.cmsDomain }/${ env.cmsPath }/posts?_embed&per_page=1` ) ).data[0],
+      };
+
+    },
+
+    layout: 'plain',
+
+    head: {
+
+      title: 'Kazumi Inada | 稲田和巳'
+
+    },
+
+
+  }
+
+</script>
 
 <style lang="sass" scoped>
 
@@ -143,19 +168,3 @@
           font-size: 11px
 
 </style>
-
-<script>
-  
-  export default {
-
-    layout: 'plain',
-
-    head: {
-
-      title: 'Kazumi Inada | 稲田和巳'
-
-    },
-
-  };
-
-</script>

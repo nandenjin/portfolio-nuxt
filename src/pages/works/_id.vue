@@ -20,11 +20,9 @@
 
   export default {
 
-    async asyncData( { params, env, payload } ) {
+    async asyncData( { getPayload, params, env, payload, route } ) {
 
-      if( !payload ) {
-        payload = ( await ( axios.get( `https://${ env.cmsDomain }/${ env.cmsPath }/works?_embed&slug=${ params.id }` ) ) ).data[ 0 ];
-      }
+      payload = payload || await getPayload( route.path ) || ( await ( axios.get( `https://${ env.cmsDomain }/${ env.cmsPath }/works?_embed&slug=${ params.id }` ) ) ).data[ 0 ];
 
       return {
         title: payload.title.rendered,

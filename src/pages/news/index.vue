@@ -17,12 +17,28 @@
 
 import axios from 'axios';
 
+import LinkList from '~/components/LinkList.vue';
+
 export default {
 
-  async asyncData( { env, payload } ) {
+  components: { LinkList },
 
-    if( payload ) return { news: payload };
-    else return { news: ( await axios.get( `https://${ env.cmsDomain }/${ env.cmsPath }/posts?_embed` ) ).data };
+  async asyncData( { getPayload, env, payload, route } ) {
+
+    return { news: payload || await getPayload( route.path ) || ( await axios.get( `https://${ env.cmsDomain }/${ env.cmsPath }/posts?_embed` ) ).data };
+
+  },
+
+  computed: {
+
+    items() {
+
+      return this.news.map( item => ( {
+        title: item.title.rendered,
+        to: `/news/${ item.slug }`
+      } ) );
+
+    },
 
   },
 

@@ -54,6 +54,11 @@ module.exports = {
 
   ],
 
+  modules: [
+    // __dirname + '/../nuxt-cache-payload/index.js',
+    'nuxt-cache-payload',
+  ],
+
   generate: {
 
     dir: 'dist',
@@ -69,6 +74,9 @@ module.exports = {
 
       const routes = [
         {
+          route: '/',
+          payload: news[ 0 ],
+        }, {
           route: '/works',
           payload: works,
         }, {

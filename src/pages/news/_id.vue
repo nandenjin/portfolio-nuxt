@@ -19,11 +19,9 @@
 
   export default {
 
-    async asyncData( { params, env, payload } ) {
+    async asyncData( { getPayload, params, env, payload, route } ) {
 
-      if( !payload ) {
-        payload = ( await ( axios.get( `https://${ env.cmsDomain }/${ env.cmsPath }/posts?_embed&slug=${ params.id }` ) ) ).data[ 0 ];
-      }
+      payload = payload || await getPayload( route.path ) || ( await ( axios.get( `https://${ env.cmsDomain }/${ env.cmsPath }/posts?_embed&slug=${ params.id }` ) ) ).data[ 0 ];
 
       return {
         title: payload.title.rendered,
@@ -45,37 +43,20 @@
 
 <style lang="sass">
 
-  @import '~/assets/style/media.sass'
+    @import '~/assets/style/themes.sass'
+    @import '~/assets/style/media.sass'
 
-  .main
-    margin: 20px 0
+    .main
 
-    @include mq(md)
-      margin: 20px 100px
-
-    .title
-      margin-top: 70px
-      margin-bottom: 70px
-
-    .eye-catch
-      height: 200px
-      margin: 15px 25px
-      border-radius: 20px
-
-      @include mq(md)
-        height: 500px
-        margin: 85px 45px
-
-    .text
-      margin: 50px 0
-
-      p
-        width: calc( 100% - 60px )
-        margin: 10px auto
-        font-size: 13px
+      .eye-catch
+        height: 200px
+        margin-top: 15px
+        margin-bottom: 15px
+        border-radius: 20px
 
         @include mq(md)
-          max-width: 900px
-          margin: 10px auto
+          height: 500px
+          margin-top: 85px
+          margin-bottom: 85px
 
 </style>

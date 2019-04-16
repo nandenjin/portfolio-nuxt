@@ -2529,6 +2529,11 @@ consola@^2.3.2:
     std-env "^2.2.1"
     string-width "^3.0.0"
 
+consola@^2.5.3:
+  version "2.5.3"
+  resolved "https://registry.yarnpkg.com/consola/-/consola-2.5.3.tgz#f31386d0e7a460a5b7a698a640c5679268db0961"
+  integrity sha512-kLQDZW5TfTds9F/QGt7X0YlEyVDYXdrjkcqPVD+GuZZSJbW1KgEP3b59A1d9S7Tv3Q8kQyu/r6wOeAODjKVvVQ==
+
 console-browserify@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/console-browserify/-/console-browserify-1.1.0.tgz#f0241c45730a9fc6323b206dbf38edc741d0bb10"
@@ -6339,6 +6344,14 @@ number-is-nan@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
   integrity sha1-CXtgK1NCKlIsGvuHkDGDNpQaAR0=
+
+nuxt-cache-payload@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/nuxt-cache-payload/-/nuxt-cache-payload-0.1.1.tgz#2141893bbebed1053cf6fa900574d3fcfc9c2bd4"
+  integrity sha512-N1cDfH9R4mLeRJT4FK52nyNE5Toc/SUryX3/IKsTUkxoPm5x6vDwqKvRL7i+Yr2HKRDjNJL/0O6hGPukpR/lww==
+  dependencies:
+    axios "^0.18.0"
+    consola "^2.5.3"
 
 nuxt@^2.4.3:
   version "2.4.3"

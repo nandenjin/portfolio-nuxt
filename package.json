@@ -24,6 +24,7 @@
   "devDependencies": {
     "firebase-tools": "^6.3.1",
     "node-sass": "^4.11.0",
+    "nuxt-cache-payload": "^0.1.1",
     "sass-loader": "^7.1.0"
   }
 }

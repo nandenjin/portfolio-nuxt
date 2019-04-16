@@ -27,10 +27,9 @@
 
     components: { ContentList },
 
-    async asyncData( { env, payload } ) {
+    async asyncData( { getPayload, env, payload, route } ) {
 
-      if( payload ) return { works: payload };
-      else return { works: ( await axios.get( `https://${ env.cmsDomain }/${ env.cmsPath }/works?_embed` ) ).data };
+      return { works: payload || await getPayload( route.path ) || ( await axios.get( `https://${ env.cmsDomain }/${ env.cmsPath }/works?_embed` ) ).data };
 
     },
 
