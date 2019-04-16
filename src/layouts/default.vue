@@ -4,7 +4,7 @@
   <div class="layout-container">
     <header class="header">
       <nuxt-link class="logo-container" to="/" tag="h1">
-        <img class="logo" src="~/assets/img/mini-logo.svg" alt="">
+        <img class="logo" src="~/assets/img/mini-logo.svg" alt="Kazumi Inada Portfolio">
       </nuxt-link>
       <nav class="vertical-nav pc-only">
         <nuxt-link class="item" to="/works">Works</nuxt-link>
@@ -87,7 +87,7 @@
         .menu-button
           width: 40px
           height: 45px
-          margin: 15px 25px
+          margin: 32px 25px
           font-size: 30px
           line-height: 50px
           text-align: center

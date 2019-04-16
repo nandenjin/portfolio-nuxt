@@ -50,6 +50,7 @@ module.exports = {
 
   css: [
 
+    'material-design-icons-iconfont/dist/material-design-icons.css',
     '~/assets/style/global.sass',
 
   ],
@@ -65,8 +66,8 @@ module.exports = {
     routes: async () => {
 
       const [ worksReq, newsReq ] = await Promise.all( [
-        axios.get( `https://${ cmsDomain }/${ cmsPath }/works?_embed` ),
-        axios.get( `https://${ cmsDomain }/${ cmsPath }/news?_embed` ),
+        axios.get( `https://${ cmsDomain }/${ cmsPath }/works?_embed&per_page=100` ),
+        axios.get( `https://${ cmsDomain }/${ cmsPath }/posts?_embed&per_page=100` ),
       ] );
 
       const works = worksReq.data;

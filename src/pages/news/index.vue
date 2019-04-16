@@ -5,9 +5,7 @@
 
     <h1 class="theme--title">News</h1>
 
-    <ul v-for="item in news">
-      <nuxt-link :to="`/news/${ item.slug }`" tag="li">{{ item.title.rendered }}</nuxt-link>
-    </ul>
+    <link-list :items="items" class="theme-margin-lr"></link-list>
 
   </main>
 

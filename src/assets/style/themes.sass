@@ -1,23 +1,41 @@
 
 @import '~assets/style/media.sass'
 
+$max-width: 1200px
+
 .theme--document
   $sm-margin-lr: 35px
   $md-margin-lr: 75px
+  max-width: $max-width
+  margin: auto
   margin-bottom: 100px
+  border: 1px solid transparent
   font-family: 'Helvetica', sans-serif
 
   .theme--title
-    margin: 25px $sm-margin-lr
+    margin: 50px $sm-margin-lr
     font-size: 23px
 
     +mq(md)
-      margin: 50px $md-margin-lr
+      margin: 120px $md-margin-lr
 
   .theme-margin-lr
     margin-left: $sm-margin-lr
     margin-right: $sm-margin-lr
-    
+
     +mq(md)
       margin-left: $md-margin-lr
       margin-right: $md-margin-lr
+
+  .theme-text
+    @extend .theme-margin-lr
+    margin-top: 50px
+    margin-bottom: 50px
+
+    p
+      margin: 10px auto
+      font-size: 12px
+
+      +mq(md)
+        max-width: $max-width
+        margin: 10px auto
