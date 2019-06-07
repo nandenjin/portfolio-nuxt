@@ -1,6 +1,7 @@
 node_modules
 .*
 !.gitignore
+!.circleci 
 *.log
 .DS_Store
 .nuxt
