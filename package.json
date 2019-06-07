@@ -19,13 +19,17 @@
   "license": "UNLICENSED",
   "dependencies": {
     "axios": "^0.18.0",
+    "markdown-it": "^8.4.2",
     "material-design-icons-iconfont": "^4.0.5",
     "nuxt": "^2.4.3"
   },
   "devDependencies": {
+    "consola": "^2.7.1",
+    "cpx": "^1.5.0",
     "firebase-tools": "^6.3.1",
     "node-sass": "^4.11.0",
     "nuxt-cache-payload": "^0.1.1",
-    "sass-loader": "^7.1.0"
+    "sass-loader": "^7.1.0",
+    "simple-git": "^1.113.0"
   }
 }

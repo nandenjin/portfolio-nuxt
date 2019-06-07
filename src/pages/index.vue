@@ -38,7 +38,7 @@ import axios from 'axios';
     async asyncData( { getPayload, env, payload, route } ) {
 
       return {
-        news:　payload || await getPayload( route.path ) || await ( axios.get( `https://${ env.cmsDomain }/${ env.cmsPath }/posts?_embed&per_page=1` ) ).data[0],
+        news:　payload || await getPayload( route.path ),
       };
 
     },

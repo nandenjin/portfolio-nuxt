@@ -3,7 +3,7 @@
 
   <main class="main theme--document">
 
-    <h1 class="title theme--title">{{ title }}</h1>
+    <h1 class="title theme--title">{{ title_ja }}</h1>
 
     <image-box class="eye-catch theme-margin-lr" :src="thumbnail" alt=""></image-box>
 
@@ -11,7 +11,7 @@
 
   </main>
 
-</template>
+</template> 
 
 <script>
 
@@ -20,16 +20,10 @@
 
   export default {
 
-    async asyncData( { getPayload, params, env, payload, route } ) {
-
-      payload = payload || await getPayload( route.path ) || ( await ( axios.get( `https://${ env.cmsDomain }/${ env.cmsPath }/works?_embed&slug=${ params.id }` ) ) ).data[ 0 ];
-
+    asyncData({payload, getPayload}) {
       return {
-        title: payload.title.rendered,
-        thumbnail: ( payload._embedded && payload._embedded[ 'wp:featuredmedia' ] && payload._embedded[ 'wp:featuredmedia' ][0] ) ? payload._embedded[ 'wp:featuredmedia' ][0].media_details.sizes.medium_large.source_url : '',
-        content: payload.content.rendered,
+        ...payload
       };
-
     },
 
     components: {

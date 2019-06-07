@@ -19,15 +19,8 @@
 
   export default {
 
-    async asyncData( { getPayload, params, env, payload, route } ) {
+    async asyncData( { getPayload, params, payload, route } ) {
 
-      payload = payload || await getPayload( route.path ) || ( await ( axios.get( `https://${ env.cmsDomain }/${ env.cmsPath }/posts?_embed&slug=${ params.id }` ) ) ).data[ 0 ];
-
-      return {
-        title: payload.title.rendered,
-        thumbnail: ( payload._embedded && payload._embedded[ 'wp:featuredmedia' ] && payload._embedded[ 'wp:featuredmedia' ][0] ) ? payload._embedded[ 'wp:featuredmedia' ][0].media_details.sizes.medium_large.source_url : '',
-        content: payload.content.rendered,
-      };
 
     },
 

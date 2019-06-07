@@ -23,7 +23,6 @@ export default {
 
   async asyncData( { getPayload, env, payload, route } ) {
 
-    return { news: payload || await getPayload( route.path ) || ( await axios.get( `https://${ env.cmsDomain }/${ env.cmsPath }/posts?_embed` ) ).data };
 
   },
 
