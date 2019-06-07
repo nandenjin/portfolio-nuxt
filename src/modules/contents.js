@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const cpx = require('cpx');
+const rimraf = require('rimraf');
 const md = require('markdown-it')();
 
 const git = require('simple-git')();
@@ -96,6 +97,13 @@ export default function Contents() {
     const dist = path.join(path.dirname(pathName));
 
     cpx.copySync(source, dist);
+
+  });
+
+  this.nuxt.hook('generate:done', () => {
+
+    console.info('Cleaning up tmpDir...');
+    rimraf.sync(tmpDir);
 
   });
 
