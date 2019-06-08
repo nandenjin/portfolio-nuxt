@@ -25,7 +25,7 @@ const config: NuxtConfiguration = {
 
   },
 
-  transition: {
+  pageTransition: {
 
     name: 'page-fade',
     mode: 'out-in'
