@@ -13,7 +13,7 @@ jobs:
           paths:
             - ~/.cache/yarn
           key: yarn-packages-{{ checksum "yarn.lock" }}
-      # - run: npm run lint
+      - run: npm run lint
   deploy:
     docker:
       - image: circleci/node:10
