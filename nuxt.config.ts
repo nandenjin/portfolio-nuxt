@@ -1,5 +1,6 @@
+import NuxtConfiguration from '@nuxt/config'
 
-export default {
+const config: NuxtConfiguration = {
 
   srcDir: 'src',
 
@@ -60,12 +61,17 @@ export default {
 
     extractCSS: true,
 
-    extend(config) {
-      const vueLoader = config.module.rules.find(rule => rule.loader === 'vue-loader')
-      vueLoader.options.transformAssetUrls['image-box'] = 'src'
-      vueLoader.options.transformAssetUrls['work-page-renderer'] = 'thumbnail'
+    loaders: {
+      vue: {
+        transformAssetUrls: {
+          'image-box': 'src',
+          'work-page-renderer': 'thumbnail'
+        }
+      }
     }
 
   }
 
 }
+
+export default config
