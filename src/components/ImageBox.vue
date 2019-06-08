@@ -1,19 +1,17 @@
 
 <template>
-
   <figure class="image-box">
     <img v-if="src" :src="src" :alt="alt">
   </figure>
-
 </template>
 
 <script>
 
   export default {
 
-    props: [ 'src', 'alt', ],
+    props: [ 'src', 'alt' ]
 
-  };
+  }
 
 </script>
 

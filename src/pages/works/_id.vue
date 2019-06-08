@@ -1,38 +1,36 @@
 
 <template>
-
   <main class="main theme--document">
+    <h1 class="title theme--title">
+      {{ title_ja }}
+    </h1>
 
-    <h1 class="title theme--title">{{ title_ja }}</h1>
+    <image-box class="eye-catch theme-margin-lr" :src="thumbnail" alt="" />
 
-    <image-box class="eye-catch theme-margin-lr" :src="thumbnail" alt=""></image-box>
-
-    <div class="theme-text" v-html="content"></div>
-
+    <div class="theme-text" v-html="content" />
   </main>
-
-</template> 
+</template>
 
 <script>
 
-  import axios from 'axios';
-  import ImageBox from '~/components/ImageBox.vue';
+  import axios from 'axios'
+  import ImageBox from '~/components/ImageBox.vue'
 
   export default {
 
-    asyncData({payload, getPayload}) {
-      return {
-        ...payload
-      };
-    },
-
     components: {
 
-      ImageBox,
+      ImageBox
 
     },
 
-  };
+    asyncData({ payload, getPayload }) {
+      return {
+        ...payload
+      }
+    }
+
+  }
 
 </script>
 

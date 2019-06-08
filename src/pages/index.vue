@@ -1,9 +1,7 @@
 
 <template>
-
   <main class="top-container">
-
-    <figure class="eye-catch"></figure>
+    <figure class="eye-catch" />
     <div class="content">
       <div class="centering">
         <h1>
@@ -11,8 +9,12 @@
           <img src="~/assets/img/kazumi_inada.svg" alt="Kazumi Inada" class="kazumi-inada">
         </h1>
         <nav class="nav">
-          <nuxt-link class="item" to="/works">Works</nuxt-link>
-          <nuxt-link class="item" to="/profile">Profile</nuxt-link>
+          <nuxt-link class="item" to="/works">
+            Works
+          </nuxt-link>
+          <nuxt-link class="item" to="/profile">
+            Profile
+          </nuxt-link>
         </nav>
         <nuxt-link tag="section" class="news" :to="`/news/${ news.slug }`">
           <h3>NEWS</h3>
@@ -24,23 +26,17 @@
         <p>筑波大学人形劇団NEU, 2018/08</p>
       </nuxt-link>
     </div>
-
   </main>
-
 </template>
 
 <script>
 
-import axios from 'axios';
-
   export default {
 
-    async asyncData( { getPayload, env, payload, route } ) {
-
+    async asyncData({ getPayload, env, payload, route }) {
       return {
-        news:　payload || await getPayload( route.path ),
-      };
-
+        news: payload || await getPayload(route.path)
+      }
     },
 
     layout: 'plain',
@@ -49,8 +45,7 @@ import axios from 'axios';
 
       title: 'Kazumi Inada | 稲田和巳'
 
-    },
-
+    }
 
   }
 

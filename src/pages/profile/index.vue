@@ -1,9 +1,9 @@
 
 <template>
-  
   <main class="theme--document">
-
-    <h1 class="theme--title">Profile</h1>
+    <h1 class="theme--title">
+      Profile
+    </h1>
 
     <div class="profile theme-margin-lr">
       <div>
@@ -11,15 +11,15 @@
       </div>
       <div>
         <h1>Kazumi Inada / 稲田 和巳</h1>
-          <h2>Designer / Engineer</h2>
-          <div class="lang-section" lang="ja">
-            <p>1997年、大阪府生まれ。2017年より筑波大学情報学群 情報メディア創成学類に所属。</p>
-            <p>工学・芸術に興味を持ち、メディアアート・グラフィックデザイン・舞台芸術などの創作活動を行う。技術的・芸術的魅力を共に活かすものづくりに取り組んでいる。</p>
-          </div>
-          <div class="lang-section" lang="en">
-            <p>Born in 1997 at Osaka, Japan. Belonging University of Tsukuba, College of Media Arts, Science and Technology from 2017.</p>
-            <p>Creating things such as media arts, graphic design works and stage performances with collapsing border between technology and arts.</p>
-          </div>
+        <h2>Designer / Engineer</h2>
+        <div class="lang-section" lang="ja">
+          <p>1997年、大阪府生まれ。2017年より筑波大学情報学群 情報メディア創成学類に所属。</p>
+          <p>工学・芸術に興味を持ち、メディアアート・グラフィックデザイン・舞台芸術などの創作活動を行う。技術的・芸術的魅力を共に活かすものづくりに取り組んでいる。</p>
+        </div>
+        <div class="lang-section" lang="en">
+          <p>Born in 1997 at Osaka, Japan. Belonging University of Tsukuba, College of Media Arts, Science and Technology from 2017.</p>
+          <p>Creating things such as media arts, graphic design works and stage performances with collapsing border between technology and arts.</p>
+        </div>
         <ul class="skills">
           <li>Web Design & Development</li>
           <ul>
@@ -48,35 +48,33 @@
         <p><b>Contact: </b> hello at nandenjin dot com</p>
       </div>
     </div>
-
   </main>
-
 </template>
 
 <script>
 
-  import ImageBox from '~/components/ImageBox.vue';
-  
+  import ImageBox from '~/components/ImageBox.vue'
+
   export default {
 
     components: {
 
-      ImageBox,
+      ImageBox
 
     },
 
     head: {
 
-      title: 'Profile | Kazumi Inada / 稲田和巳',
+      title: 'Profile | Kazumi Inada / 稲田和巳'
 
-    },
+    }
 
-  };
+  }
 
 </script>
 
 <style lang="sass" scoped>
-  
+
   @import '~/assets/style/themes.sass'
 
   .profile
@@ -115,6 +113,5 @@
 
       li
         margin: 5px 0
-
 
 </style>

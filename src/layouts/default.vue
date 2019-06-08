@@ -1,25 +1,29 @@
 
 <template>
-
   <div class="layout-container">
     <header class="header">
       <nuxt-link class="logo-container" to="/" tag="h1">
         <img class="logo" src="~/assets/img/mini-logo.svg" alt="Kazumi Inada Portfolio">
       </nuxt-link>
       <nav class="vertical-nav pc-only">
-        <nuxt-link class="item" to="/works">Works</nuxt-link>
-        <nuxt-link class="item" to="/news">News</nuxt-link>
-        <nuxt-link class="item" to="/profile">Profile</nuxt-link>
+        <nuxt-link class="item" to="/works">
+          Works
+        </nuxt-link>
+        <nuxt-link class="item" to="/news">
+          News
+        </nuxt-link>
+        <nuxt-link class="item" to="/profile">
+          Profile
+        </nuxt-link>
       </nav>
       <div class="menu-open mobile-only">
         <span class="material-icons menu-button">keyboard_arrow_down</span>
       </div>
     </header>
     <div class="content">
-      <nuxt></nuxt>
+      <nuxt />
     </div>
   </div>
-
 </template>
 
 <style lang="sass" scoped>
@@ -99,6 +103,6 @@
 
 <script>
 
-  export default {};
+  export default {}
 
 </script>

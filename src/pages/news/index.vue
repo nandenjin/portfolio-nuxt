@@ -1,45 +1,37 @@
 
 <template>
-
   <main class="theme--document">
+    <h1 class="theme--title">
+      News
+    </h1>
 
-    <h1 class="theme--title">News</h1>
-
-    <link-list :items="items" class="theme-margin-lr"></link-list>
-
+    <link-list :items="items" class="theme-margin-lr" />
   </main>
-
 </template>
 
 <script>
 
-import axios from 'axios';
+  import axios from 'axios'
 
-import LinkList from '~/components/LinkList.vue';
+  import LinkList from '~/components/LinkList.vue'
 
-export default {
+  export default {
 
-  components: { LinkList },
+    components: { LinkList },
 
-  async asyncData( { getPayload, env, payload, route } ) {
+    computed: {
 
-
-  },
-
-  computed: {
-
-    items() {
-
-      return this.news.map( item => ( {
-        title: item.title.rendered,
-        to: `/news/${ item.slug }`
-      } ) );
+      items() {
+        return []
+      }
 
     },
 
-  },
+    async asyncData({ getPayload, env, payload, route }) {
 
-};
+    }
+
+  }
 
 </script>
 

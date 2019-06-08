@@ -1,5 +1,5 @@
 
-module.exports = {
+export default {
 
   srcDir: 'src',
 
@@ -12,7 +12,7 @@ module.exports = {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       // { hid: 'description', name: 'description', content: '' },
-      { name: 'theme-color', content: '#444444', },
+      { name: 'theme-color', content: '#444444' }
 
     ],
 
@@ -27,21 +27,21 @@ module.exports = {
   transition: {
 
     name: 'page-fade',
-    mode: 'out-in',
+    mode: 'out-in'
 
   },
 
   layoutTransition: {
 
     name: 'page-fade',
-    mode: 'out-in',
+    mode: 'out-in'
 
   },
 
   css: [
 
     'material-design-icons-iconfont/dist/material-design-icons.css',
-    '~/assets/style/global.sass',
+    '~/assets/style/global.sass'
 
   ],
 
@@ -60,14 +60,12 @@ module.exports = {
 
     extractCSS: true,
 
-    extend( config ) {
-
-      const vueLoader = config.module.rules.find((rule) => rule.loader === 'vue-loader');
-      vueLoader.options.transformAssetUrls['image-box'] = 'src';
-      vueLoader.options.transformAssetUrls['work-page-renderer'] = 'thumbnail';
-
+    extend(config) {
+      const vueLoader = config.module.rules.find(rule => rule.loader === 'vue-loader')
+      vueLoader.options.transformAssetUrls['image-box'] = 'src'
+      vueLoader.options.transformAssetUrls['work-page-renderer'] = 'thumbnail'
     }
 
-  },
+  }
 
-};
+}
