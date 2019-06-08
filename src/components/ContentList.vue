@@ -1,7 +1,7 @@
 
 <template>
   <div ref="container" class="list-container">
-    <article v-for="content in src" class="item">
+    <article v-for="content in src" :key="content" class="item">
       <nuxt-link class="link" :to="content.url">
         <figure>
           <div class="thumbnail">
@@ -17,8 +17,6 @@
 </template>
 
 <script>
-
-  import sampleImg from '~/assets/img/eye-catch.jpg'
 
   export default {
 

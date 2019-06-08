@@ -17,8 +17,6 @@
 
 <script>
 
-  import axios from 'axios'
-
   import ContentList from '~/components/ContentList.vue'
 
   export default {
@@ -28,17 +26,13 @@
     computed: {
 
       contents() {
-        return this.works.map(w => ({
-          url: `/${w.type}/${w.slug}`,
-          title: w.title.rendered,
-          thumbnail: (w._embedded && w._embedded[ 'wp:featuredmedia' ] && w._embedded[ 'wp:featuredmedia' ][0]) ? w._embedded[ 'wp:featuredmedia' ][0].media_details.sizes.medium_large.source_url : ''
-        }))
+        return []
       }
 
     },
 
     async asyncData({ getPayload, env, payload, route }) {
-      return { works: payload || await getPayload(route.path) || (await axios.get(`https://${env.cmsDomain}/${env.cmsPath}/works?_embed`)).data }
+      return { works: payload || await getPayload(route.path) }
     },
 
     head: {

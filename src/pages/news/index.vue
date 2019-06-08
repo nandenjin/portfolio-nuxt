@@ -11,8 +11,6 @@
 
 <script>
 
-  import axios from 'axios'
-
   import LinkList from '~/components/LinkList.vue'
 
   export default {

@@ -1,3 +1,4 @@
+/* eslint no-console: 0 */
 
 const fs = require('fs')
 const path = require('path')
@@ -13,7 +14,7 @@ const workDir = path.join(tmpDir, 'portfolio')
 export default function Contents() {
   const assetRoutes = []
 
-  this.nuxt.hook('generate:extendRoutes', async (routes) => {
+  this.nuxt.hook('generate:extendRoutes', (routes) => {
     console.info('Fetching contents...')
 
     git.clone('https://github.com/nandenjin/portfolio.git', {
@@ -57,6 +58,7 @@ export default function Contents() {
           const payload = {};
 
           ['title_ja', 'title_en', 'creator', 'materials', 'year'].forEach((key) => {
+            // eslint-disable-next-line no-useless-escape
             if (schemaStr.match(new RegExp(`^${key}\s*:\s*(.+)$`, 'm'))) {
               payload[key] = RegExp.$1
             }

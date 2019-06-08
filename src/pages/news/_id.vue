@@ -11,22 +11,10 @@
 
 <script>
 
-  import axios from 'axios'
-
-  import ImageBox from '~/components/ImageBox.vue'
-
   export default {
-
-    components: {
-
-      ImageBox
-
-    },
-
     async asyncData({ getPayload, params, payload, route }) {
 
     }
-
   }
 
 </script>
