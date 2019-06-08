@@ -7,6 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nuxt",
     "dev": "nuxt dev",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "lintfix": "eslint --fix --ext .js,.vue --ignore-path .gitignore .",
     "build": "nuxt build",
     "generate": "nuxt generate",
     "deploy": "firebase deploy"
@@ -24,8 +26,19 @@
     "nuxt": "^2.4.3"
   },
   "devDependencies": {
+    "@nuxtjs/eslint-config": "^0.0.1",
+    "babel-eslint": "^10.0.1",
     "consola": "^2.7.1",
     "cpx": "^1.5.0",
+    "eslint": "^5.16.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.17.3",
+    "eslint-plugin-jest": "^22.6.4",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-nuxt": "^0.4.3",
+    "eslint-plugin-promise": "^4.1.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "eslint-plugin-vue": "^5.2.2",
     "firebase-tools": "^6.3.1",
     "node-sass": "^4.11.0",
     "nuxt-cache-payload": "^0.1.1",
