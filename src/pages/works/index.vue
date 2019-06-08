@@ -31,7 +31,7 @@
 
     },
 
-    async asyncData({ getPayload, env, payload, route }) {
+    async asyncData({ getPayload, payload, route }) {
       return { works: payload || await getPayload(route.path) }
     },
 

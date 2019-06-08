@@ -80,7 +80,7 @@ export default function Contents() {
     return routes
   })
 
-  this.nuxt.hook('generate:routeCreated', ({ route, path: pathName, errors }) => {
+  this.nuxt.hook('generate:routeCreated', ({ route, path: pathName }) => {
     if (!assetRoutes.includes(route)) return
 
     console.log(`Copying assets: ${route}`)

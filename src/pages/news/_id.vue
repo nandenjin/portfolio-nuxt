@@ -12,9 +12,6 @@
 <script>
 
   export default {
-    async asyncData({ getPayload, params, payload, route }) {
-
-    }
   }
 
 </script>

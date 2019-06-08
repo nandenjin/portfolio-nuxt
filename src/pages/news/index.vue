@@ -23,10 +23,6 @@
         return []
       }
 
-    },
-
-    async asyncData({ getPayload, env, payload, route }) {
-
     }
 
   }

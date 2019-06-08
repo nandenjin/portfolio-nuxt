@@ -33,7 +33,7 @@
 
   export default {
 
-    async asyncData({ getPayload, env, payload, route }) {
+    async asyncData({ getPayload, payload, route }) {
       return {
         news: payload || await getPayload(route.path)
       }

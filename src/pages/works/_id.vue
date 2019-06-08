@@ -23,9 +23,9 @@
 
     },
 
-    asyncData({ payload, getPayload }) {
+    asyncData({ route, payload, getPayload }) {
       return {
-        ...payload
+        ...(payload || getPayload(route.path))
       }
     }
 
