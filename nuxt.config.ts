@@ -47,8 +47,8 @@ const config: NuxtConfiguration = {
   ],
 
   modules: [
-    'nuxt-cache-payload',
-    '@/modules/contents.js'
+    '@/modules/contents.js',
+    'nuxt-cache-payload'
   ],
 
   generate: {
