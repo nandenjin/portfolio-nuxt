@@ -13,7 +13,7 @@ jobs:
           paths:
             - ~/.cache/yarn
           key: yarn-packages-{{ checksum "yarn.lock" }}
-      - run: npm run lint
+      - run: yarn lint
   deploy:
     docker:
       - image: circleci/node:10
@@ -23,7 +23,8 @@ jobs:
           keys:
             - yarn-packages-{{ checksum "yarn.lock" }}
       - run: yarn --frozen-lockfile
-      - run: npm run generate
+      - run: yarn content:fetch
+      - run: yarn generate
       # - run: npm run deploy
 workflows:
   version: 2

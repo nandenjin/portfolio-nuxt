@@ -4,25 +4,15 @@ const fs = require('fs')
 const path = require('path')
 
 const cpx = require('cpx')
-const rimraf = require('rimraf')
 const md = require('markdown-it')()
 
-const git = require('simple-git')()
 const tmpDir = path.join(__dirname, '../../tmp')
-const workDir = path.join(tmpDir, 'portfolio')
+const workDir = path.join(tmpDir, 'contents')
 
 export default function Contents() {
   const assetRoutes = []
 
   this.nuxt.hook('generate:extendRoutes', (routes) => {
-    console.info('Fetching contents...')
-
-    git.clone('https://github.com/nandenjin/portfolio.git', {
-      '--depth': '0'
-    })
-
-    console.info('Fetch done.');
-
     // 各カテゴリごとのスキャン
     ['works'].forEach((dir) => {
       const categoryPath = path.join(workDir, dir)
@@ -89,10 +79,5 @@ export default function Contents() {
     const dist = path.join(path.dirname(pathName))
 
     cpx.copySync(source, dist)
-  })
-
-  this.nuxt.hook('generate:done', () => {
-    console.info('Cleaning up tmpDir...')
-    rimraf.sync(tmpDir)
   })
 };
