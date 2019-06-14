@@ -47,7 +47,7 @@ const config: NuxtConfiguration = {
   ],
 
   modules: [
-    '@/modules/contents.js',
+    '@/modules/contents',
     'nuxt-cache-payload'
   ],
 
@@ -67,6 +67,14 @@ const config: NuxtConfiguration = {
           'image-box': 'src',
           'work-page-renderer': 'thumbnail'
         }
+      }
+    },
+
+    extend(config) {
+      // contents/pluginでfsのロードエラーが起きる
+      // https://github.com/nuxt-community/dotenv-module/issues/11
+      config.node = {
+        fs: 'empty'
       }
     }
 
