@@ -17,7 +17,8 @@ export default function Contents() {
   this.nuxt.hook('generate:extendRoutes', routes => extendRoutesWithPages(routes, pagesDir))
 
   // 生成済み各ページへのアセットコピー
-  this.nuxt.hook('generate:done', copyAssets(assetsDir, this.options.generate.dir))
+  const assetDistDir = path.join(this.options.generate.dir, 'assets')
+  this.nuxt.hook('generate:done', copyAssets(assetsDir, assetDistDir))
 
   const { dst: readerDistPath } = this.addTemplate({
     src: path.resolve(__dirname, 'reader.js')
@@ -36,10 +37,7 @@ export default function Contents() {
     res.json(getPayload(path.join(pagesDir, req.params.route + '.md')))
   })
 
-  this.addServerMiddleware({
-    path: '/content',
-    handler: contentServer
-  })
+  this.addServerMiddleware(contentServer)
 }
 
 function getRoutes(root) {

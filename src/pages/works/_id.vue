@@ -23,9 +23,12 @@
 
     },
 
-    asyncData({ route, payload, getPayload }) {
+    async asyncData({ route, payload, getContent, error }) {
+      const data = payload || await getContent(route.path)
+      if (!data) error(404)
+
       return {
-        ...(payload || getPayload(route.path))
+        ...data
       }
     }
 
