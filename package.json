@@ -11,7 +11,6 @@
     "lintfix": "eslint --fix --ext .ts,.js,.vue --ignore-path .gitignore .",
     "build": "nuxt build",
     "generate": "nuxt generate",
-    "deploy": "firebase deploy",
     "content:fetch": "git clone -b master --depth 1 https://github.com/nandenjin/portfolio.git tmp/contents",
     "clean": "rimraf tmp"
   },
@@ -33,7 +32,6 @@
     "@nuxt/typescript": "^2.8.1",
     "@nuxtjs/eslint-config": "^0.0.1",
     "@typescript-eslint/eslint-plugin": "^1.9.0",
-    "consola": "^2.7.1",
     "cpx": "^1.5.0",
     "eslint": "^5.16.0",
     "eslint-config-standard": "^12.0.0",
@@ -45,7 +43,6 @@
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^5.2.2",
     "express": "^4.17.1",
-    "firebase-tools": "^6.3.1",
     "node-sass": "^4.11.0",
     "rimraf": "^2.6.3",
     "sass-loader": "^7.1.0",
