@@ -1,0 +1,19 @@
+{
+  "name": "@nandenjin/portfolio-nuxt-contents-module",
+  "version": "1.0.0",
+  "description": "Fetch contents from git and inject them into Nuxt project",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://nandenjin@github.com/nandenjin/portfolio-nuxt.git"
+  },
+  "author": "Kazumi Inada <hello@nandenjin.com>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.0"
+  },
+  "devDependencies": {
+    "cpx": "^1.5.0",
+    "express": "^4.17.1"
+  }
+}

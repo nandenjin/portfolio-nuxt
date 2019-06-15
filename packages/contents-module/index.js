@@ -8,7 +8,7 @@ const express = require('express')
 const { getPayload } = require('./reader')
 
 export default function Contents() {
-  const tmpDir = path.join(__dirname, '../../../tmp')
+  const tmpDir = path.join(__dirname, '../../tmp')
   const workDir = path.join(tmpDir, 'contents')
   const pagesDir = path.join(workDir, 'pages')
   const assetsDir = path.join(workDir, 'assets')

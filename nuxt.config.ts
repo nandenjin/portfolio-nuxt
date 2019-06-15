@@ -47,7 +47,7 @@ const config: NuxtConfiguration = {
   ],
 
   modules: [
-    '@/modules/contents',
+    '@nandenjin/portfolio-nuxt-contents-module',
     'nuxt-cache-payload'
   ],
 
