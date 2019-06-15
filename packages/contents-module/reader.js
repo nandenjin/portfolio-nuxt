@@ -20,14 +20,15 @@ export const getPayload = (filePath) => {
 
   content = content.replace(schemaRegExp, '')
   const schemaStr = RegExp.$1
-  const payload = {};
+  const payload = {}
 
-  ['title_ja', 'title_en', 'creator', 'materials', 'year'].forEach((key) => {
+  const schemaRows = schemaStr.split('\n')
+  for (let i = 0; i < schemaRows.length; i++) {
     // eslint-disable-next-line no-useless-escape
-    if (schemaStr.match(new RegExp(`^${key}\s*:\s*(.+)$`, 'm'))) {
-      payload[key] = RegExp.$1
+    if (schemaRows[i].match(/^([a-zA-Z0-9]+)\s*:\s*(.+)$/m)) {
+      payload[RegExp.$1] = RegExp.$2
     }
-  })
+  }
 
   payload.content = md.render(content)
 
