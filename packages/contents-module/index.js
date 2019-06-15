@@ -3,9 +3,9 @@
 const fs = require('fs')
 const path = require('path')
 
-const cpx = require('cpx')
 const express = require('express')
 const { getPayload } = require('./reader')
+const { copyAssets } = require('./assets')
 
 export default function Contents() {
   const tmpDir = path.join(__dirname, '../../tmp')
@@ -18,7 +18,7 @@ export default function Contents() {
 
   // 生成済み各ページへのアセットコピー
   const assetDistDir = path.join(this.options.generate.dir, 'assets')
-  this.nuxt.hook('generate:done', copyAssets(assetsDir, assetDistDir))
+  this.nuxt.hook('generate:done', () => copyAssets(assetsDir, assetDistDir))
 
   const { dst: readerDistPath } = this.addTemplate({
     src: path.resolve(__dirname, 'reader.js')
@@ -32,6 +32,11 @@ export default function Contents() {
   })
 
   const contentServer = express()
+  contentServer.use('/assets', (req, res, next) => {
+    if (req.path.match(/^(.+)_[0-9]+w\.(jpg|png|gif|webp)/)) {
+      res.redirect(path.join('/assets', `${RegExp.$1}.jpg`))
+    } else next()
+  })
   contentServer.use('/assets', express.static(assetsDir))
   contentServer.get('/payload/:route([\\s\\S]+).json', (req, res) => {
     res.json(getPayload(path.join(pagesDir, req.params.route + '.md')))
@@ -76,9 +81,4 @@ function extendRoutesWithPages(routes, pagesDir) {
 
   console.log(routes)
   return routes
-}
-
-function copyAssets(src, dist) {
-  cpx.copySync(src, dist)
-  console.info('Assets copied')
 }
