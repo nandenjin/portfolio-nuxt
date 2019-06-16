@@ -39,7 +39,7 @@ export default function Contents() {
   })
   contentServer.use('/assets', express.static(assetsDir))
   contentServer.get('/payload/:route([\\s\\S]+).json', (req, res) => {
-    res.json(getPayload(path.join(pagesDir, req.params.route + '.md')))
+    res.json(getPayload(req.params.route, pagesDir))
   })
 
   this.addServerMiddleware(contentServer)
@@ -66,11 +66,15 @@ function getRoutes(root) {
 }
 
 function extendRoutesWithPages(routes, pagesDir) {
+  for (let i = 0; i < routes.length; i++) {
+    ['/works', '/news'].includes(routes[i].route)
+    routes[i].payload = getPayload(routes[i].route, pagesDir)
+  }
+  console.log(routes)
   const newRoutes = getRoutes(pagesDir)
 
   newRoutes.forEach((route) => {
-    const indexPath = path.join(pagesDir, route) + '.md'
-    const payload = getPayload(indexPath)
+    const payload = getPayload(route, pagesDir)
 
     // ルートに追加
     routes.push({

@@ -1,18 +1,41 @@
 /* eslint-disable no-console */
 import * as fs from 'fs'
+import * as path from 'path'
 import markdownIt from 'markdown-it'
 
 const md = markdownIt()
 md.use(markdownPlugin)
 
-export const getPayload = (filePath) => {
+export const getPayload = (route, pagesDir) => {
+  const filePath = path.join(pagesDir, route)
+  console.log(route, filePath)
   try {
-    fs.statSync(filePath)
+    fs.statSync(filePath + '.md')
   } catch (e) {
-    return null
+    try {
+      const result = []
+      if (fs.statSync(filePath).isDirectory()) {
+        const ents = fs.readdirSync(filePath, { withFileTypes: true })
+        for (let i = 0; i < ents.length; i++) {
+          const payload = getPayload(path.join(route, path.basename(ents[i].name, '.md')), pagesDir)
+
+          if (payload) {
+            payload.url = path.join(route, path.basename(ents[i].name, '.md'))
+            delete payload.content
+            delete payload.info
+          }
+
+          result.push(payload)
+        }
+        return result
+      }
+    } catch (e) {
+      console.error(e)
+      return null
+    }
   }
 
-  let content = fs.readFileSync(filePath, { encoding: 'utf8' })
+  let content = fs.readFileSync(filePath + '.md', { encoding: 'utf8' })
 
   const schemaRegExp = /-+\n([\s\S]+?)\n-+\n/
   if (!content.match(schemaRegExp)) {

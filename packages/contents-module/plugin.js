@@ -14,7 +14,7 @@ export default (context) => {
           const { data } = await axios.get(path.join('/payload', route) + '.json')
           payload = data
         } else if (process.server) {
-          payload = getPayload(path.join(pagesDir, route) + '.md')
+          payload = getPayload(route, pagesDir)
         }
         return payload
       } catch (e) {
