@@ -5,7 +5,7 @@
       Works
     </h1>
 
-    <content-list class="theme-margin-lr" :src="contents" />
+    <content-list class="theme-margin-lr" :src="works" />
   </main>
 </template>
 
@@ -15,32 +15,21 @@
 
 </style>
 
-<script>
-
+<script lang="ts">
+  import { Vue, Component } from 'vue-property-decorator'
   import ContentList from '~/components/ContentList.vue'
 
-  export default {
-
-    components: { ContentList },
-
-    computed: {
-
-      contents() {
-        return []
-      }
-
+  @Component({
+    components: {
+      ContentList
     },
-
-    async asyncData({ getPayload, payload, route }) {
-      return { works: payload || await getPayload(route.path) }
+    async asyncData({ getContent, payload, route }: any) {
+      return { works: payload || await getContent(route.path) }
     },
-
     head: {
-
-      title: 'Works | Kazumi Inada / 稲田和巳'
-
+      title: 'Works - Kazumi Inada Portfolio'
     }
-
+  })
+  export default class WorksIndexPage extends Vue {
   }
-
 </script>
