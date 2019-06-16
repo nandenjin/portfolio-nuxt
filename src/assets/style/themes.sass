@@ -1,10 +1,10 @@
 
 @import '~assets/style/media.sass'
 
-$max-width: 1200px
+$max-width: 1000px
 
 .theme--document
-  $sm-margin-lr: 35px
+  $sm-margin-lr: 15px
   $md-margin-lr: 75px
   max-width: $max-width
   margin: auto
@@ -13,11 +13,12 @@ $max-width: 1200px
   font-family: 'Helvetica', sans-serif
 
   .theme--title
-    margin: 50px $sm-margin-lr
-    font-size: 23px
+    margin: 50px auto
+    font-size: 28px
+    text-align: center
 
     +mq(md)
-      margin: 120px $md-margin-lr
+      margin: 120px auto
 
   .theme-margin-lr
     margin-left: $sm-margin-lr
@@ -28,14 +29,57 @@ $max-width: 1200px
       margin-right: $md-margin-lr
 
   .theme-text
-    @extend .theme-margin-lr
-    margin-top: 50px
-    margin-bottom: 50px
+    margin: 80px auto
 
-    p
-      margin: 10px auto
-      font-size: 12px
+    h1, h2, h3
+      margin: 10px 25px
 
       +mq(md)
-        max-width: $max-width
+        max-width: 800px
         margin: 10px auto
+
+    h2
+      margin-top: 90px
+      margin-bottom: 50px
+      font-size: 20px
+
+    h3
+      margin-top: 30px
+      margin-bottom: 30px
+      font-size: 16px
+
+    p, ul, ol
+      margin: 10px 25px
+      font-size: 14px
+
+      +mq(md)
+        max-width: 800px
+        margin: 10px auto
+
+      li
+        margin: 10px auto
+
+    .fig
+      margin: 50px 15px 30px 15px
+
+      +mq(md)
+        margin: 100px auto 60px auto
+
+      img
+        width: 100%
+        border-radius: 10px
+
+        +mq(md)
+          border-radius: 20px
+
+    .fig + .fig
+      margin-top: 30px
+
+      +mq(md)
+        margin-top: 60px
+
+    .fig + *
+      margin-top: 50px
+
+      +mq(md)
+        margin-top: 100px
