@@ -18,7 +18,7 @@ export default function Contents() {
 
   // 生成済み各ページへのアセットコピー
   const assetDistDir = path.join(this.options.generate.dir, 'assets')
-  this.nuxt.hook('generate:done', () => copyAssets(assetsDir, assetDistDir))
+  this.nuxt.hook('generate:distCopied', () => copyAssets(assetsDir, assetDistDir))
 
   const { dst: readerDistPath } = this.addTemplate({
     src: path.resolve(__dirname, 'reader.js')
