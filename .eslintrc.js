@@ -14,6 +14,7 @@ module.exports = {
     'indent': 'off',
     'vue/script-indent': ['warn', 2, {
       'baseIndent': 1
-    }]
+    }],
+    'vue/no-v-html': 0
   }
 }
