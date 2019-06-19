@@ -4,7 +4,7 @@
 $max-width: 1000px
 
 .theme--document
-  $sm-margin-lr: 15px
+  $sm-margin-lr: 25px
   $md-margin-lr: 75px
   max-width: $max-width
   margin: auto
@@ -13,11 +13,13 @@ $max-width: 1000px
   font-family: 'Helvetica', sans-serif
 
   .theme--title
+    max-width: calc(100vw - #{$sm-margin-lr * 2})
     margin: 50px auto
     font-size: 28px
     text-align: center
 
     +mq(md)
+      max-width: 800px
       margin: 120px auto
 
   .theme-margin-lr
@@ -41,12 +43,13 @@ $max-width: 1000px
     h2
       margin-top: 90px
       margin-bottom: 50px
-      font-size: 20px
+      font-size: 17px
 
     h3
       margin-top: 30px
       margin-bottom: 30px
-      font-size: 16px
+      font-size: 14px
+      font-weight: bold
 
     p, ul, ol
       margin: 10px 25px

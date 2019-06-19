@@ -91,13 +91,13 @@
       padding: 30px 25px
       font-size: 13px
       line-height: 1.8em
-      background-color: #eee
+      background-color: #fafafa
       border-radius: 10px
 
       +mq(md)
         display: grid
         grid-template-columns: 70px 1fr
-        grid-gap: 40px
+        grid-gap: 60px
         margin: auto
         padding: 50px 40px 50px 20px
         border-radius: 20px
@@ -127,8 +127,9 @@
         .tag
           display: inline-block
           margin: 0 6px
-          padding: 5px 15px
-          border-radius: 17px
+          padding: 3px 15px
+          border-radius: 5px
+          font-family: Helvetica
           font-size: 12px
           text-transform: uppercase
           color: #444
