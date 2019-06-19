@@ -16,14 +16,14 @@
             Profile
           </nuxt-link>
         </nav>
-        <nuxt-link tag="section" class="news" :to="`/news/${ news.slug }`">
+        <nuxt-link tag="section" class="news" :to="`/news`">
           <h3>NEWS</h3>
-          <p>{{ news.title.rendered }}</p>
+          <p>{{ news }}</p>
         </nuxt-link>
       </div>
-      <nuxt-link tag="section" class="eye-catch-info" to="/works/the_lost_thing">
-        <h3>現代人形劇「おとしもの」</h3>
-        <p>筑波大学人形劇団NEU, 2018/08</p>
+      <nuxt-link tag="section" class="eye-catch-info" to="/works/residents">
+        <h3>「住人たち」/ "Residents"</h3>
+        <p>Kazumi Inada, 2019/05-06</p>
       </nuxt-link>
     </div>
   </main>
@@ -67,7 +67,7 @@
     flex: 1 1 100%
     margin: 0
     padding: 0
-    background-image: url("~assets/img/eye-catch.jpg")
+    background-image: url("/assets/works/residents/residents_zoom-0_1600w.jpg")
     background-color: #000
     background-position: center
     background-size: cover

@@ -1,10 +1,6 @@
 
 <template>
   <main class="theme--document">
-    <h1 class="theme--title">
-      News
-    </h1>
-
     <ul class="link-list theme-margin-lr">
       <nuxt-link v-for="item in items" :key="item.title_ja" :to="item.url" tag="li" class="item">
         <span class="title">{{ item.title_ja }}</span>

@@ -87,7 +87,7 @@
 
     .info
       max-width: 780px
-      margin: auto 15px
+      margin: 100px 15px auto 15px
       padding: 30px 25px
       font-size: 13px
       line-height: 1.8em
@@ -98,7 +98,7 @@
         display: grid
         grid-template-columns: 70px 1fr
         grid-gap: 60px
-        margin: auto
+        margin: 150px auto 100px auto
         padding: 50px 40px 50px 20px
         border-radius: 20px
 

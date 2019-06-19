@@ -68,9 +68,13 @@
         letter-spacing: 0.3em
         text-transform: uppercase
         transition: opacity 0.3s ease 0s
+        opacity: .5
+
+        &.nuxt-link-active
+          opacity: 1
 
         &:hover
-          opacity: 0.5
+          opacity: 1
 
     .menu-open
       flex: 0 0 auto
@@ -82,5 +86,6 @@
         font-size: 30px
         line-height: 50px
         text-align: center
+        user-selectable: none
 
 </style>

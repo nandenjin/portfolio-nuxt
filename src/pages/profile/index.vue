@@ -1,10 +1,6 @@
 
 <template>
   <main class="theme--document">
-    <h1 class="theme--title">
-      Profile
-    </h1>
-
     <div class="profile theme-margin-lr">
       <div>
         <img class="avatar" src="~/assets/img/profile.jpg" alt="">

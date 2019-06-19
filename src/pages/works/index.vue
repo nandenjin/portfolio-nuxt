@@ -1,10 +1,6 @@
 
 <template>
   <main class="theme--document">
-    <h1 class="theme--title">
-      Works
-    </h1>
-
     <content-list class="theme-margin-lr" :src="works" />
   </main>
 </template>
