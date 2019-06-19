@@ -22,19 +22,21 @@ export async function copyAssets(src, dist) {
 
     if (ent.isDirectory()) {
       copyAssets(entPath, distPath)
-    } else if (ent.name.match(/^(.+)\.(jpg|png|gif|webp)$/)) {
-      const input = sharp(entPath)
-      SIZES.forEach((size) => {
-        const jpgDistPathWithSize = path.join(dist, `${RegExp.$1}_${size}w.jpg`)
-        const webpDistPathWithSize = path.join(dist, `${RegExp.$1}_${size}w.webp`)
-        const data = input.clone().resize(size)
-        jobsForEntity.push(
-          data.toFile(jpgDistPathWithSize),
-          data.toFile(webpDistPathWithSize)
-        )
-      })
     } else {
       jobsForEntity.push(fs.copyFile(entPath, distPath))
+
+      if (ent.name.match(/^(.+)\.(jpg|png|gif|webp)$/)) {
+        const input = sharp(entPath)
+        SIZES.forEach((size) => {
+          const jpgDistPathWithSize = path.join(dist, `${RegExp.$1}_${size}w.jpg`)
+          const webpDistPathWithSize = path.join(dist, `${RegExp.$1}_${size}w.webp`)
+          const data = input.clone().resize(size)
+          jobsForEntity.push(
+            data.toFile(jpgDistPathWithSize),
+            data.toFile(webpDistPathWithSize)
+          )
+        })
+      }
     }
 
     Promise.all(jobsForEntity)
