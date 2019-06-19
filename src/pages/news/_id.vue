@@ -2,16 +2,35 @@
 <template>
   <main class="main theme--document">
     <h1 class="title theme--title">
-      {{ title }}
+      {{ title_ja }}
     </h1>
 
     <div class="theme-text" v-html="content" />
+    <div class="footer">
+      <p>{{ release }}</p>
+    </div>
   </main>
 </template>
 
-<script>
+<script lang="ts">
 
-  export default {
+  import { Vue, Component } from 'vue-property-decorator'
+
+  @Component({
+    async asyncData({ payload, getContent, route, error }: any) {
+      const data = payload || await getContent(route.path) || {}
+
+      if (!data) {
+        error({ statusCode: 404 })
+        return
+      }
+
+      return {
+        ...data
+      }
+    }
+  })
+  export default class NewsPage extends Vue {
   }
 
 </script>
@@ -23,15 +42,19 @@
 
     .main
 
-      .eye-catch
-        height: 200px
-        margin-top: 15px
-        margin-bottom: 15px
-        border-radius: 20px
+      .theme--title
+        font-size: 20px
 
-        @include mq(md)
-          height: 500px
-          margin-top: 85px
-          margin-bottom: 85px
+        +rmq
+          text-align: left
+
+      .footer
+        max-width: 800px
+        margin: 40px auto
+        font-size: 14px
+        color: #888
+
+        p
+          font-family: Helvetica
 
 </style>
