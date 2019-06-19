@@ -23,7 +23,10 @@
       return { works: payload || await getContent(route.path) }
     },
     head: {
-      title: 'Works - Kazumi Inada Portfolio'
+      title: 'Works',
+      meta: [
+        { hid: 'og:title', property: 'og:title', content: 'Works' }
+      ]
     }
   })
   export default class WorksIndexPage extends Vue {

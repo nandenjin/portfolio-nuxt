@@ -43,7 +43,11 @@
 
     head: {
 
-      title: 'Kazumi Inada | 稲田和巳'
+      title: 'Kazumi Inada | 稲田和巳',
+
+      meta: [
+        { hid: 'og:type', property: 'og:type', content: 'website' }
+      ]
 
     }
 

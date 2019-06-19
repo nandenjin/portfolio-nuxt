@@ -70,7 +70,10 @@
 
   @Component({
     head: {
-      title: 'Profile | Kazumi Inada / 稲田和巳'
+      title: 'Profile',
+      meta: [
+        { hid: 'og:title', property: 'og:title', content: 'Profile - Kazumi Inada' }
+      ]
     }
   })
   export default class ProfilePage extends Vue {

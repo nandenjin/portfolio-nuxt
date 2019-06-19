@@ -13,6 +13,7 @@
 </template>
 
 <script lang="ts">
+  /* eslint camelcase: 0 */
 
   import { Vue, Component } from 'vue-property-decorator'
 
@@ -28,9 +29,20 @@
       return {
         ...data
       }
+    },
+    head(this: NewsPage) {
+      return {
+        title: `${this.title_ja} / ${this.title_en}`,
+
+        meta: [
+          { hid: 'og:title', property: `${this.title_ja} / ${this.title_en} - Kazumi Inada` }
+        ]
+      }
     }
   })
   export default class NewsPage extends Vue {
+    title_ja? :string
+    title_en? :string
   }
 
 </script>

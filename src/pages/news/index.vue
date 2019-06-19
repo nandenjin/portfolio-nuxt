@@ -24,6 +24,15 @@
       return {
         items: payload || await getContent(route.path)
       }
+    },
+
+    head() {
+      return {
+        title: 'News',
+        meta: [
+          { hid: 'og:title', property: 'og:title', content: 'News - Kazumi Inada' }
+        ]
+      }
     }
   })
   export default class NewsIndexPage extends Vue {

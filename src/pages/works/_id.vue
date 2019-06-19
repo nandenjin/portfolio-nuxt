@@ -48,7 +48,12 @@
 
     head(this: WorkPage) {
       return {
-        title: `${this.title_en} / ${this.title_ja} - Kazumi Inada Portfolio`
+        title: `${this.title_ja} / ${this.title_en}`,
+
+        meta: [
+          { hid: 'og:title', property: 'og:title', content: `${this.title_ja} / ${this.title_en} - Kazumi Inada` },
+          { hid: 'og:image', property: 'og:image', content: this.thumbnail }
+        ]
       }
     }
   })
@@ -56,6 +61,7 @@
     title_ja?: string
     title_en?: string
     content?: string
+    thumbnail? :string
     materials?: string
     year?: string
     info?: string

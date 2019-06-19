@@ -7,13 +7,28 @@ const config: NuxtConfiguration = {
   head: {
 
     title: 'Kazumi Inada Portfolio',
+    titleTemplate(title) {
+      if (!title.match(/Kazumi Inada/)) {
+        return title + ' - Kazumi Inada 稲田和巳'
+      }
+      return title
+    },
 
     meta: [
 
       { charset: 'utf-8' },
+      { name: 'creator', content: 'Kazumi Inada <hello@nandenjin.com>' },
+
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       // { hid: 'description', name: 'description', content: '' },
-      { name: 'theme-color', content: '#444444' }
+      { name: 'theme-color', content: '#444444' },
+
+      { hid: 'og:type', property: 'og:type', content: 'article' },
+      { hid: 'og:site_name', property: 'og:site_name', content: 'Kazumi Inada Portfolio' },
+      { hid: 'og:title', property: 'og:title', content: 'Kazumi Inada Portfolio' },
+      { hid: 'og:description', property: 'og:description', content: 'Creating arts inspired by technology' },
+
+      { hid: 'twitter:creator', name: 'twitter:creator', content: '@nandenjin' }
 
     ],
 
