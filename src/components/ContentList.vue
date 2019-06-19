@@ -112,7 +112,8 @@
         width: 300px
         height: (300px / 1.67)
         overflow: hidden
-        border-radius: 15px
+        border-radius: 7px
+        background-color: #eee
 
         img
           position: absolute
