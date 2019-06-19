@@ -18,7 +18,10 @@
         </nav>
         <nuxt-link tag="section" class="news" :to="`/news`">
           <h3>NEWS</h3>
-          <p>{{ news }}</p>
+          <p class="news--text">
+            <span class="news--ja">{{ latestNews ? latestNews.title_ja : '' }}</span>
+            <span class="news--en">{{ latestNews ? latestNews.title_en : '' }}</span>
+          </p>
         </nuxt-link>
       </div>
       <nuxt-link tag="section" class="eye-catch-info" to="/works/residents">
@@ -29,28 +32,29 @@
   </main>
 </template>
 
-<script>
+<script lang="ts">
 
-  export default {
+  import { Vue, Component } from 'vue-property-decorator'
 
-    async asyncData({ getPayload, payload, route }) {
+  @Component({
+    async asyncData({ getContent }: any) {
       return {
-        news: payload || await getPayload(route.path)
+        news: await getContent('/news')
       }
     },
-
     layout: 'plain',
-
     head: {
-
       title: 'Kazumi Inada | 稲田和巳',
-
       meta: [
         { hid: 'og:type', property: 'og:type', content: 'website' }
       ]
-
     }
-
+  })
+  export default class IndexPage extends Vue {
+    news?
+    get latestNews() {
+      return this.news && this.news.length > 0 ? this.news[0] : null
+    }
   }
 
 </script>
@@ -146,11 +150,37 @@
             font-size: 13px
 
         p
+          position: relative
           float: 1 1 auto
           font-size: 11px
 
           +mq(md)
             font-size: 13px
+
+          .news--ja, .news--en
+            display: block
+            width: 100%
+
+          .news--ja
+            transform: translateY(50%)
+            animation: news-sw 8s linear 0s infinite
+
+          .news--en
+            opacity: 0
+            transform: translateY(-50%)
+            animation: news-sw 8s linear 4s infinite
+
+          @keyframes news-sw
+            0%
+              opacity: 0
+            5%
+              opacity: 1
+            40%
+              opacity: 1
+            45%
+              opacity: 0
+            100%
+              opacity: 0
 
     .eye-catch-info
       position: absolute
