@@ -132,7 +132,7 @@
 
         .tag
           display: inline-block
-          margin: 0 6px
+          margin: 0 6px 6px 0
           padding: 3px 15px
           border-radius: 5px
           font-family: Helvetica
@@ -140,8 +140,5 @@
           text-transform: uppercase
           color: #444
           background-color: #ddd
-
-          &:first-child
-            margin: 0
 
 </style>
