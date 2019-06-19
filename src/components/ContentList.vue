@@ -8,7 +8,7 @@
             <picture>
               <source type="image/webp" :srcset="getSrcSet(content.thumbnail, 'webp')" sizes="(max-width: 800px) 100vw, 30vw">
               <source type="image/jpeg" :srcset="getSrcSet(content.thumbnail, 'jpg')" sizes="(max-width: 800px) 100vw, 30vw">
-              <img :src="`${content.thumbnail}_1600w.jpg`" alt="">
+              <img :src="content.thumbnail" alt="">
             </picture>
           </div>
           <figcaption class="title">
