@@ -6,66 +6,105 @@ import markdownIt from 'markdown-it'
 const md = markdownIt()
 md.use(markdownPlugin)
 
+/**
+ * 与えられたrouteのpayloadデータを生成する
+ * @param {string} route
+ * @param {string} pagesDir
+ */
 export const getPayload = (route, pagesDir) => {
-  const filePath = path.join(pagesDir, route)
-  console.log(route, filePath)
+  // 読み取るファイルのパス
+  let filePath = path.join(pagesDir, route) + '.md'
+
+  // indexページ、リストのJSONを返すモードのフラグ
+  let indexMode = false
+
   try {
-    fs.statSync(filePath + '.md')
+    fs.statSync(filePath)
   } catch (e) {
+    // [route].mdファイルが存在しない場合、[route]/index.mdを探査する
     try {
-      const result = []
-      if (fs.statSync(filePath).isDirectory()) {
-        const ents = fs.readdirSync(filePath, { withFileTypes: true })
-        for (let i = 0; i < ents.length; i++) {
-          const payload = getPayload(path.join(route, path.basename(ents[i].name, '.md')), pagesDir)
-
-          if (payload) {
-            payload.url = path.join(route, path.basename(ents[i].name, '.md'))
-            delete payload.content
-            delete payload.info
-          }
-
-          result.push(payload)
-        }
-        return result
-      }
+      const indexPath = path.join(pagesDir, route, 'index.md')
+      fs.statSync(indexPath)
+      filePath = indexPath
+      indexMode = true
     } catch (e) {
       console.error(e)
       return null
     }
   }
 
-  let content = fs.readFileSync(filePath + '.md', { encoding: 'utf8' })
+  // ファイル内容
+  let content = fs.readFileSync(filePath, { encoding: 'utf8' })
 
-  const schemaRegExp = /-+\n([\s\S]+?)\n-+\n/
-  if (!content.match(schemaRegExp)) {
-    return null
-  }
-
-  content = content.replace(schemaRegExp, '')
-  const schemaStr = RegExp.$1
-  const payload = {}
-
-  const schemaRows = schemaStr.split('\n')
-  for (let i = 0; i < schemaRows.length; i++) {
-    // eslint-disable-next-line no-useless-escape
-    if (schemaRows[i].match(/^([a-zA-Z0-9_]+)\s*:\s*(.+)$/m)) {
-      payload[RegExp.$1] = RegExp.$2
+  // 通常のページ
+  if (!indexMode) {
+    const schemaRegExp = /-+\n([\s\S]+?)\n-+\n/
+    if (!content.match(schemaRegExp)) {
+      return null
     }
+
+    // スキーマ部分をコンテンツから除去
+    content = content.replace(schemaRegExp, '')
+    const schemaStr = RegExp.$1
+    const payload = {}
+
+    // スキーマのkey-valueを取得
+    const schemaRows = schemaStr.split('\n')
+    for (let i = 0; i < schemaRows.length; i++) {
+      // eslint-disable-next-line no-useless-escape
+      if (schemaRows[i].match(/^([a-zA-Z0-9_]+)\s*:\s*(.+)$/m)) {
+        payload[RegExp.$1] = RegExp.$2
+      }
+    }
+
+    // コンテンツ部分をmarkdownとしてレンダリング
+    payload.content = md.render(content)
+
+    return payload
+
+  // indexページ
+  } else {
+    const payload = []
+
+    // リンクを含むリストを取得
+    const itemStrs = content.match(/^\s*-\s*\[.+\]\(.+\)\s*$/igm)
+    if (!itemStrs || itemStrs.length === 0) return []
+
+    for (let i = 0; i < itemStrs.length; i++) {
+      itemStrs[i].match(/^\s*-\s*\[.+\]\((.+)\)\s*$/im)
+
+      // リンク先のrouteのpayloadを取得する
+      const childRoute = getRouteByFilePath(RegExp.$1)
+      const childPayload = getPayload(childRoute, pagesDir)
+
+      // コンテンツ部分を削除
+      delete childPayload.content
+      delete childPayload.info
+      delete childPayload.materials
+
+      // URLを付与
+      childPayload.url = childRoute
+
+      payload.push(childPayload)
+    }
+
+    return payload
   }
-
-  payload.content = md.render(content)
-
-  return payload
 }
 
+/**
+ * Markdown-itのレンダリング拡張
+ * @param {MarkdownIt} md
+ */
 function markdownPlugin(md) {
+  // <img>
   md.renderer.rules.image = (tokens, idx, options, env, self) => {
     const token = tokens[idx]
     const aIndex = token.attrIndex('src')
     const src = token.attrs[aIndex][1]
     const alt = self.renderInlineAsText(token.children, options, env)
 
+    // 通常の画像
     if (src.match(/^(\/.+)\.(jpg|png|webp|gif)$/)) {
       return [
         `<figure class="fig">`,
@@ -76,8 +115,12 @@ function markdownPlugin(md) {
         `</picture>`,
         `</figure>`
       ].join('')
+
+    // YouTube embed
     } else if (src.match(/^https:\/\/www\.youtube\.com\/watch?v=([^&]+)$/)) {
       return `<iframe width="560" height="315" src="https://www.youtube.com/embed/${RegExp.$1}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
+
+    // 外部画像
     } else {
       return [
         `<figure class="fig">`,
@@ -86,4 +129,38 @@ function markdownPlugin(md) {
       ].join('')
     }
   }
+
+  // <a>
+  const defaultRuleLinkOpen = md.renderer.rules.link_open || function (tokens, idx, options, env, self) {
+    return self.renderToken(tokens, idx, options)
+  }
+  md.renderer.rules.link_open = (tokens, idx, options, env, self) => {
+    const hrefIndex = tokens[idx].attrIndex('href')
+    const href = tokens[idx].attrs[hrefIndex][1]
+
+    // 外部リンクにtarget="_blank"指定
+    if (href.match(/^https?/)) {
+      const targetIndex = tokens[idx].attrIndex('target')
+      if (targetIndex < 0) tokens[idx].attrPush(['target', '_blank'])
+      else tokens[idx].attrs[targetIndex][1] = '_blank'
+
+      const relIndex = tokens[idx].attrIndex('rel')
+      if (relIndex < 0) tokens[idx].attrPush(['rel', 'noopener'])
+      else tokens[idx].attrs[relIndex][1] = 'noopener'
+
+    // 内部絶対リンクのパスを修正
+    } else if (href.match(/^\//)) {
+      tokens[idx].attrs[hrefIndex][1] = getRouteByFilePath(href)
+    }
+
+    return defaultRuleLinkOpen(tokens, idx, options, env, self)
+  }
+}
+
+/**
+ * contentリポジトリ内のファイルパスからサイトのrouteに変換
+ * @param {string} filePath
+ */
+function getRouteByFilePath(filePath) {
+  return filePath.replace(/^\/pages/, '').replace(/\.md/, '')
 }

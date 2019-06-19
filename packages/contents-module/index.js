@@ -31,13 +31,20 @@ export default function Contents() {
     }
   })
 
+  // devモードでclientにcontentリポジトリの内容を配信するサーバ
   const contentServer = express()
+
+  // アセットの配信
+  // サイズを一旦外してリダイレクト
   contentServer.use('/assets', (req, res, next) => {
     if (req.path.match(/^(.+)_[0-9]+w\.(jpg|png|gif|webp)/)) {
       res.redirect(path.join('/assets', `${RegExp.$1}.jpg`))
     } else next()
   })
+  // fetchしたディレクトリから静的に配信
   contentServer.use('/assets', express.static(assetsDir))
+
+  // payloadの配信
   contentServer.get('/payload/:route([\\s\\S]+).json', (req, res) => {
     res.json(getPayload(req.params.route, pagesDir))
   })
@@ -45,6 +52,10 @@ export default function Contents() {
   this.addServerMiddleware(contentServer)
 }
 
+/**
+ * ディレクトリ配下のファイルツリーからrouteを生成
+ * @param {string} root
+ */
 function getRoutes(root) {
   const routes = []
 
@@ -54,9 +65,13 @@ function getRoutes(root) {
     try {
       const stat = fs.statSync(itemPath)
 
+      // ディレクトリが出現したら、再帰的に探索する
       if (stat.isDirectory()) {
         routes.push(...getRoutes(itemPath).map(p => path.join(item, p)))
-      } else if (path.extname(itemPath) === '.md') {
+
+      // Markdownデータを発見したらルートに追加、ただしindexは無視
+      // * Note: 今後サブディレクトリ以下にindexを置くような事が起きたら要修正
+      } else if (path.extname(itemPath) === '.md' && path.basename(item, '.md') !== 'index') {
         routes.push(path.basename(item, '.md'))
       }
     } catch (e) {}
@@ -65,6 +80,11 @@ function getRoutes(root) {
   return routes
 }
 
+/**
+ * routesに対しcontentリポジトリの内容を元に拡張しpayloadを付与
+ * @param {string[]} routes
+ * @param {string} pagesDir
+ */
 function extendRoutesWithPages(routes, pagesDir) {
   for (let i = 0; i < routes.length; i++) {
     ['/works', '/news'].includes(routes[i].route)
