@@ -26,6 +26,7 @@
   "author": "Kazumi Inada <hello@nandenjin.com>",
   "license": "UNLICENSED",
   "dependencies": {
+    "@nuxtjs/google-tag-manager": "^2.2.0",
     "axios": "^0.18.0",
     "markdown-it": "^8.4.2",
     "material-design-icons-iconfont": "^4.0.5",

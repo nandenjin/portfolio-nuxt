@@ -63,6 +63,7 @@ const config: NuxtConfiguration = {
   ],
 
   modules: [
+    ['@nuxtjs/google-tag-manager', { id: 'GTM-T7VHZDX' }],
     '@nandenjin/portfolio-nuxt-contents-module',
     'nuxt-cache-payload'
   ],
