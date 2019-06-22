@@ -98,7 +98,7 @@
       margin: 15px
 
       +mq(md)
-        margin: 25px
+        margin: 30px 25px
 
       &:hover
         transform: scale3d(1.05, 1.05, 1)
@@ -125,10 +125,12 @@
         margin-top: 20px
 
         h2
-          display: table-cell
+          width: 100%
           height: 30px
           vertical-align: middle
-          font-size: 14px
+          font-size: 13px
           overflow-x: hidden
+          white-space: nowrap
+          text-overflow: ellipsis
 
 </style>
