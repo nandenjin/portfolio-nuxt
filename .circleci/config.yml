@@ -26,7 +26,7 @@ jobs:
       - run: yarn clean
       - run: yarn content:fetch
       - run: yarn generate
-      - run: npm run deploy --token "$FIREBASE_TOKEN"
+      - run: yarn -s deploy --token="$FIREBASE_TOKEN"
 workflows:
   version: 2
   build-deploy:
