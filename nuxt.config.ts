@@ -29,7 +29,10 @@ const config: NuxtConfiguration = {
       { hid: 'og:description', property: 'og:description', content: 'Creating arts inspired by technology' },
 
       { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
-      { hid: 'twitter:creator', name: 'twitter:creator', content: '@nandenjin' }
+      { hid: 'twitter:creator', name: 'twitter:creator', content: '@nandenjin' },
+      { hid: 'twitter:site', name: 'twitter:site', content: '@nandenjin' },
+      { hid: 'twitter:title', name: 'twitter:title', content: 'Kazumi Inada Portfolio' },
+      { hid: 'twitter:description', name: 'twitter:description', content: 'Creating arts inspired by technology' }
 
     ],
 

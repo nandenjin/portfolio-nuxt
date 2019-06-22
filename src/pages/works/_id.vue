@@ -52,7 +52,9 @@
 
         meta: [
           { hid: 'og:title', property: 'og:title', content: `${this.title_ja} / ${this.title_en} - Kazumi Inada` },
-          { hid: 'og:image', property: 'og:image', content: this.thumbnail }
+          { hid: 'og:image', property: 'og:image', content: this.thumbnail },
+          { hid: 'twitter:title', name: 'twitter:title', content: `${this.title_ja} / ${this.title_en} - Kazumi Inada` },
+          { hid: 'twitter:image', name: 'twitter:image', content: this.thumbnail }
         ]
       }
     }
