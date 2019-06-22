@@ -14,7 +14,6 @@
     "lintfix": "eslint --fix --ext .ts,.js,.vue --ignore-path .gitignore .",
     "build": "nuxt build",
     "generate": "nuxt generate",
-    "prepare": "run-s clean content:fetch",
     "deploy": "firebase deploy",
     "content:fetch": "git clone -b master --depth 1 https://github.com/nandenjin/portfolio.git tmp/contents",
     "clean": "rimraf tmp"
