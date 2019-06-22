@@ -117,8 +117,8 @@ function markdownPlugin(md) {
       ].join('')
 
     // YouTube embed
-    } else if (src.match(/^https:\/\/www\.youtube\.com\/watch?v=([^&]+)$/)) {
-      return `<iframe width="560" height="315" src="https://www.youtube.com/embed/${RegExp.$1}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
+    } else if (src.match(/^https:\/\/www\.youtube\.com\/watch\?v=([^&]+)$/)) {
+      return `<figure class="fig" style="position: relative; width: 100%; padding: calc(9 / 16 * 100%) 0 0"><iframe src="https://www.youtube.com/embed/${RegExp.$1}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%"></iframe></figure>`
 
     // 外部画像
     } else {
