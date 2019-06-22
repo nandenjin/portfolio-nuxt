@@ -114,6 +114,7 @@
         overflow: hidden
         border-radius: 7px
         background-color: #eee
+        border: 1px solid rgba(0, 0, 0, .05)
 
         img
           position: absolute
