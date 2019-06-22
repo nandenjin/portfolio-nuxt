@@ -71,7 +71,7 @@
 
   @Component
   export default class TheHeader extends Vue {
-    opened: boolean = true
+    opened: boolean = false
   }
 
 </script>
