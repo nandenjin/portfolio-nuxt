@@ -1,44 +1,77 @@
 
 <template>
-
   <main class="main theme--document">
+    <h1 class="title theme--title">
+      {{ title_ja }}
+    </h1>
 
-    <h1 class="title theme--title">{{ title }}</h1>
-
-    <image-box class="eye-catch theme-margin-lr" :src="thumbnail" alt=""></image-box>
-
-    <div class="theme-text" v-html="content"></div>
-
+    <section class="content theme-text" v-html="content" />
+    <section class="info">
+      <h2>Info</h2>
+      <div class="text">
+        <p class="title">
+          {{ title_ja }} / {{ title_en }}
+        </p>
+        <p class="aside">
+          {{ materials }}
+        </p>
+        <p class="creator">
+          {{ creator }}, {{ year }}
+        </p>
+        <p v-if="$data.info">
+          {{ info }}
+        </p>
+        <ul class="tags">
+          <li v-for="tag in tagArray" :key="tag" class="tag">
+            {{ tag }}
+          </li>
+        </ul>
+      </div>
+    </section>
   </main>
-
 </template>
 
-<script>
+<script lang="ts">
+  /* eslint camelcase: 0 */
 
-  import axios from 'axios';
-  import ImageBox from '~/components/ImageBox.vue';
+  import { Vue, Component } from 'vue-property-decorator'
 
-  export default {
-
-    async asyncData( { getPayload, params, env, payload, route } ) {
-
-      payload = payload || await getPayload( route.path ) || ( await ( axios.get( `https://${ env.cmsDomain }/${ env.cmsPath }/works?_embed&slug=${ params.id }` ) ) ).data[ 0 ];
+  @Component({
+    async asyncData({ route, payload, getContent, error }: any) {
+      const data = payload || await getContent(route.path)
+      if (!data) error({ statusCode: 404 })
 
       return {
-        title: payload.title.rendered,
-        thumbnail: ( payload._embedded && payload._embedded[ 'wp:featuredmedia' ] && payload._embedded[ 'wp:featuredmedia' ][0] ) ? payload._embedded[ 'wp:featuredmedia' ][0].media_details.sizes.medium_large.source_url : '',
-        content: payload.content.rendered,
-      };
-
+        ...data
+      }
     },
 
-    components: {
+    head(this: WorkPage) {
+      return {
+        title: `${this.title_ja} / ${this.title_en}`,
 
-      ImageBox,
+        meta: [
+          { hid: 'og:title', property: 'og:title', content: `${this.title_ja} / ${this.title_en} - Kazumi Inada` },
+          { hid: 'og:image', property: 'og:image', content: this.thumbnail }
+        ]
+      }
+    }
+  })
+  export default class WorkPage extends Vue {
+    title_ja?: string
+    title_en?: string
+    content?: string
+    thumbnail? :string
+    materials?: string
+    year?: string
+    info?: string
+    tags?: string
 
-    },
-
-  };
+    get tagArray(): string[] {
+      if (!this.tags) return []
+      return this.tags.split(' ')
+    }
+  }
 
 </script>
 
@@ -50,14 +83,62 @@
   .main
 
     .eye-catch
-      height: 200px
       margin-top: 15px
       margin-bottom: 15px
       border-radius: 20px
 
       @include mq(md)
-        height: 500px
         margin-top: 85px
         margin-bottom: 85px
+
+    .info
+      max-width: 780px
+      margin: 100px 15px auto 15px
+      padding: 30px 25px
+      font-size: 13px
+      line-height: 1.8em
+      background-color: #fafafa
+      border-radius: 10px
+
+      +mq(md)
+        display: grid
+        grid-template-columns: 70px 1fr
+        grid-gap: 60px
+        margin: 150px auto 100px auto
+        padding: 50px 40px 50px 20px
+        border-radius: 20px
+
+      h2
+        margin: 0
+        padding-top: 15px
+        font-size: 30px
+        writing-mode: vertical-rl
+        text-transform: uppercase
+        font-family: Helvetica
+        letter-spacing: .3em
+
+        +rmq
+          margin: 0 0 30px 0
+          font-size: 20px
+          writing-mode: horizontal-tb
+
+      .text
+        p
+          margin: 5px 0
+
+      .tags
+        margin: 30px 0 0 0
+        padding: 0
+
+        .tag
+          display: inline-block
+          margin: 0 6px 6px 0
+          padding: 3px 15px
+          border-radius: 5px
+          font-family: Helvetica
+          font-size: 12px
+          text-transform: uppercase
+          color: #444
+          background-color: #ddd
 
 </style>

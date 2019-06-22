@@ -1,43 +1,49 @@
 
 <template>
-
   <main class="main theme--document">
+    <h1 class="title theme--title">
+      {{ title_ja }}
+    </h1>
 
-    <h1 class="title theme--title">{{ title }}</h1>
-
-    <div class="theme-text" v-html="content"></div>
-
+    <div class="theme-text" v-html="content" />
+    <div class="footer">
+      <p>{{ release }}</p>
+    </div>
   </main>
-
 </template>
 
-<script>
+<script lang="ts">
+  /* eslint camelcase: 0 */
 
-  import axios from 'axios';
+  import { Vue, Component } from 'vue-property-decorator'
 
-  import ImageBox from '~/components/ImageBox.vue';
+  @Component({
+    async asyncData({ payload, getContent, route, error }: any) {
+      const data = payload || await getContent(route.path) || {}
 
-  export default {
-
-    async asyncData( { getPayload, params, env, payload, route } ) {
-
-      payload = payload || await getPayload( route.path ) || ( await ( axios.get( `https://${ env.cmsDomain }/${ env.cmsPath }/posts?_embed&slug=${ params.id }` ) ) ).data[ 0 ];
+      if (!data) {
+        error({ statusCode: 404 })
+        return
+      }
 
       return {
-        title: payload.title.rendered,
-        thumbnail: ( payload._embedded && payload._embedded[ 'wp:featuredmedia' ] && payload._embedded[ 'wp:featuredmedia' ][0] ) ? payload._embedded[ 'wp:featuredmedia' ][0].media_details.sizes.medium_large.source_url : '',
-        content: payload.content.rendered,
-      };
-
+        ...data
+      }
     },
+    head(this: NewsPage) {
+      return {
+        title: `${this.title_ja} / ${this.title_en}`,
 
-    components: {
-
-      ImageBox,
-
-    },
-
-  };
+        meta: [
+          { hid: 'og:title', property: `${this.title_ja} / ${this.title_en} - Kazumi Inada` }
+        ]
+      }
+    }
+  })
+  export default class NewsPage extends Vue {
+    title_ja? :string
+    title_en? :string
+  }
 
 </script>
 
@@ -48,15 +54,19 @@
 
     .main
 
-      .eye-catch
-        height: 200px
-        margin-top: 15px
-        margin-bottom: 15px
-        border-radius: 20px
+      .theme--title
+        font-size: 20px
 
-        @include mq(md)
-          height: 500px
-          margin-top: 85px
-          margin-bottom: 85px
+        +rmq
+          text-align: left
+
+      .footer
+        max-width: 800px
+        margin: 40px auto
+        font-size: 14px
+        color: #888
+
+        p
+          font-family: Helvetica
 
 </style>

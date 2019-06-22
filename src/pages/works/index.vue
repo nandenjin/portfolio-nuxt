@@ -1,14 +1,8 @@
 
 <template>
-
   <main class="theme--document">
-
-    <h1 class="theme--title">Works</h1>
-
-    <content-list class="theme-margin-lr" :src="contents"></content-list>
-
+    <content-list class="theme-margin-lr" :src="works" />
   </main>
-
 </template>
 
 <style lang="sass" scoped>
@@ -17,43 +11,24 @@
 
 </style>
 
-<script>
+<script lang="ts">
+  import { Vue, Component } from 'vue-property-decorator'
+  import ContentList from '~/components/ContentList.vue'
 
-  import axios from 'axios';
-
-  import ContentList from '~/components/ContentList.vue';
-
-  export default {
-
-    components: { ContentList },
-
-    async asyncData( { getPayload, env, payload, route } ) {
-
-      return { works: payload || await getPayload( route.path ) || ( await axios.get( `https://${ env.cmsDomain }/${ env.cmsPath }/works?_embed` ) ).data };
-
+  @Component({
+    components: {
+      ContentList
     },
-
+    async asyncData({ getContent, payload, route }: any) {
+      return { works: payload || await getContent(route.path) }
+    },
     head: {
-
-      title: 'Works | Kazumi Inada / 稲田和巳'
-
-    },
-
-    computed: {
-
-      contents() {
-
-
-        return this.works.map( w => ( {
-          url: `/${ w.type }/${ w.slug }`,
-          title: w.title.rendered,
-          thumbnail: ( w._embedded && w._embedded[ 'wp:featuredmedia' ] && w._embedded[ 'wp:featuredmedia' ][0] ) ? w._embedded[ 'wp:featuredmedia' ][0].media_details.sizes.medium_large.source_url : '',
-        } ) )
-
-      },
-
-    },
-
-  };
-
+      title: 'Works',
+      meta: [
+        { hid: 'og:title', property: 'og:title', content: 'Works' }
+      ]
+    }
+  })
+  export default class WorksIndexPage extends Vue {
+  }
 </script>

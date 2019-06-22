@@ -1,7 +1,7 @@
 node_modules
-.*
-!.gitignore
 *.log
 .DS_Store
+.firebase
 .nuxt
 dist
+tmp

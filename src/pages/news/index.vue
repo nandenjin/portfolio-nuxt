@@ -1,51 +1,78 @@
 
 <template>
-
   <main class="theme--document">
-
-    <h1 class="theme--title">News</h1>
-
-    <link-list :items="items" class="theme-margin-lr"></link-list>
-
+    <ul class="link-list theme-margin-lr">
+      <nuxt-link v-for="item in items" :key="item.title_ja" :to="item.url" tag="li" class="item">
+        <span class="title">{{ item.title_ja }}</span>
+        <span class="date">{{ item.release }}</span>
+      </nuxt-link>
+    </ul>
   </main>
-
 </template>
 
-<script>
+<script lang="ts">
 
-import axios from 'axios';
+  import { Vue, Component } from 'vue-property-decorator'
+  import LinkList from '~/components/LinkList.vue'
 
-import LinkList from '~/components/LinkList.vue';
-
-export default {
-
-  components: { LinkList },
-
-  async asyncData( { getPayload, env, payload, route } ) {
-
-    return { news: payload || await getPayload( route.path ) || ( await axios.get( `https://${ env.cmsDomain }/${ env.cmsPath }/posts?_embed` ) ).data };
-
-  },
-
-  computed: {
-
-    items() {
-
-      return this.news.map( item => ( {
-        title: item.title.rendered,
-        to: `/news/${ item.slug }`
-      } ) );
-
+  @Component({
+    components: {
+      LinkList
     },
 
-  },
+    async asyncData({ getContent, payload, route }: any) {
+      return {
+        items: payload || await getContent(route.path)
+      }
+    },
 
-};
+    head() {
+      return {
+        title: 'News',
+        meta: [
+          { hid: 'og:title', property: 'og:title', content: 'News - Kazumi Inada' }
+        ]
+      }
+    }
+  })
+  export default class NewsIndexPage extends Vue {
+  }
 
 </script>
 
 <style lang="sass" scoped>
 
+  @import '~/assets/style/media.sass'
   @import '~/assets/style/themes.sass'
+
+  .link-list
+    padding: 0
+    list-style: none
+
+    .item
+      display: flex
+      padding: 20px 30px
+      font-size: 13px
+      line-height: 2em
+      border: 1px solid #eee
+      border-style: solid none
+      cursor: pointer
+
+      +rmq
+        display: block
+        padding: 20px 15px
+
+      .title
+        display: block
+        flex: 1 1 auto
+
+      .date
+        display: block
+        flex: 0 0 auto
+        color: #888
+        font-family: Helvetica
+
+      &+.item
+        border-top: none
 
 </style>

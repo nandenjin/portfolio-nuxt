@@ -5,6 +5,19 @@
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
-    ]
+    ],
+    "redirects": [
+      {
+        "source": "/ja",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/ja/:path*",
+        "destination": "/:path*",
+        "type": 301
+      }
+    ],
+    "trailingSlash": false
   }
 }

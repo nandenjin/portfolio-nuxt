@@ -1,9 +1,7 @@
 
 <template>
-
   <main class="top-container">
-
-    <figure class="eye-catch"></figure>
+    <figure class="eye-catch" />
     <div class="content">
       <div class="centering">
         <h1>
@@ -11,47 +9,52 @@
           <img src="~/assets/img/kazumi_inada.svg" alt="Kazumi Inada" class="kazumi-inada">
         </h1>
         <nav class="nav">
-          <nuxt-link class="item" to="/works">Works</nuxt-link>
-          <nuxt-link class="item" to="/profile">Profile</nuxt-link>
+          <nuxt-link class="item" to="/works">
+            Works
+          </nuxt-link>
+          <nuxt-link class="item" to="/profile">
+            Profile
+          </nuxt-link>
         </nav>
-        <nuxt-link tag="section" class="news" :to="`/news/${ news.slug }`">
+        <nuxt-link tag="section" class="news" :to="`/news`">
           <h3>NEWS</h3>
-          <p>{{ news.title.rendered }}</p>
+          <p class="news--text">
+            <span class="news--ja">{{ latestNews ? latestNews.title_ja : '' }}</span>
+            <span class="news--en">{{ latestNews ? latestNews.title_en : '' }}</span>
+          </p>
         </nuxt-link>
       </div>
-      <nuxt-link tag="section" class="eye-catch-info" to="/works/the_lost_thing">
-        <h3>現代人形劇「おとしもの」</h3>
-        <p>筑波大学人形劇団NEU, 2018/08</p>
+      <nuxt-link tag="section" class="eye-catch-info" to="/works/residents">
+        <h3>「住人たち」/ "Residents"</h3>
+        <p>Kazumi Inada, 2019/05-06</p>
       </nuxt-link>
     </div>
-
   </main>
-
 </template>
 
-<script>
+<script lang="ts">
 
-import axios from 'axios';
+  import { Vue, Component } from 'vue-property-decorator'
 
-  export default {
-
-    async asyncData( { getPayload, env, payload, route } ) {
-
+  @Component({
+    async asyncData({ getContent }: any) {
       return {
-        news:　payload || await getPayload( route.path ) || await ( axios.get( `https://${ env.cmsDomain }/${ env.cmsPath }/posts?_embed&per_page=1` ) ).data[0],
-      };
-
+        news: await getContent('/news')
+      }
     },
-
     layout: 'plain',
-
     head: {
-
-      title: 'Kazumi Inada | 稲田和巳'
-
-    },
-
-
+      title: 'Kazumi Inada | 稲田和巳',
+      meta: [
+        { hid: 'og:type', property: 'og:type', content: 'website' }
+      ]
+    }
+  })
+  export default class IndexPage extends Vue {
+    news?
+    get latestNews() {
+      return this.news && this.news.length > 0 ? this.news[0] : null
+    }
   }
 
 </script>
@@ -72,7 +75,7 @@ import axios from 'axios';
     flex: 1 1 100%
     margin: 0
     padding: 0
-    background-image: url("~assets/img/eye-catch.jpg")
+    background-image: url("/assets/works/residents/residents_zoom-0_1600w.jpg")
     background-color: #000
     background-position: center
     background-size: cover
@@ -147,11 +150,37 @@ import axios from 'axios';
             font-size: 13px
 
         p
+          position: relative
           float: 1 1 auto
           font-size: 11px
 
           +mq(md)
             font-size: 13px
+
+          .news--ja, .news--en
+            display: block
+            width: 100%
+
+          .news--ja
+            transform: translateY(50%)
+            animation: news-sw 8s linear 0s infinite
+
+          .news--en
+            opacity: 0
+            transform: translateY(-50%)
+            animation: news-sw 8s linear 4s infinite
+
+          @keyframes news-sw
+            0%
+              opacity: 0
+            5%
+              opacity: 1
+            40%
+              opacity: 1
+            45%
+              opacity: 0
+            100%
+              opacity: 0
 
     .eye-catch-info
       position: absolute

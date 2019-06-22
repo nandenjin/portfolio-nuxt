@@ -1,19 +1,19 @@
 
 <template>
-
   <ul class="link-list">
-    <nuxt-link v-for="item in items" :to="item.to" tag="li" class="item" :key="item.title">{{ item.title }}</nuxt-link>
+    <nuxt-link v-for="item in items" :key="item.title" :to="item.to" tag="li" class="item">
+      {{ item.title }}
+    </nuxt-link>
   </ul>
-
 </template>
 
 <script>
 
   export default {
 
-    props: [ 'items' ],
+    props: [ 'items' ]
 
-  };
+  }
 
 </script>
 
