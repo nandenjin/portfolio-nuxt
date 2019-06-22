@@ -23,6 +23,7 @@ jobs:
           keys:
             - yarn-packages-{{ checksum "yarn.lock" }}
       - run: yarn --frozen-lockfile
+      - run: yarn clean
       - run: yarn content:fetch
       - run: yarn generate
       - run: npm run deploy --token "$FIREBASE_TOKEN"
