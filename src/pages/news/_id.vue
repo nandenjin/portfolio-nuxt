@@ -35,14 +35,17 @@
         title: `${this.title_ja} / ${this.title_en}`,
 
         meta: [
-          { hid: 'og:title', property: `${this.title_ja} / ${this.title_en} - Kazumi Inada` }
+          { hid: 'og:description', property: 'og:description', content: this.content.replace(/<.+?>/g, '').replace(/\n/g, ' ') },
+          { hid: 'og:title', property: `${this.title_ja} / ${this.title_en} - Kazumi Inada` },
+          { hid: 'og:description', property: 'og:description', content: this.content.replace(/<.+?>/g, '').replace(/\n/g, ' ') }
         ]
       }
     }
   })
   export default class NewsPage extends Vue {
-    title_ja? :string
-    title_en? :string
+    title_ja! :string
+    title_en! :string
+    content!: string
   }
 
 </script>

@@ -51,8 +51,10 @@
         title: `${this.title_ja} / ${this.title_en}`,
 
         meta: [
+          { hid: 'description', property: 'description', content: this.content.replace(/<.+?>|\n/g, '').replace(/\n/g, ' ') },
           { hid: 'og:title', property: 'og:title', content: `${this.title_ja} / ${this.title_en} - Kazumi Inada` },
           { hid: 'og:image', property: 'og:image', content: process.env.baseUrl + this.thumbnail },
+          { hid: 'og:description', property: 'og:description', content: this.content.replace(/<.+?>|\n/g, '').replace(/\n/g, ' ') },
           { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' }
         ]
       }
