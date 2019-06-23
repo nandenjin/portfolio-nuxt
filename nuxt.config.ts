@@ -89,8 +89,7 @@ const config: NuxtConfiguration = {
 
   generate: {
 
-    dir: 'dist',
-    fallback: true
+    dir: 'dist'
 
   },
 
