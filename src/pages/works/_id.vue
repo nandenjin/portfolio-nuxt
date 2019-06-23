@@ -34,6 +34,7 @@
 <script lang="ts">
   /* eslint camelcase: 0 */
 
+  import * as path from 'path'
   import { Vue, Component } from 'vue-property-decorator'
 
   @Component({
@@ -52,18 +53,17 @@
 
         meta: [
           { hid: 'og:title', property: 'og:title', content: `${this.title_ja} / ${this.title_en} - Kazumi Inada` },
-          { hid: 'og:image', property: 'og:image', content: this.thumbnail },
-          { hid: 'twitter:title', name: 'twitter:title', content: `${this.title_ja} / ${this.title_en} - Kazumi Inada` },
-          { hid: 'twitter:image', name: 'twitter:image', content: this.thumbnail }
+          { hid: 'og:image', property: 'og:image', content: path.join(process.env.baseUrl || '', this.thumbnail) },
+          { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' }
         ]
       }
     }
   })
   export default class WorkPage extends Vue {
-    title_ja?: string
-    title_en?: string
-    content?: string
-    thumbnail? :string
+    title_ja!: string
+    title_en!: string
+    content!: string
+    thumbnail! :string
     materials?: string
     year?: string
     info?: string
