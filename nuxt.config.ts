@@ -1,7 +1,6 @@
-import * as path from 'path'
 import NuxtConfiguration from '@nuxt/config'
 
-const baseUrl: string = 'https://www.nandenjin.com'
+const baseUrl: string = 'www.nandenjin.com'
 
 const config: NuxtConfiguration = {
 
@@ -34,7 +33,7 @@ const config: NuxtConfiguration = {
       { hid: 'og:site_name', property: 'og:site_name', content: 'Kazumi Inada Portfolio' },
       { hid: 'og:title', property: 'og:title', content: 'Kazumi Inada Portfolio' },
       { hid: 'og:description', property: 'og:description', content: 'Creating arts inspired by technology' },
-      { hid: 'og:image', property: 'og:image', content: path.join(baseUrl, '/favicon-sq.png') },
+      { hid: 'og:image', property: 'og:image', content: baseUrl + '/favicon-sq.png' },
 
       { hid: 'twitter:card', name: 'twitter:card', content: 'summary' },
       { hid: 'twitter:creator', name: 'twitter:creator', content: '@nandenjin' },

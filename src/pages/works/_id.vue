@@ -34,7 +34,6 @@
 <script lang="ts">
   /* eslint camelcase: 0 */
 
-  import * as path from 'path'
   import { Vue, Component } from 'vue-property-decorator'
 
   @Component({
@@ -53,7 +52,7 @@
 
         meta: [
           { hid: 'og:title', property: 'og:title', content: `${this.title_ja} / ${this.title_en} - Kazumi Inada` },
-          { hid: 'og:image', property: 'og:image', content: path.join(process.env.baseUrl || '', this.thumbnail) },
+          { hid: 'og:image', property: 'og:image', content: process.env.baseUrl + this.thumbnail },
           { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' }
         ]
       }
