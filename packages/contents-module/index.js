@@ -7,12 +7,12 @@ const express = require('express')
 const { getPayload } = require('./reader')
 const { copyAssets } = require('./assets')
 
-export default function Contents() {
-  const tmpDir = path.join(__dirname, '../../tmp')
-  const workDir = path.join(tmpDir, 'contents')
-  const pagesDir = path.join(workDir, 'pages')
-  const assetsDir = path.join(workDir, 'assets')
+const tmpDir = path.join(__dirname, '../../tmp')
+const workDir = path.join(tmpDir, 'contents')
+const pagesDir = path.join(workDir, 'pages')
+const assetsDir = path.join(workDir, 'assets')
 
+export default function Contents() {
   // コンテンツのデータからルートを生成
   this.nuxt.hook('generate:extendRoutes', routes => extendRoutesWithPages(routes, pagesDir))
 
@@ -54,9 +54,9 @@ export default function Contents() {
 
 /**
  * ディレクトリ配下のファイルツリーからrouteを生成
- * @param {string} root
+ * @param {string?} root
  */
-function getRoutes(root) {
+export function getRoutes(root = pagesDir) {
   const routes = []
 
   fs.readdirSync(root).forEach((item) => {
@@ -85,7 +85,7 @@ function getRoutes(root) {
  * @param {string[]} routes
  * @param {string} pagesDir
  */
-function extendRoutesWithPages(routes, pagesDir) {
+export function extendRoutesWithPages(routes, pagesDir) {
   for (let i = 0; i < routes.length; i++) {
     ['/works', '/news'].includes(routes[i].route)
     routes[i].payload = getPayload(routes[i].route, pagesDir)

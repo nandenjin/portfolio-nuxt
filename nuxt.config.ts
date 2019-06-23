@@ -1,4 +1,5 @@
 import NuxtConfiguration from '@nuxt/config'
+import { getRoutes } from '@nandenjin/portfolio-nuxt-contents-module'
 
 const baseUrl: string = 'https://www.nandenjin.com'
 const description = 'Designer / developer in Japan. Web, graphic design, stage performance & lighting, etc. Creating arts inspired by technology.'
@@ -9,6 +10,13 @@ const config: NuxtConfiguration = {
 
   env: {
     baseUrl
+  },
+
+  sitemap: {
+    hostname: baseUrl,
+    gzip: true,
+    xslUrl: '/sitemap.xsl',
+    routes: getRoutes('./tmp/contents/pages')
   },
 
   head: {
@@ -75,7 +83,8 @@ const config: NuxtConfiguration = {
   modules: [
     ['@nuxtjs/google-tag-manager', { id: 'GTM-T7VHZDX' }],
     '@nandenjin/portfolio-nuxt-contents-module',
-    'nuxt-cache-payload'
+    'nuxt-cache-payload',
+    '@nuxtjs/sitemap'
   ],
 
   generate: {
