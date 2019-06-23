@@ -18,6 +18,12 @@
         "type": 301
       }
     ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/404.html"
+      }
+    ],
     "trailingSlash": false
   }
 }
