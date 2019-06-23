@@ -1,6 +1,6 @@
 import NuxtConfiguration from '@nuxt/config'
 
-const baseUrl: string = 'www.nandenjin.com'
+const baseUrl: string = 'https://www.nandenjin.com'
 
 const config: NuxtConfiguration = {
 
