@@ -1,6 +1,7 @@
 import NuxtConfiguration from '@nuxt/config'
 
 const baseUrl: string = 'https://www.nandenjin.com'
+const description = 'Designer / developer in Japan. Web, graphic design, stage performance & lighting, etc. Creating arts inspired by technology.'
 
 const config: NuxtConfiguration = {
 
@@ -28,11 +29,12 @@ const config: NuxtConfiguration = {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       // { hid: 'description', name: 'description', content: '' },
       { name: 'theme-color', content: '#444444' },
+      { hid: 'description', name: 'description', content: description },
 
       { hid: 'og:type', property: 'og:type', content: 'article' },
       { hid: 'og:site_name', property: 'og:site_name', content: 'Kazumi Inada Portfolio' },
       { hid: 'og:title', property: 'og:title', content: 'Kazumi Inada Portfolio' },
-      { hid: 'og:description', property: 'og:description', content: 'Creating arts inspired by technology' },
+      { hid: 'og:description', property: 'og:description', content: description },
       { hid: 'og:image', property: 'og:image', content: baseUrl + '/favicon-sq.png' },
 
       { hid: 'twitter:card', name: 'twitter:card', content: 'summary' },
