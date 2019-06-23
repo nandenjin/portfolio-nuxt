@@ -43,9 +43,9 @@ const config: NuxtConfiguration = {
       { hid: 'og:site_name', property: 'og:site_name', content: 'Kazumi Inada Portfolio' },
       { hid: 'og:title', property: 'og:title', content: 'Kazumi Inada Portfolio' },
       { hid: 'og:description', property: 'og:description', content: description },
-      { hid: 'og:image', property: 'og:image', content: baseUrl + '/favicon-sq.png' },
+      { hid: 'og:image', property: 'og:image', content: baseUrl + '/site-cover.png' },
 
-      { hid: 'twitter:card', name: 'twitter:card', content: 'summary' },
+      { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
       { hid: 'twitter:creator', name: 'twitter:creator', content: '@nandenjin' },
       { hid: 'twitter:site', name: 'twitter:site', content: '@nandenjin' }
 
