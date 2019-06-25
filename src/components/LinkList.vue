@@ -7,12 +7,13 @@
   </ul>
 </template>
 
-<script>
+<script lang="ts">
 
-  export default {
+  import { Vue, Component, Prop } from 'vue-property-decorator'
 
-    props: [ 'items' ]
-
+  @Component
+  export default class LinkList extends Vue {
+    @Prop(Array) items!: Object[]
   }
 
 </script>

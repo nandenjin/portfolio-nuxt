@@ -13,16 +13,16 @@
   </main>
 </template>
 
-<script>
+<script lang="ts">
+
+  import { Vue, Component, Prop } from 'vue-property-decorator'
 
   import ImageBox from '~/components/ImageBox.vue'
 
-  export default {
-
-    components: { ImageBox },
-
-    props: [ 'title', 'thumbnail' ],
-
+  @Component({
+    components: {
+      ImageBox
+    },
     head() {
       return {
 
@@ -30,7 +30,10 @@
 
       }
     }
-
+  })
+  export default class WorkPageRenderer extends Vue {
+    @Prop(String) title!: string
+    @Prop(String) thumbnail!: string
   }
 
 </script>
