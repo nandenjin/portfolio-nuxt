@@ -34,11 +34,11 @@
   }
 
   @Component({
-    mounted() {
+    mounted () {
       const step = () => {
         const container = this.$refs.container as HTMLElement
 
-        if (this.$data.isDestroyed || !container) return
+        if (this.$data.isDestroyed || !container) { return }
         requestAnimationFrame(step)
 
         const bounding = container.getBoundingClientRect()
@@ -69,7 +69,7 @@
 
       requestAnimationFrame(step)
     },
-    destroyed() {
+    destroyed () {
       this.$data.isDestroyed = true
     }
   })
@@ -77,8 +77,8 @@
     @Prop(String) src!: Content[]
     isDestroyed: boolean = false
 
-    getSrcSet(src: string, ext: string): string {
-      if (!src) return ''
+    getSrcSet (src: string, ext: string): string {
+      if (!src) { return '' }
       src.match(/^(.+)\.(jpg|png|webp|gif)$/)
       return `${RegExp.$1}_320w.${ext} 320w, ${RegExp.$1}_768w.${ext} 768w, ${RegExp.$1}_1024w.${ext} 1024w, ${RegExp.$1}_1600w.${ext} 1600w`
     }

@@ -18,7 +18,7 @@
   import { Vue, Component } from 'vue-property-decorator'
 
   @Component({
-    async asyncData({ payload, getContent, route, error }: any) {
+    async asyncData ({ payload, getContent, route, error }: any) {
       const data = payload || await getContent(route.path) || {}
 
       if (!data) {
@@ -30,7 +30,7 @@
         ...data
       }
     },
-    head(this: NewsPage) {
+    head (this: NewsPage) {
       return {
         title: `${this.title_ja} / ${this.title_en}`,
 

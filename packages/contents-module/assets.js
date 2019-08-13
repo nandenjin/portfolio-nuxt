@@ -7,7 +7,7 @@ const consola = require('consola')
 
 const SIZES = [1600, 1024, 768, 320]
 
-export async function copyAssets(src, dist) {
+export async function copyAssets (src, dist) {
   const ents = await fs.readdir(src, { withFileTypes: true })
   await fs.mkdir(dist, { recursive: true })
 

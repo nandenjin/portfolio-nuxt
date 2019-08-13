@@ -12,7 +12,7 @@ const workDir = path.join(tmpDir, 'contents')
 const pagesDir = path.join(workDir, 'pages')
 const assetsDir = path.join(workDir, 'assets')
 
-export default function Contents() {
+export default function Contents () {
   // コンテンツのデータからルートを生成
   this.nuxt.hook('generate:extendRoutes', routes => extendRoutesWithPages(routes, pagesDir))
 
@@ -39,7 +39,7 @@ export default function Contents() {
   contentServer.use('/assets', (req, res, next) => {
     if (req.path.match(/^(.+)_[0-9]+w\.(jpg|png|gif|webp)/)) {
       res.redirect(path.join('/assets', `${RegExp.$1}.jpg`))
-    } else next()
+    } else { next() }
   })
   // fetchしたディレクトリから静的に配信
   contentServer.use('/assets', express.static(assetsDir))
@@ -56,7 +56,7 @@ export default function Contents() {
  * ディレクトリ配下のファイルツリーからrouteを生成
  * @param {string?} root
  */
-export function getRoutes(root = pagesDir) {
+export function getRoutes (root = pagesDir) {
   const routes = []
 
   fs.readdirSync(root).forEach((item) => {
@@ -85,7 +85,7 @@ export function getRoutes(root = pagesDir) {
  * @param {string[]} routes
  * @param {string} pagesDir
  */
-export function extendRoutesWithPages(routes, pagesDir) {
+export function extendRoutesWithPages (routes, pagesDir) {
   for (let i = 0; i < routes.length; i++) {
     ['/works', '/news'].includes(routes[i].route)
     routes[i].payload = getPayload(routes[i].route, pagesDir)

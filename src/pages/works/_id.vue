@@ -37,16 +37,16 @@
   import { Vue, Component } from 'vue-property-decorator'
 
   @Component({
-    async asyncData({ route, payload, getContent, error }: any) {
+    async asyncData ({ route, payload, getContent, error }: any) {
       const data = payload || await getContent(route.path)
-      if (!data) error({ statusCode: 404 })
+      if (!data) { error({ statusCode: 404 }) }
 
       return {
         ...data
       }
     },
 
-    head(this: WorkPage) {
+    head (this: WorkPage) {
       return {
         title: `${this.title_ja} / ${this.title_en}`,
 
@@ -70,8 +70,8 @@
     info?: string
     tags?: string
 
-    get tagArray(): string[] {
-      if (!this.tags) return []
+    get tagArray (): string[] {
+      if (!this.tags) { return [] }
       return this.tags.split(' ')
     }
   }

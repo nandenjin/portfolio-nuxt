@@ -18,14 +18,14 @@
     @Prop(String) readonly src!: string
     @Prop(String) readonly alt: string | undefined
 
-    get srcset() {
-      if (!this.src) return ''
+    get srcset () {
+      if (!this.src) { return '' }
       this.src.match(/^(.+)\.(jpg|png|webp|gif)$/)
       return `${RegExp.$1}_320w.${RegExp.$2} 320w, ${RegExp.$1}_768w.${RegExp.$2} 768w, ${RegExp.$1}_1024w.${RegExp.$2} 1024w, ${RegExp.$1}_1600w.${RegExp.$2} 1600w`
     }
 
-    get srcsetWebP() {
-      if (!this.src) return ''
+    get srcsetWebP () {
+      if (!this.src) { return '' }
       this.src.match(/^(.+)\.(jpg|png|webp|gif)$/)
       return `${RegExp.$1}_320w.webp 320w, ${RegExp.$1}_768w.webp 768w, ${RegExp.$1}_1024w.webp 1024w, ${RegExp.$1}_1600w.webp 1600w`
     }

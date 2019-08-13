@@ -68,7 +68,7 @@ export const getPayload = (route, pagesDir) => {
 
     // リンクを含むリストを取得
     const itemStrs = content.match(/^\s*-\s*\[.+\]\(.+\)\s*$/igm)
-    if (!itemStrs || itemStrs.length === 0) return []
+    if (!itemStrs || itemStrs.length === 0) { return [] }
 
     for (let i = 0; i < itemStrs.length; i++) {
       itemStrs[i].match(/^\s*-\s*\[.+\]\((.+)\)\s*$/im)
@@ -96,7 +96,7 @@ export const getPayload = (route, pagesDir) => {
  * Markdown-itのレンダリング拡張
  * @param {MarkdownIt} md
  */
-function markdownPlugin(md) {
+function markdownPlugin (md) {
   // <img>
   md.renderer.rules.image = (tokens, idx, options, env, self) => {
     const token = tokens[idx]
@@ -141,12 +141,10 @@ function markdownPlugin(md) {
     // 外部リンクにtarget="_blank"指定
     if (href.match(/^https?/)) {
       const targetIndex = tokens[idx].attrIndex('target')
-      if (targetIndex < 0) tokens[idx].attrPush(['target', '_blank'])
-      else tokens[idx].attrs[targetIndex][1] = '_blank'
+      if (targetIndex < 0) { tokens[idx].attrPush(['target', '_blank']) } else { tokens[idx].attrs[targetIndex][1] = '_blank' }
 
       const relIndex = tokens[idx].attrIndex('rel')
-      if (relIndex < 0) tokens[idx].attrPush(['rel', 'noopener'])
-      else tokens[idx].attrs[relIndex][1] = 'noopener'
+      if (relIndex < 0) { tokens[idx].attrPush(['rel', 'noopener']) } else { tokens[idx].attrs[relIndex][1] = 'noopener' }
 
     // 内部絶対リンクのパスを修正
     } else if (href.match(/^\//)) {
@@ -161,6 +159,6 @@ function markdownPlugin(md) {
  * contentリポジトリ内のファイルパスからサイトのrouteに変換
  * @param {string} filePath
  */
-function getRouteByFilePath(filePath) {
+function getRouteByFilePath (filePath) {
   return filePath.replace(/^\/pages/, '').replace(/\.md/, '')
 }

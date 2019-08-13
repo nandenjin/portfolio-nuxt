@@ -19,7 +19,7 @@
     components: {
       ContentList
     },
-    async asyncData({ getContent, payload, route }: any) {
+    async asyncData ({ getContent, payload, route }: any) {
       return { works: payload || await getContent(route.path) }
     },
     head: {
