@@ -20,13 +20,13 @@
       LinkList
     },
 
-    async asyncData({ getContent, payload, route }: any) {
+    async asyncData ({ getContent, payload, route }: any) {
       return {
         items: payload || await getContent(route.path)
       }
     },
 
-    head() {
+    head () {
       return {
         title: 'News',
         meta: [

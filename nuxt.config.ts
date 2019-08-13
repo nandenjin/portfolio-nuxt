@@ -22,7 +22,7 @@ const config: NuxtConfiguration = {
   head: {
 
     title: 'Kazumi Inada Portfolio',
-    titleTemplate(title) {
+    titleTemplate (title) {
       if (!title.match(/Kazumi Inada/)) {
         return title + ' - Kazumi Inada 稲田和巳'
       }
@@ -106,7 +106,7 @@ const config: NuxtConfiguration = {
       }
     },
 
-    extend(config) {
+    extend (config) {
       // contents/pluginでfsのロードエラーが起きる
       // https://github.com/nuxt-community/dotenv-module/issues/11
       config.node = {

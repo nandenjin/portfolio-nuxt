@@ -37,7 +37,7 @@
   import { Vue, Component } from 'vue-property-decorator'
 
   @Component({
-    async asyncData({ getContent }: any) {
+    async asyncData ({ getContent }: any) {
       return {
         news: await getContent('/news')
       }
@@ -52,7 +52,7 @@
   })
   export default class IndexPage extends Vue {
     news?
-    get latestNews() {
+    get latestNews () {
       return this.news && this.news.length > 0 ? this.news[0] : null
     }
   }

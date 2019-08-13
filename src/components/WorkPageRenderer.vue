@@ -23,7 +23,7 @@
     components: {
       ImageBox
     },
-    head() {
+    head () {
       return {
 
         title: this.title
