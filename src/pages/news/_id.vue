@@ -17,7 +17,12 @@
 
   import { Vue, Component } from 'vue-property-decorator'
 
-  @Component({
+  @Component
+  export default class NewsPage extends Vue {
+    title_ja! :string
+    title_en! :string
+    content!: string
+    
     async asyncData ({ payload, getContent, route, error }: any) {
       const data = payload || await getContent(route.path) || {}
 
@@ -29,7 +34,8 @@
       return {
         ...data
       }
-    },
+    }
+
     head (this: NewsPage) {
       return {
         title: `${this.title_ja} / ${this.title_en}`,
@@ -41,11 +47,6 @@
         ]
       }
     }
-  })
-  export default class NewsPage extends Vue {
-    title_ja! :string
-    title_en! :string
-    content!: string
   }
 
 </script>

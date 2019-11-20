@@ -23,7 +23,7 @@
     components: {
       ImageBox
     },
-    head () {
+    head (this: WorkPageRenderer) {
       return {
 
         title: this.title
