@@ -22,7 +22,7 @@
     title_ja! :string
     title_en! :string
     content!: string
-    
+
     async asyncData ({ payload, getContent, route, error }: any) {
       const data = payload || await getContent(route.path) || {}
 
