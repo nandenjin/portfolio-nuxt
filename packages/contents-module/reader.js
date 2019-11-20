@@ -131,7 +131,7 @@ function markdownPlugin (md) {
   }
 
   // <a>
-  const defaultRuleLinkOpen = md.renderer.rules.link_open || function (tokens, idx, options, env, self) {
+  const defaultRuleLinkOpen = md.renderer.rules.link_open || function (tokens, idx, options, _env, self) {
     return self.renderToken(tokens, idx, options)
   }
   md.renderer.rules.link_open = (tokens, idx, options, env, self) => {
