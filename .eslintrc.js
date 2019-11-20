@@ -7,7 +7,8 @@ module.exports = {
   'plugins': ['@typescript-eslint'],
   'extends': [
     '@nuxtjs',
-    'plugin:nuxt/recommended'
+    'plugin:nuxt/recommended',
+    '@nuxtjs/eslint-config-typescript'
   ],
   'rules': {
     '@typescript-eslint/no-unused-vars': 'error',

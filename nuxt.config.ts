@@ -1,4 +1,4 @@
-import NuxtConfiguration from '@nuxt/config'
+import { Configuration as NuxtConfiguration } from '@nuxt/types'
 import { getRoutes } from '@nandenjin/portfolio-nuxt-contents-module'
 
 const baseUrl: string = 'https://www.nandenjin.com'
@@ -6,6 +6,7 @@ const description = 'Designer / developer in Japan. Web, graphic design, stage p
 
 const config: NuxtConfiguration = {
 
+  buildModules: ['@nuxt/typescript-build'],
   srcDir: 'src',
 
   env: {
