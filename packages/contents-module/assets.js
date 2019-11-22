@@ -11,38 +11,34 @@ export async function copyAssets (src, dist) {
   const ents = await fs.readdir(src, { withFileTypes: true })
   await fs.mkdir(dist, { recursive: true })
 
-  const jobs = []
-
   for (let i = 0; i < ents.length; i++) {
     const ent = ents[i]
     const entPath = path.join(src, ent.name)
     const distPath = path.join(dist, ent.name)
 
-    const jobsForEntity = []
+    try {
+      if (ent.isDirectory()) {
+        await copyAssets(entPath, distPath)
+      } else {
+        await fs.copyFile(entPath, distPath)
 
-    if (ent.isDirectory()) {
-      copyAssets(entPath, distPath)
-    } else {
-      jobsForEntity.push(fs.copyFile(entPath, distPath))
-
-      if (ent.name.match(/^(.+)\.(jpg|png|gif|webp)$/)) {
-        const input = sharp(entPath)
-        SIZES.forEach((size) => {
-          const jpgDistPathWithSize = path.join(dist, `${RegExp.$1}_${size}w.jpg`)
-          const webpDistPathWithSize = path.join(dist, `${RegExp.$1}_${size}w.webp`)
-          const data = input.clone().resize(size)
-          jobsForEntity.push(
-            data.toFile(jpgDistPathWithSize),
-            data.toFile(webpDistPathWithSize)
-          )
-        })
+        if (ent.name.match(/^(.+)\.(jpg|png|gif|webp)$/)) {
+          const input = sharp(entPath)
+          for (const size of SIZES) {
+            const jpgDistPathWithSize = path.join(dist, `${RegExp.$1}_${size}w.jpg`)
+            const webpDistPathWithSize = path.join(dist, `${RegExp.$1}_${size}w.webp`)
+            const data = input.clone().resize(size)
+            await data.toFile(jpgDistPathWithSize),
+            await data.toFile(webpDistPathWithSize)
+          }
+        }
       }
+      
+      consola.success(entPath)
+    } catch(e) {
+      consola.error(entPath)
     }
-
-    Promise.all(jobsForEntity)
-      .then(() => consola.success(entPath))
-      .catch(() => consola.error(entPath))
   }
 
-  return Promise.all(jobs)
+  return
 }
