@@ -13,7 +13,7 @@
     "lint": "eslint --ext .ts,.js,.vue --ignore-path .gitignore .",
     "lintfix": "eslint --fix --ext .ts,.js,.vue --ignore-path .gitignore .",
     "build": "nuxt-ts build",
-    "generate": "nuxt generate",
+    "generate": "nuxt-ts generate",
     "deploy": "firebase deploy",
     "content:fetch": "git clone -b master --depth 1 https://github.com/nandenjin/portfolio.git tmp/contents",
     "clean": "rimraf tmp"
