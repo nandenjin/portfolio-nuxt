@@ -28,17 +28,15 @@ export async function copyAssets (src, dist) {
             const jpgDistPathWithSize = path.join(dist, `${RegExp.$1}_${size}w.jpg`)
             const webpDistPathWithSize = path.join(dist, `${RegExp.$1}_${size}w.webp`)
             const data = input.clone().resize(size)
-            await data.toFile(jpgDistPathWithSize),
+            await data.toFile(jpgDistPathWithSize)
             await data.toFile(webpDistPathWithSize)
           }
         }
       }
-      
+
       consola.success(entPath)
-    } catch(e) {
+    } catch (e) {
       consola.error(entPath)
     }
   }
-
-  return
 }
