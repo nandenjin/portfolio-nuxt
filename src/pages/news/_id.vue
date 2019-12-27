@@ -2,12 +2,12 @@
 <template>
   <main class="main theme--document">
     <h1 class="title theme--title">
-      {{ title_ja }}
+      {{ meta.title_ja }}
     </h1>
 
     <div class="theme-text" v-html="content" />
     <div class="footer">
-      <p>{{ release }}</p>
+      <p>{{ meta.release }}</p>
     </div>
   </main>
 </template>
@@ -15,16 +15,13 @@
 <script lang="ts">
   /* eslint camelcase: 0 */
 
-  import { Vue, Component } from 'vue-property-decorator'
+  import { Vue, Component } from 'nuxt-property-decorator'
+  import { WorkMeta } from '~/types'
 
-  @Component
-  export default class NewsPage extends Vue {
-    title_ja! :string
-    title_en! :string
-    content!: string
-
-    async asyncData ({ payload, getContent, route, error }: any) {
-      const data = payload || await getContent(route.path) || {}
+  @Component({
+    async asyncData ({ route, error }) {
+      const id = route.params.id
+      const data = await import(`~/../tmp/contents/json/pages/news/${id}.json`)
 
       if (!data) {
         error({ statusCode: 404 })
@@ -32,21 +29,26 @@
       }
 
       return {
-        ...data
+        meta: data.default.meta,
+        content: data.default._content
       }
-    }
+    },
 
     head (this: NewsPage) {
       return {
-        title: `${this.title_ja} / ${this.title_en}`,
+        title: `${this.meta.title_ja} / ${this.meta.title_en}`,
 
         meta: [
           { hid: 'og:description', property: 'og:description', content: this.content.replace(/<.+?>/g, '').replace(/\n/g, ' ') },
-          { hid: 'og:title', property: `${this.title_ja} / ${this.title_en} - Kazumi Inada` },
+          { hid: 'og:title', property: 'og:title', content: `${this.meta.title_ja} / ${this.meta.title_en} - Kazumi Inada` },
           { hid: 'og:description', property: 'og:description', content: this.content.replace(/<.+?>/g, '').replace(/\n/g, ' ') }
         ]
       }
     }
+  })
+  export default class NewsPage extends Vue {
+    meta!: WorkMeta
+    content!: string
   }
 
 </script>

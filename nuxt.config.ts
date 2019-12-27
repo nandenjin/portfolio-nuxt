@@ -17,7 +17,7 @@ const config: NuxtConfiguration = {
     hostname: baseUrl,
     gzip: true,
     xslUrl: '/sitemap.xsl',
-    routes: getRoutes('./tmp/contents/pages')
+    routes: getRoutes()
   },
 
   head: {

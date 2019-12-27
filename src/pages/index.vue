@@ -19,8 +19,8 @@
         <nuxt-link tag="section" class="news" :to="`/news`">
           <h3>NEWS</h3>
           <p class="news--text">
-            <span class="news--ja">{{ latestNews ? latestNews.title_ja : '' }}</span>
-            <span class="news--en">{{ latestNews ? latestNews.title_en : '' }}</span>
+            <span class="news--ja">{{ latestNews ? latestNews.meta.title_ja : '' }}</span>
+            <span class="news--en">{{ latestNews ? latestNews.meta.title_en : '' }}</span>
           </p>
         </nuxt-link>
       </div>
@@ -35,11 +35,13 @@
 <script lang="ts">
 
   import { Vue, Component } from 'vue-property-decorator'
+  import { getPagesByIndex } from '../lib'
 
   @Component({
-    async asyncData ({ getContent }: any) {
+    async asyncData () {
+      const data = await import('~/../tmp/contents/json/pages/news/index.json')
       return {
-        news: await getContent('/news')
+        news: await getPagesByIndex(data.default._content)
       }
     },
     layout: 'plain',

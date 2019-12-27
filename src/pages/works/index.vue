@@ -13,14 +13,16 @@
 
 <script lang="ts">
   import { Vue, Component } from 'vue-property-decorator'
+  import { getPagesByIndex } from '../../lib'
   import ContentList from '~/components/ContentList.vue'
 
   @Component({
     components: {
       ContentList
     },
-    async asyncData ({ getContent, payload, route }: any) {
-      return { works: payload || await getContent(route.path) }
+    async asyncData () {
+      const data = await import('~/../tmp/contents/json/pages/works/index.json')
+      return { works: await getPagesByIndex(data.default._content) }
     },
     head: {
       title: 'Works',

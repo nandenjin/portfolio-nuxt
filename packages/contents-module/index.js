@@ -8,9 +8,9 @@ const { getPayload } = require('./reader')
 const { copyAssets } = require('./assets')
 
 const tmpDir = path.join(__dirname, '../../tmp')
-const workDir = path.join(tmpDir, 'contents')
-const pagesDir = path.join(workDir, 'pages')
-const assetsDir = path.join(workDir, 'assets')
+const workDir = path.join(tmpDir, './contents')
+const pagesDir = path.join(workDir, './json/pages')
+const assetsDir = path.join(workDir, './markdown/assets')
 
 export default function Contents () {
   // コンテンツのデータからルートを生成
@@ -20,16 +20,16 @@ export default function Contents () {
   const assetDistDir = path.join(this.options.generate.dir, 'assets')
   this.nuxt.hook('generate:distCopied', () => copyAssets(assetsDir, assetDistDir))
 
-  const { dst: readerDistPath } = this.addTemplate({
-    src: path.resolve(__dirname, 'reader.js')
-  })
-  this.addPlugin({
-    src: path.resolve(__dirname, 'plugin.js'),
-    options: {
-      readerDistPath,
-      pagesDir
-    }
-  })
+  // const { dst: readerDistPath } = this.addTemplate({
+  //   src: path.resolve(__dirname, 'reader.js')
+  // })
+  // this.addPlugin({
+  //   src: path.resolve(__dirname, 'plugin.js'),
+  //   options: {
+  //     readerDistPath,
+  //     pagesDir
+  //   }
+  // })
 
   // devモードでclientにcontentリポジトリの内容を配信するサーバ
   const contentServer = express()
@@ -71,8 +71,8 @@ export function getRoutes (root = pagesDir) {
 
       // Markdownデータを発見したらルートに追加、ただしindexは無視
       // * Note: 今後サブディレクトリ以下にindexを置くような事が起きたら要修正
-      } else if (path.extname(itemPath) === '.md' && path.basename(item, '.md') !== 'index') {
-        routes.push(path.basename(item, '.md'))
+      } else if (path.extname(itemPath) === '.json' && path.basename(item, '.json') !== '_index') {
+        routes.push(path.basename(item, '.json'))
       }
     } catch (e) {}
   })

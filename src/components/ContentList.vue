@@ -1,18 +1,18 @@
 
 <template>
   <div ref="container" class="list-container">
-    <article v-for="content in src" :key="content.url" class="item">
-      <nuxt-link class="link" :to="content.url">
+    <article v-for="content in src" :key="content.name" class="item">
+      <nuxt-link class="link" :to="content.path.replace(/^\/pages/, '')">
         <figure>
           <div class="thumbnail">
             <picture>
-              <source type="image/webp" :srcset="getSrcSet(content.thumbnail, 'webp')" sizes="(max-width: 400px) 100vw, 30vw">
-              <source type="image/jpeg" :srcset="getSrcSet(content.thumbnail, 'jpg')" sizes="(max-width: 400px) 100vw, 30vw">
-              <img :src="content.thumbnail" alt="">
+              <source type="image/webp" :srcset="getSrcSet(content.meta.thumbnail, 'webp')" sizes="(max-width: 400px) 100vw, 30vw">
+              <source type="image/jpeg" :srcset="getSrcSet(content.meta.thumbnail, 'jpg')" sizes="(max-width: 400px) 100vw, 30vw">
+              <img :src="content.meta.thumbnail" alt="">
             </picture>
           </div>
           <figcaption class="title">
-            <h2>{{ content.title_ja }}</h2>
+            <h2>{{ content.meta.title_ja }}</h2>
           </figcaption>
         </figure>
       </nuxt-link>
@@ -24,13 +24,10 @@
   /* eslint camelcase: 0 */
 
   import { Vue, Component, Prop } from 'vue-property-decorator'
+  import { WorkMeta } from '~/types'
 
   interface Content {
-    title_ja: string
-    title_en: string
-    thumbnail: string
-    tags: string
-    url: string
+    meta: WorkMeta
   }
 
   @Component({
@@ -74,7 +71,7 @@
     }
   })
   export default class ContentList extends Vue {
-    @Prop(String) src!: Content[]
+    @Prop() src!: Content[]
     isDestroyed: boolean = false
 
     getSrcSet (src: string, ext: string): string {
