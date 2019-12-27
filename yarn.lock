@@ -7666,13 +7666,6 @@ number-is-nan@^1.0.0:
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
   integrity sha1-CXtgK1NCKlIsGvuHkDGDNpQaAR0=
 
-nuxt-cache-payload@^0.1.1:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/nuxt-cache-payload/-/nuxt-cache-payload-0.1.2.tgz#8ece66168b8901ebbf7a0fcce034f569352c6ca1"
-  integrity sha512-LBX36NrL3Qi+X4lgnEFdQ0M1KbNT5FLeg7EBHjOQ+Gxx3kQ9srjXkuyERmQgUeCGliCMtc4hi7q80tzEwRRHPg==
-  dependencies:
-    axios "^0.19.0"
-
 nuxt-property-decorator@^2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/nuxt-property-decorator/-/nuxt-property-decorator-2.5.0.tgz#abb4311480044ac7c2a2aecfd11911b4a5a4832c"

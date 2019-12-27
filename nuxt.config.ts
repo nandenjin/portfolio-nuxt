@@ -84,7 +84,6 @@ const config: NuxtConfiguration = {
   modules: [
     ['@nuxtjs/google-analytics', { id: 'UA-73443235-3' }],
     '@nandenjin/portfolio-nuxt-contents-module',
-    'nuxt-cache-payload',
     '@nuxtjs/sitemap'
   ],
 

@@ -33,7 +33,6 @@
     "markdown-it": "^8.4.2",
     "material-design-icons-iconfont": "^4.0.5",
     "nuxt": "^2.10.2",
-    "nuxt-cache-payload": "^0.1.1",
     "ts-node": "^8.2.0"
   },
   "devDependencies": {
