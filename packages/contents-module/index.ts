@@ -1,35 +1,28 @@
 /* eslint no-console: 0 */
 
-const fs = require('fs')
-const path = require('path')
+import * as fs from 'fs'
+import * as path from 'path'
+import { Module } from '@nuxt/types'
+import express from 'express'
 
-const express = require('express')
-const { getPayload } = require('./reader')
-const { copyAssets } = require('./assets')
+import { copyAssets } from './assets'
 
 const tmpDir = path.join(__dirname, '../../tmp')
 const workDir = path.join(tmpDir, './contents')
 const pagesDir = path.join(workDir, './json/pages')
 const assetsDir = path.join(workDir, './markdown/assets')
 
-export default function Contents () {
+const contentModule: Module = function () {
+  if (!this.options.generate || !this.options.generate.dir) {
+    return
+  }
+
   // コンテンツのデータからルートを生成
   this.nuxt.hook('generate:extendRoutes', routes => extendRoutesWithPages(routes, pagesDir))
 
   // 生成済み各ページへのアセットコピー
   const assetDistDir = path.join(this.options.generate.dir, 'assets')
   this.nuxt.hook('generate:distCopied', () => copyAssets(assetsDir, assetDistDir))
-
-  // const { dst: readerDistPath } = this.addTemplate({
-  //   src: path.resolve(__dirname, 'reader.js')
-  // })
-  // this.addPlugin({
-  //   src: path.resolve(__dirname, 'plugin.js'),
-  //   options: {
-  //     readerDistPath,
-  //     pagesDir
-  //   }
-  // })
 
   // devモードでclientにcontentリポジトリの内容を配信するサーバ
   const contentServer = express()
@@ -44,11 +37,6 @@ export default function Contents () {
   // fetchしたディレクトリから静的に配信
   contentServer.use('/assets', express.static(assetsDir))
 
-  // payloadの配信
-  contentServer.get('/payload/:route([\\s\\S]+).json', (req, res) => {
-    res.json(getPayload(req.params.route, pagesDir))
-  })
-
   this.addServerMiddleware(contentServer)
 }
 
@@ -56,8 +44,8 @@ export default function Contents () {
  * ディレクトリ配下のファイルツリーからrouteを生成
  * @param {string?} root
  */
-export function getRoutes (root = pagesDir) {
-  const routes = []
+export function getRoutes (root = pagesDir): string[] {
+  const routes: string[] = []
 
   fs.readdirSync(root).forEach((item) => {
     const itemPath = path.join(root, item)
@@ -71,7 +59,7 @@ export function getRoutes (root = pagesDir) {
 
       // Markdownデータを発見したらルートに追加、ただしindexは無視
       // * Note: 今後サブディレクトリ以下にindexを置くような事が起きたら要修正
-      } else if (path.extname(itemPath) === '.json' && path.basename(item, '.json') !== '_index') {
+      } else if (path.extname(itemPath) === '.json' && !itemPath.match(/\/_?index\.json$/)) {
         routes.push(path.basename(item, '.json'))
       }
     } catch (e) {}
@@ -81,28 +69,15 @@ export function getRoutes (root = pagesDir) {
 }
 
 /**
- * routesに対しcontentリポジトリの内容を元に拡張しpayloadを付与
+ * routesに対しcontentリポジトリの内容を元に拡張
  * @param {string[]} routes
  * @param {string} pagesDir
  */
 export function extendRoutesWithPages (routes, pagesDir) {
-  for (let i = 0; i < routes.length; i++) {
-    ['/works', '/news'].includes(routes[i].route)
-    routes[i].payload = getPayload(routes[i].route, pagesDir)
-  }
-  console.log(routes)
   const newRoutes = getRoutes(pagesDir)
+  routes.push(...newRoutes.map(route => ({ route })))
 
-  newRoutes.forEach((route) => {
-    const payload = getPayload(route, pagesDir)
-
-    // ルートに追加
-    routes.push({
-      route,
-      payload
-    })
-  })
-
-  console.log(routes)
   return routes
 }
+
+export default contentModule
