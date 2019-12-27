@@ -1,6 +1,6 @@
 {
   "name": "@nandenjin/portfolio-nuxt-contents-module",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Fetch contents from git and inject them into Nuxt project",
   "main": "index.ts",
   "repository": {
