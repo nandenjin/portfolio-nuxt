@@ -1,10 +1,7 @@
-/* eslint no-console: 0 */
-
 import * as fs from 'fs'
 import * as path from 'path'
 import { Module } from '@nuxt/types'
 import express from 'express'
-
 import { copyAssets } from './assets'
 
 const tmpDir = path.join(__dirname, '../../tmp')
@@ -13,16 +10,14 @@ const pagesDir = path.join(workDir, './json/pages')
 const assetsDir = path.join(workDir, './markdown/assets')
 
 const contentModule: Module = function () {
-  if (!this.options.generate || !this.options.generate.dir) {
-    return
-  }
-
   // コンテンツのデータからルートを生成
   this.nuxt.hook('generate:extendRoutes', routes => extendRoutesWithPages(routes, pagesDir))
 
   // 生成済み各ページへのアセットコピー
-  const assetDistDir = path.join(this.options.generate.dir, 'assets')
-  this.nuxt.hook('generate:distCopied', () => copyAssets(assetsDir, assetDistDir))
+  if (this.options.generate && this.options.generate.dir) {
+    const assetDistDir = path.join(this.options.generate.dir, 'assets')
+    this.nuxt.hook('generate:distCopied', () => copyAssets(assetsDir, assetDistDir))
+  }
 
   // devモードでclientにcontentリポジトリの内容を配信するサーバ
   const contentServer = express()
