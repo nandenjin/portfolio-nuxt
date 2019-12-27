@@ -15,7 +15,9 @@
     "build": "nuxt-ts build",
     "generate": "nuxt-ts generate",
     "deploy": "firebase deploy",
-    "content:fetch": "git clone -b master --depth 1 https://github.com/nandenjin/portfolio.git tmp/contents",
+    "content": "run-s content:*",
+    "content:fetch": "git clone -b master --depth 1 https://github.com/nandenjin/portfolio.git tmp/contents/markdown",
+    "content:convert": "md-site-conv tmp/contents/markdown -o tmp/contents/json --index",
     "clean": "rimraf tmp"
   },
   "repository": {
@@ -36,6 +38,7 @@
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.9.0",
+    "@nandenjin/md-site-conv": "https://github.com/nandenjin/md-site-conv.git#master",
     "@nuxt/typescript-build": "^0.3.4",
     "@nuxtjs/eslint-config": "^1.1.2",
     "@nuxtjs/eslint-config-typescript": "^0.1.3",
