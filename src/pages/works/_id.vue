@@ -35,17 +35,19 @@
   /* eslint camelcase: 0 */
 
   import { Vue, Component } from 'vue-property-decorator'
+  import { transformHTML } from '@nandenjin/portfolio-nuxt-contents-module'
   import { WorkMeta } from '~/types'
 
   @Component({
     async asyncData ({ route }: any) {
       const id = route.params.id
       const data = await import(`~/../tmp/contents/json/pages/works/${id}.json`)
-      console.log(data.default)
+
+      const content = transformHTML(data.default._content)
 
       return {
         meta: data.default.meta,
-        content: data.default._content
+        content
       }
     },
 

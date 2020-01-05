@@ -4,6 +4,9 @@ import { Module } from '@nuxt/types'
 import express from 'express'
 import { copyAssets } from './assets'
 
+import { transformHTML } from './util'
+export { transformHTML }
+
 const tmpDir = path.join(__dirname, '../../tmp')
 const workDir = path.join(tmpDir, './contents')
 const pagesDir = path.join(workDir, './json/pages')
