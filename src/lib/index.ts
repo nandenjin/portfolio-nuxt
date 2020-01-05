@@ -6,7 +6,7 @@ export async function getPagesByIndex (indexContent: string) {
   const dataReqs: Promise<any>[] = []
 
   while ((matchResult = matchPattern.exec(indexContent)) !== null) {
-    const [ _, route ] = matchResult
+    const route = matchResult[1]
     const dir = path.dirname(route)
     const id = path.basename(route, '.md')
     const dataReq = import(`~/../tmp/contents/json${dir}/${id}.json`)
