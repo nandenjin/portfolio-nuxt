@@ -35,7 +35,8 @@
   /* eslint camelcase: 0 */
 
   import { Vue, Component } from 'vue-property-decorator'
-  import { transformHTML } from '@nandenjin/portfolio-nuxt-contents-module'
+  // @ts-ignore
+  import { transformHTML } from '@nandenjin/portfolio-nuxt-contents-module/util/index.ts'
   import { WorkMeta } from '~/types'
 
   @Component({
