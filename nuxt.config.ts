@@ -112,6 +112,12 @@ const config: NuxtConfiguration = {
       config.node = {
         fs: 'empty'
       }
+
+      // <v-runtime-template>を使用するため、Vueをfull buildで使用する
+      // https://github.com/alexjoverm/v-runtime-template
+      config.resolve = config.resolve || {}
+      config.resolve.alias = config.resolve.alias || {}
+      config.resolve.alias.vue = 'vue/dist/vue.common'
     }
 
   }

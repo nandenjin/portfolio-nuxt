@@ -5,7 +5,9 @@
       {{ meta.title_ja }}
     </h1>
 
-    <section class="content theme-text" v-html="content" />
+    <section class="content theme-text">
+      <content-renderer :content="content" />
+    </section>
     <section class="info">
       <h2>Info</h2>
       <div class="text">
@@ -35,21 +37,22 @@
   /* eslint camelcase: 0 */
 
   import { Vue, Component } from 'vue-property-decorator'
-  // @ts-ignore
-  import { transformHTML } from '@nandenjin/portfolio-nuxt-contents-module/util/index.ts'
   import { WorkMeta } from '~/types'
+  import ContentRenderer from '~/components/ContentRenderer.vue'
 
   @Component({
     async asyncData ({ route }: any) {
       const id = route.params.id
       const data = await import(`~/../tmp/contents/json/pages/works/${id}.json`)
 
-      const content = transformHTML(data.default._content)
-
       return {
         meta: data.default.meta,
-        content
+        content: data.default._content
       }
+    },
+
+    components: {
+      ContentRenderer
     },
 
     head (this: WorkPage) {

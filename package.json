@@ -34,7 +34,8 @@
     "material-design-icons-iconfont": "^4.0.5",
     "nuxt": "^2.10.2",
     "ts-node": "^8.5.4",
-    "typescript": "^3.7.4"
+    "typescript": "^3.7.4",
+    "v-runtime-template": "^1.10.0"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.9.0",
