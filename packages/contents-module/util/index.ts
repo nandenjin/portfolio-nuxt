@@ -12,13 +12,14 @@ const transformers: [RegExp, (string) => string][] = [
         alt = RegExp.$1
       }
 
-      function srcSize (size: string, ext?: string) {
-        return src.replace(/\.([a-zA-Z0-9]+)$/, `_${size}.` + (ext || RegExp.$1))
-      }
+      // function srcSize (size: string, ext?: string) {
+      //   return src.replace(/\.([a-zA-Z0-9]+)$/, `_${size}.` + (ext || RegExp.$1))
+      // }
 
-      return `<figure class="fig">
-        <picture>
-          <source type="image/webp" srcset="${srcSize('320w', 'webp')} 320w, ${srcSize('768w', 'webp')} 768w, ${srcSize('1024w', 'webp')} 1024w, ${srcSize('1600w', 'webp')} 1600w" sizes="(max-width: 800px) 100vw, 60vw"><source type="image/jpg" srcset="${srcSize('320w', 'jpg')} 320w, ${srcSize('768w', 'jpg')} 768w, ${srcSize('1024w', 'jpg')} 1024w,  ${srcSize('1600w', 'jpg')} 1600w" sizes="(max-width: 800px) 100vw, 60vw"><img src="${srcSize('1600w', 'jpg')}" alt="${alt}"></picture></figure>`
+      return `<image-box src="${src}" alt="${alt}" />`
+      // return `<figure class="fig">
+      //   <picture>
+      //     <source type="image/webp" srcset="${srcSize('320w', 'webp')} 320w, ${srcSize('768w', 'webp')} 768w, ${srcSize('1024w', 'webp')} 1024w, ${srcSize('1600w', 'webp')} 1600w" sizes="(max-width: 800px) 100vw, 60vw"><source type="image/jpg" srcset="${srcSize('320w', 'jpg')} 320w, ${srcSize('768w', 'jpg')} 768w, ${srcSize('1024w', 'jpg')} 1024w,  ${srcSize('1600w', 'jpg')} 1600w" sizes="(max-width: 800px) 100vw, 60vw"><img src="${srcSize('1600w', 'jpg')}" alt="${alt}"></picture></figure>`
     }
   ]
 ]
