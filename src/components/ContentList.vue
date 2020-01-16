@@ -4,11 +4,11 @@
     <article v-for="content in src" :key="content.name" class="item">
       <nuxt-link class="link" :to="content.path.replace(/^\/pages/, '')">
         <figure>
-          <div class="thumbnail">
+          <div class="thumbnail" :class="{ 'is-loaded': loadedFlag[content.meta.thumbnail] }">
             <picture>
               <source type="image/webp" :srcset="getSrcSet(content.meta.thumbnail, 'webp')" sizes="(max-width: 400px) 100vw, 30vw">
               <source type="image/jpeg" :srcset="getSrcSet(content.meta.thumbnail, 'jpg')" sizes="(max-width: 400px) 100vw, 30vw">
-              <img :src="content.meta.thumbnail" alt="">
+              <img :src="content.meta.thumbnail" alt="" @load="$set(loadedFlag, content.meta.thumbnail, true)">
             </picture>
           </div>
           <figcaption class="title">
@@ -73,6 +73,7 @@
   export default class ContentList extends Vue {
     @Prop() src!: Content[]
     isDestroyed: boolean = false
+    loadedFlag = {}
 
     getSrcSet (src: string, ext: string): string {
       if (!src) { return '' }
@@ -118,6 +119,12 @@
           width: 100%
           height: 100%
           object-fit: cover
+          opacity: 0
+          transition: opacity .5s ease 0s
+
+        &.is-loaded
+          img
+            opacity: 1
 
       .title
         margin-top: 20px
