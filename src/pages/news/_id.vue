@@ -5,7 +5,7 @@
       {{ meta.title_ja }}
     </h1>
 
-    <div class="theme-text" v-html="content" />
+    <content-renderer class="theme-text" :content="content" />
     <div class="footer">
       <p>{{ meta.release }}</p>
     </div>
@@ -17,6 +17,7 @@
 
   import { Vue, Component } from 'nuxt-property-decorator'
   import { WorkMeta } from '~/types'
+  import ContentRenderer from '~/components/ContentRenderer.vue'
 
   @Component({
     async asyncData ({ route, error }) {
@@ -32,6 +33,10 @@
         meta: data.default.meta,
         content: data.default._content
       }
+    },
+
+    components: {
+      ContentRenderer
     },
 
     head (this: NewsPage) {
