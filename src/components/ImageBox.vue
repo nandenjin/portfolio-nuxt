@@ -38,18 +38,29 @@
 
   .image-box
     background-color: #eee
+    border: 0.1px solid transparent
 
     // <picture>のぶん画像下に謎の空白が開く対処
     line-height: 0
 
+    &::before
+      content: ''
+      display: inline-block
+      padding-top: 9 / 16 * 100%
+
     img
       width: 100%
+      height: 0.1px
       object-fit: cover
       opacity: 0
       transition: opacity 1s ease 0s
 
     &.is-loaded
       img
+        height: auto
         opacity: 1
+
+      &::before
+        display: none
 
 </style>
