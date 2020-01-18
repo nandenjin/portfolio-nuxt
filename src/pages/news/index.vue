@@ -4,7 +4,7 @@
     <ul class="link-list theme-margin-lr">
       <nuxt-link v-for="item in items" :key="item.name" :to="item.path.replace(/^\/pages/, '')" tag="li" class="item">
         <span class="title">{{ item.meta.title_ja }}</span>
-        <span class="date">{{ item.meta.release }}</span>
+        <span class="date">{{ item.meta.release.replace(/T.+$/, '') }}</span>
       </nuxt-link>
     </ul>
   </main>
