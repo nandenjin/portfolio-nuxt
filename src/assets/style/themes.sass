@@ -68,26 +68,19 @@ $max-width: 1000px
       +mq
         margin: 20px auto
 
-    .fig
+    .image-box
       margin: 50px 15px 30px 15px
 
       +mq(md)
-        margin: 100px auto 60px auto
+        margin: 100px auto 40px auto
 
-      img
-        width: 100%
-        border-radius: 10px
-
-        +mq(md)
-          border-radius: 20px
-
-    .fig + .fig
+    .image-box + .image-box
       margin-top: 30px
 
       +mq(md)
-        margin-top: 60px
+        margin-top: 40px
 
-    .fig + *
+    .image-box + *
       margin-top: 50px
 
       +mq(md)

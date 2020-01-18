@@ -17,7 +17,7 @@ const config: NuxtConfiguration = {
     hostname: baseUrl,
     gzip: true,
     xslUrl: '/sitemap.xsl',
-    routes: getRoutes('./tmp/contents/pages')
+    routes: getRoutes()
   },
 
   head: {
@@ -84,7 +84,6 @@ const config: NuxtConfiguration = {
   modules: [
     ['@nuxtjs/google-analytics', { id: 'UA-73443235-3' }],
     '@nandenjin/portfolio-nuxt-contents-module',
-    'nuxt-cache-payload',
     '@nuxtjs/sitemap'
   ],
 
@@ -113,6 +112,12 @@ const config: NuxtConfiguration = {
       config.node = {
         fs: 'empty'
       }
+
+      // <v-runtime-template>を使用するため、Vueをfull buildで使用する
+      // https://github.com/alexjoverm/v-runtime-template
+      config.resolve = config.resolve || {}
+      config.resolve.alias = config.resolve.alias || {}
+      config.resolve.alias.vue = 'vue/dist/vue.common'
     }
 
   }

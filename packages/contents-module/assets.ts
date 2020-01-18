@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 
-const fs = require('fs').promises
-const path = require('path')
-const sharp = require('sharp')
+import { promises as fs } from 'fs'
+import * as path from 'path'
+import sharp from 'sharp'
 const consola = require('consola')
 
 const SIZES = [1600, 1024, 768, 320]

@@ -2,24 +2,26 @@
 <template>
   <main class="main theme--document">
     <h1 class="title theme--title">
-      {{ title_ja }}
+      {{ meta.title_ja }}
     </h1>
 
-    <section class="content theme-text" v-html="content" />
+    <section class="content theme-text">
+      <content-renderer :content="content" />
+    </section>
     <section class="info">
       <h2>Info</h2>
       <div class="text">
         <p class="title">
-          {{ title_ja }} / {{ title_en }}
+          {{ meta.title_ja }} / {{ meta.title_en }}
         </p>
         <p class="aside">
-          {{ materials }}
+          {{ meta.materials }}
         </p>
         <p class="creator">
-          {{ creator }}, {{ year }}
+          {{ meta.creator }}, {{ meta.year }}
         </p>
-        <p v-if="$data.info">
-          {{ info }}
+        <p v-if="$data.meta.info">
+          {{ meta.info }}
         </p>
         <ul class="tags">
           <li v-for="tag in tagArray" :key="tag" class="tag">
@@ -35,25 +37,32 @@
   /* eslint camelcase: 0 */
 
   import { Vue, Component } from 'vue-property-decorator'
+  import { WorkMeta } from '~/types'
+  import ContentRenderer from '~/components/ContentRenderer.vue'
 
   @Component({
-    async asyncData ({ route, payload, getContent, error }: any) {
-      const data = payload || await getContent(route.path)
-      if (!data) { error({ statusCode: 404 }) }
+    async asyncData ({ route }: any) {
+      const id = route.params.id
+      const data = await import(`~/../tmp/contents/json/pages/works/${id}.json`)
 
       return {
-        ...data
+        meta: data.default.meta,
+        content: data.default._content
       }
+    },
+
+    components: {
+      ContentRenderer
     },
 
     head (this: WorkPage) {
       return {
-        title: `${this.title_ja} / ${this.title_en}`,
+        title: `${this.meta.title_ja} / ${this.meta.title_en}`,
 
         meta: [
           { hid: 'description', property: 'description', content: this.content.replace(/<.+?>|\n/g, '').replace(/\n/g, ' ') },
-          { hid: 'og:title', property: 'og:title', content: `${this.title_ja} / ${this.title_en} - Kazumi Inada` },
-          { hid: 'og:image', property: 'og:image', content: process.env.baseUrl + this.thumbnail },
+          { hid: 'og:title', property: 'og:title', content: `${this.meta.title_ja} / ${this.meta.title_en} - Kazumi Inada` },
+          { hid: 'og:image', property: 'og:image', content: process.env.baseUrl + this.meta.thumbnail },
           { hid: 'og:description', property: 'og:description', content: this.content.replace(/<.+?>|\n/g, '').replace(/\n/g, ' ') },
           { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' }
         ]
@@ -61,18 +70,12 @@
     }
   })
   export default class WorkPage extends Vue {
-    title_ja!: string
-    title_en!: string
+    meta!: WorkMeta
     content!: string
-    thumbnail! :string
-    materials?: string
-    year?: string
-    info?: string
-    tags?: string
 
     get tagArray (): string[] {
-      if (!this.tags) { return [] }
-      return this.tags.split(' ')
+      if (!this.meta.tags) { return [] }
+      return this.meta.tags.split(' ')
     }
   }
 
