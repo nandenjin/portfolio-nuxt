@@ -121,7 +121,7 @@
           display: inline-block
           margin: 0 25px 0 0
           color: #000
-          font: normal 13px sans-serif
+          font-size: 13px
           text-transform: uppercase
           letter-spacing: 0.15em
           transition: color 0.15s ease 0s
@@ -144,7 +144,7 @@
           display: flex
           flex: 0 0 auto
           margin-right: 20px
-          font: bold 11px sans-serif
+          font-size: 11px
           -webkit-align-items: center
           align-items: center
 
