@@ -16,6 +16,21 @@
         "source": "/ja/:path*",
         "destination": "/:path*",
         "type": 301
+      },
+      {
+        "source": "/w/:path*",
+        "destination": "/works/:path*",
+        "type": 302
+      },
+      {
+        "source": "/n/:path*",
+        "destination": "/news/:path*",
+        "type": 302
+      },
+      {
+        "source": "/about",
+        "destination": "/profile",
+        "type": 302
       }
     ],
     "trailingSlash": false
