@@ -1,20 +1,28 @@
-const transformers: [RegExp, (tag: string) => string][] = [
+const transformers: [RegExp, (tag: string, ...p: string[]) => string][] = [
   [
-    /<p>[\s\S]*?<img.*?>[\s\S]*?<\/p>/ig,
-    (tag: string) => {
-      if (tag.match(/^<p>([\s\S]*?)(<img.*?>)([\s\S]*?)<\/p>$/i)) {
-        const a = (RegExp.$1 || '').replace(/<\/?p>|\n/, '')
-        const b = RegExp.$2
-        const c = (RegExp.$3 || '').replace(/<\/?p>|\n/, '')
-
-        tag = (a.length > 0 ? `<p>${a}</p>` : '') + b + (c.length > 0 ? `<p>${c}</p>` : '')
+    // YouTubeの埋め込み処理 <image-box>
+    /<a(.*)><img(.*)><\/a>/ig,
+    (_, a, b) => {
+      let href: string = ''
+      let src: string = ''
+      let alt: string = ''
+      if (/href=['"](.+?)['"]/.test(a)) {
+        href = RegExp.$1
+      }
+      if (/src=['"](.+?)['"]/.test(b)) {
+        src = RegExp.$1
       }
 
-      return tag
+      if (/alt=['"](.+?)['"]/.test(b)) {
+        alt = RegExp.$1
+      }
+      return `<image-box src="${src}" alt="${alt}" playerSrc="${href}" />`
     }
   ],
+
+  // <img>を<image-box>に
   [
-    /<img.*?>/g,
+    /<img.*?>/ig,
     (tag: string) => {
       let src: string = ''
       let alt: string = ''
@@ -27,6 +35,19 @@ const transformers: [RegExp, (tag: string) => string][] = [
       }
 
       return `<image-box src="${src}" alt="${alt}" />`
+    }
+  ],
+
+  // <p>のなかに<image-box>が入るのを防ぐ
+  [
+    /<p>([\s\S]*?)(<image-box.*?>)([\s\S]*?)<\/p>/ig,
+    (tag: string, a: string, b: string, c: string) => {
+      a = a.replace(/<\/?p>|\n/, '')
+      c = c.replace(/<\/?p>|\n/, '')
+
+      tag = (a.length > 0 ? `<p>${a}</p>` : '') + b + (c.length > 0 ? `<p>${c}</p>` : '')
+
+      return tag
     }
   ]
 ]
