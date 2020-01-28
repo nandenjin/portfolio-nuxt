@@ -23,7 +23,7 @@ const transformers: [RegExp, (tag: string, ...p: string[]) => string][] = [
   // <img>を<image-box>に
   [
     /<img.*?>/ig,
-    (tag: string) => {
+    (tag) => {
       let src: string = ''
       let alt: string = ''
       if (/src=['"](.+?)['"]/.test(tag)) {
@@ -35,6 +35,19 @@ const transformers: [RegExp, (tag: string, ...p: string[]) => string][] = [
       }
 
       return `<image-box src="${src}" alt="${alt}" />`
+    }
+  ],
+
+  // リンクの修正
+  [
+    /<a href="([^"]+?)">([\s\S]+?)<\/a>/ig, // hrefのみがあるaタグ探さないとループする……
+    (_, href, b) => {
+      if (/^https?:\/\//.test(href)) {
+        return `<a data-normalized href="${href}" rel="noopener noreferrer" target="_blank">${b}</a>`
+      } else {
+        href = href.replace(/^\/pages|\.md$/ig, '')
+        return `<nuxt-link to="${href}">${b}</nuxt-link>`
+      }
     }
   ],
 
