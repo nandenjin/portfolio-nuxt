@@ -44,6 +44,9 @@ jobs:
 workflows:
   version: 2
   build-deploy:
+    filters:
+      branches:
+        only: master
     jobs:
       - lint
       - build
@@ -51,6 +54,3 @@ workflows:
           requires:
             - lint
             - build
-          filters:
-            branches:
-              only: master
