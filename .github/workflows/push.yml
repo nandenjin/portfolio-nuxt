@@ -56,5 +56,8 @@ jobs:
     - name: Install dependencies
       run: yarn install --frozen-lockfile
 
-    - name: Lint
+    - name: Fetch contents
+      run: yarn content
+
+    - name: Build
       run: yarn generate
