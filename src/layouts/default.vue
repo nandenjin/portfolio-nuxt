@@ -13,14 +13,6 @@
   @import '~/assets/style/media.sass'
 
   .layout-container
-    display: flex
-    flex-direction: column
-
-    +mq(md)
-      flex-direction: row
-
-    & > .content
-      flex: 1 1 auto
 
 </style>
 
