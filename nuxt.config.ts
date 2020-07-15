@@ -77,6 +77,7 @@ const config: NuxtConfiguration = {
   css: [
 
     'material-design-icons-iconfont/dist/material-design-icons.css',
+    'normalize.css',
     '~/assets/style/global.sass'
 
   ],
