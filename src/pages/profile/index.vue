@@ -89,6 +89,7 @@
 
   .profile
     font-size: 12.5px
+    margin: 0 30px
 
     .avatar
       display: block
