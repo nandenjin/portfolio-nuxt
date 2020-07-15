@@ -1,13 +1,20 @@
 
 <template>
   <main class="theme--document">
-    <content-list class="theme-margin-lr" :src="works" />
+    <content-list class="content-list" :src="works" />
   </main>
 </template>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
 
-  @import '~/assets/style/themes.sass'
+  @import '~/assets/style/themes.sass';
+  @import '~/assets/style/media.sass';
+
+  .content-list {
+    @include rmq() {
+      margin: 0 30px;
+    }
+  }
 
 </style>
 

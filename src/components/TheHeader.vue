@@ -46,7 +46,7 @@
     .logo {
       display: inline-block;
       width: 200px;
-      margin-right: 40px;
+      margin: 30px 40px 30px 0
     }
 
     .menu {

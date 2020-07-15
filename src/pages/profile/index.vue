@@ -1,7 +1,7 @@
 
 <template>
   <main class="theme--document">
-    <div class="profile theme-margin-lr">
+    <div class="profile">
       <div>
         <img class="avatar" src="~/assets/img/profile.jpg" alt="">
       </div>

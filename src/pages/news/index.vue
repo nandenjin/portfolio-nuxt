@@ -1,7 +1,7 @@
 
 <template>
   <main class="theme--document">
-    <ul class="link-list theme-margin-lr">
+    <ul class="link-list">
       <nuxt-link v-for="item in items" :key="item.name" :to="item.path.replace(/^\/pages/, '')" tag="li" class="item">
         <span class="title">{{ item.meta.title_ja }}</span>
         <span class="date">{{ item.meta.release.replace(/T.+$/, '') }}</span>
