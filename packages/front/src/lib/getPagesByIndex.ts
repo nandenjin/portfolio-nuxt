@@ -1,13 +1,14 @@
 import * as path from 'path'
+import { Page } from '@nandenjin/md-site-conv'
 
 /**
  * index.mdに列挙されたMarkdownページを配列にして返す
  * @param indexContent index.mdのコンテンツ
  */
-export async function getPagesByIndex (indexContent: string) {
-  const matchPattern = /<li.*?>.*?<a .*?href=["'](.+?)["'].*?>(.+?)<\/a>.*?<\/li>/ig
+export async function getPagesByIndex(indexContent: string): Promise<Page[]> {
+  const matchPattern = /<li.*?>.*?<a .*?href=["'](.+?)["'].*?>(.+?)<\/a>.*?<\/li>/gi
   let matchResult
-  const dataReqs: Promise<any>[] = []
+  const dataReqs: Promise<{ default: Page }>[] = []
 
   while ((matchResult = matchPattern.exec(indexContent)) !== null) {
     const route = matchResult[1]
@@ -18,7 +19,7 @@ export async function getPagesByIndex (indexContent: string) {
   }
 
   const data = await Promise.all(dataReqs)
-  const items: any = []
+  const items: Page[] = []
   for (let i = 0; i < data.length; i++) {
     items.push(data[i].default)
   }

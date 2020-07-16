@@ -1,5 +1,3 @@
 import { getPagesByIndex } from './getPagesByIndex'
 
-export {
-  getPagesByIndex
-}
+export { getPagesByIndex }

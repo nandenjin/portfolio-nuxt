@@ -1,17 +1,17 @@
 module.exports = {
   parserOptions: {
-    parser: '@typescript-eslint/parser'
+    parser: '@typescript-eslint/parser',
+  },
+  env: {
+    node: true,
+    browser: true,
+    es6: true,
   },
   extends: [
     'plugin:nuxt/recommended',
     'prettier',
     'prettier/@typescript-eslint',
-    'prettier/vue'
+    'prettier/vue',
   ],
-  rules: {
-    'vue/script-indent': ['warn', 2, {
-      'baseIndent': 1
-    }],
-    'vue/no-v-html': 0
-  }
+  rules: {},
 }
