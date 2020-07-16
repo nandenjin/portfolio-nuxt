@@ -5,9 +5,6 @@ import express from 'express'
 import consola from 'consola'
 import { copyAssets } from './assets'
 
-import { transformHTML } from './util'
-export { transformHTML }
-
 const tmpDir = path.join(__dirname, '../../tmp')
 const workDir = path.join(tmpDir, './contents')
 const pagesDir = path.join(workDir, './json/pages')
@@ -88,7 +85,7 @@ export function extendRoutesWithPages(
   pagesDir: string
 ): void {
   const newRoutes = getRoutes(pagesDir)
-  routes.push(...newRoutes.map(route => ({ path: route })))
+  routes.push(...newRoutes.map(route => ({ route })))
 }
 
 export default contentModule

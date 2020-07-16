@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import VRuntimeTemplate from 'v-runtime-template'
-import { transformHTML } from '@nandenjin/portfolio-nuxt-contents-module/util/index'
+import { transformHTML } from '~/lib/transformHTML'
 import ImageBox from '~/components/ImageBox.vue'
 
 @Component({
