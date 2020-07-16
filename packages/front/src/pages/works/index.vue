@@ -28,7 +28,7 @@
       ContentList
     },
     async asyncData () {
-      const data = await import('~/../tmp/contents/json/pages/works/index.json')
+      const data = await import('~/../../../tmp/contents/json/pages/works/index.json')
       return { works: await getPagesByIndex(data.default._content) }
     },
     head: {

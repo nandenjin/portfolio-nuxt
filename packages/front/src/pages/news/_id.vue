@@ -22,7 +22,7 @@
   @Component({
     async asyncData ({ route, error }) {
       const id = route.params.id
-      const data = await import(`~/../tmp/contents/json/pages/news/${id}.json`)
+      const data = await import(`~/../../../tmp/contents/json/pages/news/${id}.json`)
 
       if (!data) {
         error({ statusCode: 404 })

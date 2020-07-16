@@ -7,13 +7,6 @@
     "packages/*"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nuxt-ts",
-    "dev": "nuxt-ts dev",
-    "lint": "eslint --ext .ts,.js,.vue --ignore-path .gitignore .",
-    "lintfix": "eslint --fix --ext .ts,.js,.vue --ignore-path .gitignore .",
-    "build": "nuxt-ts build",
-    "generate": "nuxt-ts generate",
     "deploy": "firebase deploy",
     "content": "run-s clean content:*",
     "content:fetch": "git clone -b master --depth 1 https://github.com/nandenjin/portfolio.git tmp/contents/markdown",
@@ -27,42 +20,13 @@
   "author": "Kazumi Inada <hello@nandenjin.com>",
   "license": "UNLICENSED",
   "dependencies": {
-    "@nuxt/typescript-runtime": "^0.4.10",
-    "@nuxtjs/sitemap": "^2.4.0",
-    "axios": "^0.19.2",
-    "markdown-it": "^11.0.0",
-    "normalize.css": "^8.0.1",
-    "nuxt": "^2.13.2",
-    "ts-node": "^8.10.2",
-    "typescript": "^3.7.4",
-    "v-runtime-template": "^1.10.0"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.13.1",
     "@nandenjin/md-site-conv": "https://github.com/nandenjin/md-site-conv.git#master",
-    "@nuxt/typescript-build": "^1.0.3",
-    "@nuxtjs/eslint-config": "^1.1.2",
-    "@nuxtjs/eslint-config-typescript": "^2.0.0",
-    "@nuxtjs/google-analytics": "^2.3.0",
-    "@types/sharp": "^0.25.0",
-    "@typescript-eslint/eslint-plugin": "^3.5.0",
-    "eslint": "^5.16.0",
-    "eslint-config-standard": "^12.0.0",
-    "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-jest": "^23.17.1",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-nuxt": "^1.0.0",
-    "eslint-plugin-promise": "^4.1.1",
-    "eslint-plugin-standard": "^4.0.0",
-    "eslint-plugin-vue": "^6.2.2",
     "firebase-tools": "^8.4.3",
-    "node-sass": "^4.14.1",
     "npm-run-all": "^4.1.5",
-    "nuxt-property-decorator": "^2.7.2",
     "rimraf": "^3.0.2",
-    "sass-loader": "^8.0.2",
-    "simple-git": "^2.11.0",
-    "vue-property-decorator": "^8.1.1"
+    "simple-git": "^2.11.0"
   },
   "private": true
 }

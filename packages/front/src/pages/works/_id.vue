@@ -43,7 +43,7 @@
   @Component({
     async asyncData ({ route }: any) {
       const id = route.params.id
-      const data = await import(`~/../tmp/contents/json/pages/works/${id}.json`)
+      const data = await import(`~/../../../tmp/contents/json/pages/works/${id}.json`)
 
       return {
         meta: data.default.meta,

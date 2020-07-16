@@ -1,3 +1,4 @@
+import * as path from 'path'
 import { Configuration as NuxtConfiguration } from '@nuxt/types'
 import { getRoutes } from '@nandenjin/portfolio-nuxt-contents-module'
 
@@ -7,7 +8,7 @@ const description = 'Designer / developer in Japan. Web, graphic design, stage p
 const config: NuxtConfiguration = {
 
   buildModules: ['@nuxt/typescript-build'],
-  srcDir: 'src',
+  srcDir: path.resolve(__dirname, './src'),
 
   env: {
     baseUrl

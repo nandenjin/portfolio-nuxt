@@ -39,7 +39,7 @@
 
   @Component({
     async asyncData () {
-      const data = await import('~/../tmp/contents/json/pages/news/index.json')
+      const data = await import('~/../../../tmp/contents/json/pages/news/index.json')
       return {
         news: await getPagesByIndex(data.default._content)
       }

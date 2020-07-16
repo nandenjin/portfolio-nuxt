@@ -21,7 +21,7 @@
     },
 
     async asyncData () {
-      const indexData = await import('~/../tmp/contents/json/pages/news/index.json')
+      const indexData = await import('~/../../../tmp/contents/json/pages/news/index.json')
 
       return {
         items: await getPagesByIndex(indexData.default._content)
