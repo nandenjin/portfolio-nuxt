@@ -1,30 +1,34 @@
 
 <template>
   <main class="theme--document">
-    <ul class="link-list theme-margin-lr">
+    <!-- <ul class="link-list theme-margin-lr">
       <nuxt-link v-for="item in items" :key="item.name" :to="item.path.replace(/^\/pages/, '')" tag="li" class="item">
         <span class="title">{{ item.meta.title_ja }}</span>
         <span class="date">{{ item.meta.release.replace(/T.+$/, '') }}</span>
       </nuxt-link>
-    </ul>
+    </ul> -->
+    <nuxt-content :document="page" />
   </main>
 </template>
 
 <script lang="ts">
   import { Vue, Component } from 'vue-property-decorator'
   import LinkList from '~/components/LinkList.vue'
-  import { getPagesByIndex } from '~/lib'
+
+  interface Page {
+    body: Object
+  }
 
   @Component({
     components: {
       LinkList
     },
 
-    async asyncData () {
-      const indexData = await import('~/../tmp/contents/json/pages/news/index.json')
+    async asyncData ({ $content }) {
+      const page = await $content('pages/news').fetch<Page>()
 
       return {
-        items: await getPagesByIndex(indexData.default._content)
+        page
       }
     },
 

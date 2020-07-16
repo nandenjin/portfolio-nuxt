@@ -1,5 +1,5 @@
+import * as path from 'path'
 import { Configuration as NuxtConfiguration } from '@nuxt/types'
-import { getRoutes } from '@nandenjin/portfolio-nuxt-contents-module'
 
 const baseUrl: string = 'https://www.nandenjin.com'
 const description = 'Designer / developer in Japan. Web, graphic design, stage performance & lighting, etc. Creating arts inspired by technology.'
@@ -17,7 +17,7 @@ const config: NuxtConfiguration = {
     hostname: baseUrl,
     gzip: true,
     xslUrl: '/sitemap.xsl',
-    routes: getRoutes()
+    routes: [] // ToDo: 実装する
   },
 
   head: {
@@ -84,7 +84,8 @@ const config: NuxtConfiguration = {
   modules: [
     ['@nuxtjs/google-analytics', { id: 'UA-73443235-3' }],
     '@nandenjin/portfolio-nuxt-contents-module',
-    '@nuxtjs/sitemap'
+    '@nuxtjs/sitemap',
+    '@nuxt/content'
   ],
 
   generate: {
@@ -119,6 +120,11 @@ const config: NuxtConfiguration = {
       config.resolve.alias.vue = 'vue/dist/vue.common'
     }
 
+  },
+
+  content: {
+    dir: path.resolve(__dirname, 'content'),
+    fullTextSearchFields: []
   }
 
 }

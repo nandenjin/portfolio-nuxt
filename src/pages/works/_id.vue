@@ -2,26 +2,26 @@
 <template>
   <main class="main theme--document">
     <h1 class="title theme--title">
-      {{ meta.title_ja }}
+      {{ page.title_ja }}
     </h1>
 
     <section class="content theme-text">
-      <content-renderer :content="content" />
+      <nuxt-content :document="page" />
     </section>
     <section class="info">
       <h2>Info</h2>
       <div class="text">
         <p class="title">
-          {{ meta.title_ja }} / {{ meta.title_en }}
+          {{ page.title_ja }} / {{ page.title_en }}
         </p>
         <p class="aside">
-          {{ meta.materials }}
+          {{ page.materials }}
         </p>
         <p class="creator">
-          {{ meta.creator }}, {{ meta.year }}
+          {{ page.creator }}, {{ page.year }}
         </p>
-        <p v-if="$data.meta.info">
-          {{ meta.info }}
+        <p v-if="$data.page.info">
+          {{ page.info }}
         </p>
         <ul class="tags">
           <li v-for="tag in tagArray" :key="tag" class="tag">
@@ -40,14 +40,17 @@
   import { WorkMeta } from '~/types'
   import ContentRenderer from '~/components/ContentRenderer.vue'
 
+  interface Page extends WorkMeta {
+    body: Object
+  }
+
   @Component({
-    async asyncData ({ route }: any) {
+    async asyncData ({ route, $content }) {
       const id = route.params.id
-      const data = await import(`~/../tmp/contents/json/pages/works/${id}.json`)
+      const page = await $content('pages/works', id).fetch<Page>()
 
       return {
-        meta: data.default.meta,
-        content: data.default._content
+        page
       }
     },
 
@@ -57,25 +60,25 @@
 
     head (this: WorkPage) {
       return {
-        title: `${this.meta.title_ja} / ${this.meta.title_en}`,
+        title: `${this.page.title_ja} / ${this.page.title_en}`,
 
         meta: [
-          { hid: 'description', property: 'description', content: this.content.replace(/<.+?>|\n/g, '').replace(/\n/g, ' ') },
-          { hid: 'og:title', property: 'og:title', content: `${this.meta.title_ja} / ${this.meta.title_en} - Kazumi Inada` },
-          { hid: 'og:image', property: 'og:image', content: process.env.baseUrl + this.meta.thumbnail },
-          { hid: 'og:description', property: 'og:description', content: this.content.replace(/<.+?>|\n/g, '').replace(/\n/g, ' ') },
+          // ToDo: description実装
+          { hid: 'description', property: 'description', content: '' },
+          { hid: 'og:title', property: 'og:title', content: `${this.page.title_ja} / ${this.page.title_en} - Kazumi Inada` },
+          { hid: 'og:image', property: 'og:image', content: process.env.baseUrl + this.page.thumbnail },
+          { hid: 'og:description', property: 'og:description', content: '' },
           { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' }
         ]
       }
     }
   })
   export default class WorkPage extends Vue {
-    meta!: WorkMeta
-    content!: string
+    page!: Page
 
     get tagArray (): string[] {
-      if (!this.meta.tags) { return [] }
-      return this.meta.tags.split(' ')
+      if (!this.page.tags) { return [] }
+      return this.page.tags.split(' ')
     }
   }
 
