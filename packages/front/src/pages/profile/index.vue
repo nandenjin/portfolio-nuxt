@@ -95,10 +95,10 @@ export default class ProfilePage extends Vue {
 
   & /deep/ h2
     margin: 50px 0 30px
-    font-size: 1.2em
+    font-size: 1.5em
 
   & /deep/ p
-    margin: 5px 0
+    margin: 15px 0
     line-height: 2em
 
   & /deep/ ul
@@ -106,5 +106,6 @@ export default class ProfilePage extends Vue {
       padding-right: 15px
 
   & /deep/ li
-      margin: 15px 0
+      margin: 10px 0
+      line-height: 1.7em
 </style>
