@@ -6,52 +6,8 @@
       </div>
       <div>
         <h1>Kazumi Inada / 稲田 和巳</h1>
-        <h2>Designer / Engineer</h2>
-        <div class="lang-section" lang="ja">
-          <p>
-            1997年、大阪府生まれ。2017年より筑波大学情報学群
-            情報メディア創成学類に所属。
-          </p>
-          <p>
-            情報科学・芸術に興味を持ち、メディアアート・グラフィックデザイン・舞台作品などの創作活動を行う。技術的・芸術的魅力を共に活かすものづくりに取り組んでいる。
-          </p>
-        </div>
-        <div class="lang-section" lang="en">
-          <p>
-            Born in 1997 at Osaka, Japan. Belonging University of Tsukuba,
-            College of Media Arts, Science and Technology from 2017.
-          </p>
-          <p>
-            Creating things such as media arts, graphic design works and stage
-            performances with collapsing border between technology and arts.
-          </p>
-        </div>
-        <ul class="skills">
-          <li>Web Design &amp; Development</li>
-          <ul>
-            <li>HTML / CSS / JavaScript / SASS / SCSS</li>
-            <li>Webpack / VueJS / NuxtJS</li>
-            <li>WebGL(THREE.js) / WebSocket</li>
-            <li>Node.js / Python / PHP</li>
-          </ul>
-          <li>Graphic Design &amp; Media</li>
-          <ul>
-            <li>Adobe Photoshop, Illustrator</li>
-            <li>Adobe Lighroom, Premiere</li>
-            <li>Adobe XD</li>
-            <li>Hand-drawn Illustrations</li>
-          </ul>
-          <li>Hardware &amp; Material Design</li>
-          <ul>
-            <li>Arduino</li>
-            <li>Digital Fabrications with raser cutters &amp; 3D printers</li>
-          </ul>
-          <li>Stage Technologies</li>
-          <ul>
-            <li>Sound &amp; Lighting Design</li>
-          </ul>
-        </ul>
-        <p><b>Contact: </b> hello at nandenjin dot com</p>
+        <div class="title">Designer / Engineer</div>
+        <content-renderer :content="content" />
       </div>
     </div>
     <script type="application/ld+json" v-html="jsonLD" />
@@ -60,6 +16,7 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
+import ContentRenderer from '~/components/ContentRenderer.vue'
 
 const jsonLD = {
   '@context': 'https://schema.org',
@@ -74,10 +31,18 @@ const jsonLD = {
     'https://www.linkedin.com/in/nandenjin',
     'https://twitter.com/nandenjin',
     'https://instagram.com/nandenjin',
+    'https://github.com/nandenjin',
   ],
 }
 
 @Component({
+  async asyncData() {
+    const content = await import(`~/../../../tmp/contents/json/pages/profile/index.json`)
+
+    return {
+      content: content.default._content
+    }
+  },
   head: {
     title: 'Profile',
     meta: [
@@ -88,6 +53,9 @@ const jsonLD = {
       },
     ],
   },
+  components: {
+    ContentRenderer
+  }
 })
 export default class ProfilePage extends Vue {
   jsonLD: string = JSON.stringify(jsonLD)
@@ -100,7 +68,7 @@ export default class ProfilePage extends Vue {
 @import '~/assets/style/themes.sass'
 
 .profile
-  font-size: 12.5px
+  font-size: 13px
   margin: 0 30px
 
   .avatar
@@ -115,31 +83,28 @@ export default class ProfilePage extends Vue {
       height: 80vw
       margin: 100px auto 30px auto
 
-  h1
+  & /deep/ h1
     margin-top: 80px
     margin-bottom: 20px
-    font-size: 1.4em
+    font-size: 1.6em
 
-  h2
+  .title
     margin: 40px 0
     color: #888
     font-size: 1.05em
 
-  .lang-section
-    margin: 15px 0
+  & /deep/ h2
+    margin: 50px 0 30px
+    font-size: 1.2em
 
-  p
+  & /deep/ p
     margin: 5px 0
     line-height: 2em
 
-  .skills
-    margin: 50px 0
-    font-size: 0.8em
-
-    ul
+  & /deep/ ul
       margin: 10px 0
       padding-right: 15px
 
-    li
-      margin: 5px 0
+  & /deep/ li
+      margin: 15px 0
 </style>
