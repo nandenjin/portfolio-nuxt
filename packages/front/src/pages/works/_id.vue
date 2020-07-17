@@ -8,9 +8,7 @@
       <content-renderer :content="content" />
     </section>
     <section class="info">
-      <h2>Info</h2>
       <div class="text">
-        <p class="title">{{ meta.title_ja }} / {{ meta.title_en }}</p>
         <p class="aside">
           {{ meta.materials }}
         </p>
@@ -116,35 +114,11 @@ export default class WorkPage extends Vue {
       margin-bottom: 85px
 
   .info
-    max-width: 780px
-    margin: 100px 15px auto 15px
-    padding: 30px 25px
+    max-width: 800px
+    margin: 100px auto
     font-size: 13px
     line-height: 1.8em
-    background-color: #fafafa
-    border-radius: 10px
-
-    +mq(md)
-      display: grid
-      grid-template-columns: 70px 1fr
-      grid-gap: 60px
-      margin: 150px auto 100px auto
-      padding: 50px 40px 50px 20px
-      border-radius: 20px
-
-    h2
-      margin: 0
-      padding-top: 15px
-      font-size: 30px
-      writing-mode: vertical-rl
-      text-transform: uppercase
-      font-family: Helvetica
-      letter-spacing: .3em
-
-      +rmq
-        margin: 0 0 30px 0
-        font-size: 20px
-        writing-mode: horizontal-tb
+    color: #888
 
     .text
       p
@@ -156,12 +130,8 @@ export default class WorkPage extends Vue {
 
       .tag
         display: inline-block
-        margin: 0 6px 6px 0
-        padding: 3px 15px
-        border-radius: 5px
+        margin: 0 10px 6px 0
         font-family: Helvetica
         font-size: 12px
-        text-transform: uppercase
-        color: #444
-        background-color: #ddd
+        color: #888
 </style>
