@@ -25,8 +25,9 @@
               />
             </picture>
           </div>
-          <figcaption class="title">
-            <h2>{{ content.meta.title_ja }}</h2>
+          <figcaption class="caption">
+            <h2 class="title">{{ content.meta.title_ja }}</h2>
+            <div class="year">{{ content.meta.year }}</div>
           </figcaption>
         </figure>
       </nuxt-link>
@@ -150,15 +151,19 @@ export default class ContentList extends Vue {
         img
           opacity: 1
 
-    .title
+    .caption
       margin-top: 20px
 
-      h2
+      .title
+        margin: 5px 0 10px
         width: 100%
-        height: 30px
         vertical-align: middle
-        font-size: 13px
+        font-size: 14px
         overflow-x: hidden
         white-space: nowrap
         text-overflow: ellipsis
+
+      .year
+        color: #888
+        font-size: 13px
 </style>
