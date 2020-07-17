@@ -37,10 +37,12 @@ const jsonLD = {
 
 @Component({
   async asyncData() {
-    const content = await import(`~/../../../tmp/contents/json/pages/profile/index.json`)
+    const content = await import(
+      `~/../../../tmp/contents/json/pages/profile/index.json`
+    )
 
     return {
-      content: content.default._content
+      content: content.default._content,
     }
   },
   head: {
@@ -54,8 +56,8 @@ const jsonLD = {
     ],
   },
   components: {
-    ContentRenderer
-  }
+    ContentRenderer,
+  },
 })
 export default class ProfilePage extends Vue {
   jsonLD: string = JSON.stringify(jsonLD)
