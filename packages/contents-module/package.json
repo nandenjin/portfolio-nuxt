@@ -21,7 +21,7 @@
   "devDependencies": {
     "@nuxt/types": "^2.13.3",
     "@typescript-eslint/eslint-plugin": "^3.6.1",
-    "@typescript-eslint/parser": "^3.6.1",
+    "@typescript-eslint/parser": "^4.0.1",
     "cpx": "^1.5.0",
     "eslint": "^7.4.0",
     "eslint-config-prettier": "^6.11.0",
