@@ -22,8 +22,7 @@
     "type": "git",
     "url": "git+https://nandenjin@github.com/nandenjin/portfolio-nuxt.git"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "@nandenjin/md-site-conv": "https://github.com/nandenjin/md-site-conv.git#master",
     "firebase-tools": "^8.4.3",
