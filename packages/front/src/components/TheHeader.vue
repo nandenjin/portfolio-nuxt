@@ -5,20 +5,35 @@
     </nuxt-link>
     <nav class="menu">
       <ul class="in-site">
-        <nuxt-link tag="li" to="/works">
-          Works
-        </nuxt-link>
-        <nuxt-link tag="li" to="/profile">
-          Profile
-        </nuxt-link>
-        <nuxt-link tag="li" to="/news">
-          News
-        </nuxt-link>
+        <nuxt-link tag="li" to="/works"> Works </nuxt-link>
+        <nuxt-link tag="li" to="/profile"> Profile </nuxt-link>
+        <nuxt-link tag="li" to="/news"> News </nuxt-link>
       </ul>
       <ul class="social">
-        <li class="icon icon--twitter"><a href="https://twitter.com/nandenjin" target="_blank" rel="noopener noreferrer">Twitter</a></li>
-        <li class="icon icon--instagram"><a href="https://instagram.com/nandenjin" target="_blank" rel="noopener noreferrer">Instagram</a></li>
-        <li class="icon icon--github"><a href="https://github.com/nandenjin" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+        <li class="icon icon--twitter">
+          <a
+            href="https://twitter.com/nandenjin"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Twitter</a
+          >
+        </li>
+        <li class="icon icon--instagram">
+          <a
+            href="https://instagram.com/nandenjin"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Instagram</a
+          >
+        </li>
+        <li class="icon icon--github">
+          <a
+            href="https://github.com/nandenjin"
+            target="_blank"
+            rel="noopener noreferrer"
+            >GitHub</a
+          >
+        </li>
       </ul>
     </nav>
   </header>
@@ -65,7 +80,8 @@ export default class TheHeader extends Vue {
       margin-top: 30px;
     }
 
-    .in-site, .social {
+    .in-site,
+    .social {
       list-style-type: none;
       margin: 0;
       padding: 0;
@@ -105,7 +121,7 @@ export default class TheHeader extends Vue {
 
         a {
           position: relative;
-          color:rgba(0, 0, 0, 0);
+          color: rgba(0, 0, 0, 0);
           user-select: none;
           text-indent: -1000vw;
         }
@@ -122,15 +138,15 @@ export default class TheHeader extends Vue {
       }
 
       .icon--twitter {
-        background-image: url('~assets/img/social-logo-twitter.svg')
+        background-image: url('~assets/img/social-logo-twitter.svg');
       }
 
       .icon--instagram {
-        background-image: url('~assets/img/social-logo-instagram.svg')
+        background-image: url('~assets/img/social-logo-instagram.svg');
       }
 
       .icon--github {
-        background-image: url('~assets/img/social-logo-github.svg')
+        background-image: url('~assets/img/social-logo-github.svg');
       }
     }
   }

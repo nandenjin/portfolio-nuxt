@@ -12,12 +12,8 @@
           />
         </h1>
         <nav class="nav">
-          <nuxt-link class="item" to="/works">
-            Works
-          </nuxt-link>
-          <nuxt-link class="item" to="/profile">
-            Profile
-          </nuxt-link>
+          <nuxt-link class="item" to="/works"> Works </nuxt-link>
+          <nuxt-link class="item" to="/profile"> Profile </nuxt-link>
         </nav>
         <nuxt-link tag="section" class="news" :to="`/news`">
           <h3>NEWS</h3>
