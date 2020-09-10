@@ -14,7 +14,7 @@ jobs:
         node-version:  12.x
           
     - name: Install dependencies
-      run: yarn install --frozen-lockfile
+      run: yarn install --frozen-lockfile --network-concurrency=1
 
     - name: Lint
       run: yarn lint
@@ -30,7 +30,7 @@ jobs:
         node-version:  12.x
           
     - name: Install dependencies
-      run: yarn install --frozen-lockfile
+      run: yarn install --frozen-lockfile --network-concurrency=1
 
     - name: Fetch contents
       run: yarn content
