@@ -31,7 +31,7 @@ import { getPagesByIndex } from '~/lib'
     )
 
     return {
-      items: await getPagesByIndex(indexData.default._content),
+      items: await getPagesByIndex(indexData.default.html),
     }
   },
 

@@ -28,7 +28,7 @@ import ContentList from '~/components/ContentList.vue'
     const data = await import(
       '~/../../../tmp/contents/json/pages/works/index.json'
     )
-    return { works: await getPagesByIndex(data.default._content) }
+    return { works: await getPagesByIndex(data.default.html) }
   },
   head: {
     title: 'Works',
