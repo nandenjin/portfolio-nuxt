@@ -14,7 +14,7 @@
     "lintfix": "eslint --ext ts . --fix"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.20.0",
     "consola": "^2.7.1",
     "sharp": "^0.25.4"
   },
