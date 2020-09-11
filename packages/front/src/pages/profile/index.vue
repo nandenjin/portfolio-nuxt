@@ -42,7 +42,7 @@ const jsonLD = {
     )
 
     return {
-      content: content.default._content,
+      content: content.default.html,
     }
   },
   head: {

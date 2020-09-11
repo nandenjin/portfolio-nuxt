@@ -46,7 +46,7 @@ import { Page } from '@nandenjin/md-site-conv'
       '~/../../../tmp/contents/json/pages/news/index.json'
     )
     return {
-      news: await getPagesByIndex(data.default._content),
+      news: await getPagesByIndex(data.default.html),
     }
   },
   layout: 'plain',
