@@ -70,9 +70,11 @@ interface Content {
 
       const items = container.getElementsByClassName(
         'item'
+        /* eslint-disable-next-line no-undef */
       ) as HTMLCollectionOf<HTMLElement>
       const thumbs = container.getElementsByClassName(
         'thumbnail'
+        /* eslint-disable-next-line no-undef */
       ) as HTMLCollectionOf<HTMLElement>
 
       for (let i = 0; i < items.length; i++) {
