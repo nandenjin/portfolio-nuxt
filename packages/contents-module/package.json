@@ -16,7 +16,7 @@
   "dependencies": {
     "axios": "^0.20.0",
     "consola": "^2.7.1",
-    "sharp": "^0.26.0"
+    "sharp": "^0.26.1"
   },
   "devDependencies": {
     "@nuxt/types": "^2.13.3",
