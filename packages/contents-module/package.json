@@ -19,7 +19,7 @@
     "sharp": "^0.26.1"
   },
   "devDependencies": {
-    "@nuxt/types": "^2.13.3",
+    "@nuxt/types": "^2.14.6",
     "@typescript-eslint/eslint-plugin": "^4.1.0",
     "@typescript-eslint/parser": "^4.3.0",
     "cpx": "^1.5.0",
