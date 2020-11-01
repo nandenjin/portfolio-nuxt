@@ -23,7 +23,7 @@
     "v-runtime-template": "^1.10.0"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.13.1",
+    "@fortawesome/fontawesome-free": "^5.15.1",
     "@nandenjin/md-site-conv": "https://github.com/nandenjin/md-site-conv.git#master",
     "@nuxt/typescript-build": "^2.0.3",
     "@nuxtjs/google-analytics": "^2.3.0",
