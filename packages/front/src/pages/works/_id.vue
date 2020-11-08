@@ -42,7 +42,7 @@ import ContentRenderer from '~/components/ContentRenderer.vue'
 
     return {
       meta: data.default.meta,
-      content: data.default._content,
+      content: data.default.html,
     }
   },
 
