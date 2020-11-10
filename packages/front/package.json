@@ -19,7 +19,7 @@
     "nuxt": "^2.13.2",
     "nuxt-property-decorator": "^2.7.2",
     "ts-node": "^9.0.0",
-    "typescript": "^4.0.2",
+    "typescript": "^4.0.5",
     "v-runtime-template": "^1.10.0"
   },
   "devDependencies": {
