@@ -85,29 +85,30 @@ export default class ProfilePage extends Vue {
       height: 80vw
       margin: 100px auto 30px auto
 
-  & /deep/ h1
-    margin-top: 80px
-    margin-bottom: 20px
-    font-size: 1.6em
+  & ::v-deep
+    .title
+      margin: 40px 0
+      color: #888
+      font-size: 1.05em
 
-  .title
-    margin: 40px 0
-    color: #888
-    font-size: 1.05em
+    h1
+      margin-top: 80px
+      margin-bottom: 20px
+      font-size: 1.6em
 
-  & /deep/ h2
-    margin: 50px 0 30px
-    font-size: 1.5em
+    h2
+      margin: 50px 0 30px
+      font-size: 1.5em
 
-  & /deep/ p
-    margin: 15px 0
-    line-height: 2em
+    p
+      margin: 15px 0
+      line-height: 2em
 
-  & /deep/ ul
+    ul
       margin: 10px 0
       padding-right: 15px
 
-  & /deep/ li
+    li
       margin: 10px 0
       line-height: 1.7em
 </style>

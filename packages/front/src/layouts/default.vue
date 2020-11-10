@@ -11,7 +11,6 @@
 
 @import '~/assets/style/media.sass'
 
-.layout-container
 </style>
 
 <script>
