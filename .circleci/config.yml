@@ -48,13 +48,13 @@ workflows:
       - lint:
           filters:
             tags:
-              only: /^v[0-9]*/
+              only: /^v[0-9].*/
             branches:
               ignore: /.*/
       - build:
           filters:
             tags:
-              only: /^v[0-9]*/
+              only: /^v[0-9].*/
             branches:
               ignore: /.*/
       - deploy:
@@ -63,6 +63,6 @@ workflows:
             - build
           filters:
             tags:
-              only: /^v[0-9]*/
+              only: /^v[0-9].*/
             branches:
               ignore: /.*/
