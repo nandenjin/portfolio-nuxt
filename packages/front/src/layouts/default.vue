@@ -8,9 +8,7 @@
 </template>
 
 <style lang="sass" scoped>
-
 @import '~/assets/style/media.sass'
-
 </style>
 
 <script>
