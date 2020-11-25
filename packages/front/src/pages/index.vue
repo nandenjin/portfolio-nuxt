@@ -28,8 +28,8 @@
         </nuxt-link>
       </div>
       <nuxt-link tag="section" class="eye-catch-info" to="/works/residents">
-        <h3>「住人たち」/ "Residents"</h3>
-        <p>Kazumi Inada, 2019/05-06</p>
+        <h3>"Instant Sympathy"</h3>
+        <p>I/O (Kazumi Inada + Takuto Okamoto), 2018-2020</p>
       </nuxt-link>
     </div>
   </main>
@@ -79,7 +79,7 @@ export default class IndexPage extends Vue {
   flex: 1 1 100%
   margin: 0
   padding: 0
-  background-image: url("/assets/works/residents/residents_zoom-0_1600w.jpg")
+  background-image: url("/assets/works/sympathy/sympathy_0.png")
   background-color: #000
   background-position: center
   background-size: cover
