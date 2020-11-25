@@ -1,7 +1,7 @@
 
 <template>
   <main class="theme--document">
-    <nuxt-content :document="page" />
+    <content-list :src="pages" />
   </main>
 </template>
 
@@ -13,6 +13,7 @@
 
 <script lang="ts">
   import { Vue, Component } from 'vue-property-decorator'
+  import ContentList from '~/components/ContentList.vue'
 
   interface Page {
     body
@@ -20,15 +21,26 @@
 
   @Component({
     async asyncData ({ $content }) {
-      const page = await $content('pages/works/index').fetch<Page>()
-      return { page }
+      const src = await $content('pages/works/index').fetch<Page>()
+      const items: any[] = []
+      const proc = node => {
+        if (node.type === 'text') return
+        if (node.tag === 'nuxt-link') {
+          items.push(node.props.to)
+        }
+        for (const c of node.children) proc(c)
+      }
+      proc(src.body)
+
+      return { pages: await Promise.all(items.map(path => $content(path.replace(/\.md$/, '')).fetch())) }
     },
     head: {
       title: 'Works',
       meta: [
         { hid: 'og:title', property: 'og:title', content: 'Works - Kazumi Inada' }
       ]
-    }
+    },
+    components: { ContentList }
   })
   export default class WorksIndexPage extends Vue {
   }
