@@ -1,13 +1,7 @@
 
 <template>
   <main class="theme--document">
-    <!-- <ul class="link-list theme-margin-lr">
-      <nuxt-link v-for="item in items" :key="item.name" :to="item.path.replace(/^\/pages/, '')" tag="li" class="item">
-        <span class="title">{{ item.meta.title_ja }}</span>
-        <span class="date">{{ item.meta.release.replace(/T.+$/, '') }}</span>
-      </nuxt-link>
-    </ul> -->
-    <nuxt-content :document="page" />
+    <link-list :items="pages.map(p => ({title: p.title_ja, to: p.path}))"></link-list>
   </main>
 </template>
 
@@ -25,11 +19,25 @@
     },
 
     async asyncData ({ $content }) {
-      const page = await $content('pages/news').fetch<Page>()
-
-      return {
-        page
+      const src = await $content('pages/news/index').fetch<Page>()
+      const items: any[] = []
+      const proc = node => {
+        if (node.type === 'text') return
+        if (node.tag === 'nuxt-link') {
+          items.push(node.props.to)
+        }
+        for (const c of node.children) proc(c)
       }
+      console.log(src)
+      proc(src.body)
+
+      const pages = await Promise.all(
+        items.map(
+          path => $content(path.replace(/\.md$/, '')).fetch()
+        )
+      )
+
+      return { pages }
     },
 
     head () {
@@ -42,6 +50,7 @@
     }
   })
   export default class NewsIndexPage extends Vue {
+    pages!: any[]
   }
 
 </script>
