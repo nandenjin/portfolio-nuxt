@@ -17,7 +17,7 @@
 
   import { Vue, Component } from 'nuxt-property-decorator'
   import { WorkMeta } from '~/types'
-  import ContentRenderer from '~/components/ContentRenderer.vue'
+  import ContentRenderer from '~/components/ContentRenderer'
 
   interface Page extends WorkMeta {
     body: Object

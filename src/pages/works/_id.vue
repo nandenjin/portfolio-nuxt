@@ -6,7 +6,7 @@
     </h1>
 
     <section class="content theme-text">
-      <nuxt-content :document="page" />
+      <content-renderer :content="page"/>
     </section>
     <section class="info">
       <h2>Info</h2>
@@ -38,7 +38,7 @@
 
   import { Vue, Component } from 'vue-property-decorator'
   import { WorkMeta } from '~/types'
-  import ContentRenderer from '~/components/ContentRenderer.vue'
+  import ContentRenderer from '~/components/ContentRenderer'
 
   interface Page extends WorkMeta {
     body: Object
