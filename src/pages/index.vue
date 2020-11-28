@@ -4,16 +4,20 @@
     <div class="content">
       <div class="centering">
         <h1>
-          <img src="~/assets/img/mini-logo.svg" alt="" class="logo" />
+          <img src="~/assets/img/mini-logo.svg" alt="" class="logo">
           <img
             src="~/assets/img/kazumi_inada.svg"
             alt="Kazumi Inada"
             class="kazumi-inada"
-          />
+          >
         </h1>
         <nav class="nav">
-          <nuxt-link class="item" to="/works"> Works </nuxt-link>
-          <nuxt-link class="item" to="/profile"> Profile </nuxt-link>
+          <nuxt-link class="item" to="/works">
+            Works
+          </nuxt-link>
+          <nuxt-link class="item" to="/profile">
+            Profile
+          </nuxt-link>
         </nav>
         <nuxt-link tag="section" class="news" :to="`/news`">
           <h3>NEWS</h3>
@@ -36,28 +40,26 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator'
-import { getPagesByIndex } from '../lib'
-import { Page } from '@nandenjin/md-site-conv'
+  import { Vue, Component } from 'vue-property-decorator'
 
 @Component({
-  async asyncData() {
+  async asyncData () {
     return {
-      news: {},
+      news: {}
     }
   },
   layout: 'plain',
   head: {
     title: 'Kazumi Inada | 稲田和巳',
-    meta: [{ hid: 'og:type', property: 'og:type', content: 'website' }],
-  },
-})
-export default class IndexPage extends Vue {
-  news!: Page[]
-  get latestNews(): Page | null {
-    return this.news && this.news.length > 0 ? this.news[0] : null
+    meta: [{ hid: 'og:type', property: 'og:type', content: 'website' }]
   }
-}
+})
+  export default class IndexPage extends Vue {
+    // To be implemented
+    get latestNews (): null {
+      return null
+    }
+  }
 </script>
 
 <style lang="sass" scoped>
