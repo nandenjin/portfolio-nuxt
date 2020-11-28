@@ -21,9 +21,6 @@
   import { Vue, Component, Prop } from 'vue-property-decorator'
   import ImageBox from '~/components/ImageBox.vue'
 
-  // https://github.com/Microsoft/TypeScript/issues/28502#issuecomment-711070591
-  import 'resize-observer-browser'
-
 @Component<YoutubeEmbed>({
   components: {
     ImageBox
