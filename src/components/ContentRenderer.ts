@@ -1,28 +1,25 @@
 import { Vue, Component, Prop } from 'vue-property-decorator'
 // import * as compiler from 'vue-template-compiler'
 // @ts-ignore
-import ImageBox from '~/components/ImageBox.vue'
+import ImageBox from '~/components/ImageBox'
+import YoutubeEmbed from '~/components/YoutubeEmbed.vue'
 
 @Component<ContentRenderer>({
-  components: {
-    ImageBox
-  },
-
-  render(h) {
+  render (h) {
     const { content } = this
 
-    const proc = node => {
-      if (node.type === 'text') return node.value
+    const proc = (node) => {
+      if (node.type === 'text') { return node.value }
 
       // <img>はImageBoxコンポーネントを使用
-      if (node.tag === 'img') return h(ImageBox, { props: node.props })
+      if (node.tag === 'img') { return h(ImageBox, { props: node.props }) }
 
       if (node.tag === 'a') {
         // YouTubeへのリンクサムネイルであればプレーヤに置き換える
         const isYouTubeLink = node.props.href?.startsWith('https://www.youtube.com/watch')
         const containsImageOnly = node.children?.length === 1 && node.children?.[0].tag === 'img'
         if (isYouTubeLink && containsImageOnly) {
-          return '[YouTube]'
+          return h(YoutubeEmbed, { props: { src: node.props.href, poster: node.children?.[0].props.src } })
         }
       }
 
