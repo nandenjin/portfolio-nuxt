@@ -1,7 +1,7 @@
 
 <template>
   <main class="theme--document">
-    <link-list :items="pages.map(p => ({title: p.title_ja, to: p.path}))"></link-list>
+    <link-list :items="pages.map(p => ({title: p.title_ja, to: p.path.replace(/^\/pages/,'')}))" />
   </main>
 </template>
 
@@ -21,14 +21,13 @@
     async asyncData ({ $content }) {
       const src = await $content('pages/news/index').fetch<Page>()
       const items: any[] = []
-      const proc = node => {
-        if (node.type === 'text') return
+      const proc = (node) => {
+        if (node.type === 'text') { return }
         if (node.tag === 'nuxt-link') {
           items.push(node.props.to)
         }
-        for (const c of node.children) proc(c)
+        for (const c of node.children) { proc(c) }
       }
-      console.log(src)
       proc(src.body)
 
       const pages = await Promise.all(
