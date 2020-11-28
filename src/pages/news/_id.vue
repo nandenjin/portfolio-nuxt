@@ -5,7 +5,7 @@
       {{ page.title_ja }}
     </h1>
 
-    <nuxt-content :document="page" />
+    <content-renderer :content="page" />
     <div class="footer">
       <p>{{ page.release }}</p>
     </div>
