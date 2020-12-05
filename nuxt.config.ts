@@ -1,10 +1,10 @@
 import * as path from 'path'
-import { Configuration as NuxtConfiguration } from '@nuxt/types'
+import { NuxtConfig } from '@nuxt/types'
 
 const baseUrl: string = 'https://www.nandenjin.com'
 const description = 'Designer / developer in Japan. Web, graphic design, stage performance & lighting, etc. Creating arts inspired by technology.'
 
-const config: NuxtConfiguration = {
+const config: NuxtConfig = {
 
   buildModules: ['@nuxt/typescript-build'],
   srcDir: 'src',
