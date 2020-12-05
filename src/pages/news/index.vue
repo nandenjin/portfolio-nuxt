@@ -6,6 +6,7 @@
 </template>
 
 <script lang="ts">
+  import { IContentDocument } from '@nuxt/content/types/content'
   import { Vue, Component } from 'vue-property-decorator'
   import LinkList from '~/components/LinkList.vue'
 
@@ -19,7 +20,7 @@
     },
 
     async asyncData ({ $content }) {
-      const src = await $content('pages/news/index').fetch<Page>()
+      const src = await $content('pages/news/index').fetch<Page>() as (Page & IContentDocument)
       const items: any[] = []
       const proc = (node) => {
         if (node.type === 'text') { return }
