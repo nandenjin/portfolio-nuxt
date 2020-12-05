@@ -1,4 +1,4 @@
-import * as path from 'path'
+import { resolve } from 'path'
 import { NuxtConfig } from '@nuxt/types'
 
 const baseUrl: string = 'https://www.nandenjin.com'
@@ -83,7 +83,7 @@ const config: NuxtConfig = {
 
   modules: [
     ['@nuxtjs/google-analytics', { id: 'UA-73443235-3' }],
-    '@nandenjin/portfolio-nuxt-contents-module',
+    resolve(__dirname, './builder/builder.ts'),
     '@nuxtjs/sitemap',
     '@nuxt/content'
   ],
@@ -117,7 +117,7 @@ const config: NuxtConfig = {
   },
 
   content: {
-    dir: path.resolve(__dirname, 'content'),
+    dir: resolve(__dirname, 'content'),
     fullTextSearchFields: []
   }
 
