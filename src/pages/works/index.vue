@@ -24,12 +24,12 @@
     async asyncData ({ $content }) {
       const src = await $content('pages/works/index').fetch<Page>() as (Page & IContentDocument)
       const items: any[] = []
-      const proc = node => {
-        if (node.type === 'text') return
+      const proc = (node) => {
+        if (node.type === 'text') { return }
         if (node.tag === 'nuxt-link') {
           items.push(node.props.to)
         }
-        for (const c of node.children) proc(c)
+        for (const c of node.children) { proc(c) }
       }
       proc(src.body)
 
