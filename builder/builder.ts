@@ -8,9 +8,9 @@ const builderModule: Module = function ExampleModule () {
   const assetsDir = join(workDir, './assets')
   const assetDistDir = join(this.options.generate.dir || resolve(__dirname, '../dist'), 'assets')
 
-  this.nuxt.hook('build:done', async () => {
-    await copyAssets(assetsDir, assetDistDir)
-    consola.success('Done')
+  this.nuxt.hook('build:before', async () => {
+    await copyAssets(assetsDir, assetDistDir, { cache: true })
+    consola.success('All assets from content repo are now ready')
   })
 }
 
