@@ -20,13 +20,17 @@ export interface copyAssetsOption {
 const cacheFile = resolve(__dirname, '../../node_modules/.cache/builder-module/cache.json')
 
 export async function copyAssets (src: string, dist: string, option: copyAssetsOption = {}) {
-  let cache: copyAssetsCache
+  let cache: copyAssetsCache = { createdAt: Date.now(), hashes: {} }
   const newCache = { createdAt: Date.now(), hashes: {} }
 
-  try {
-    cache = require(cacheFile)
-  } catch (_) {
-    cache = { createdAt: Date.now(), hashes: {} }
+  if (option.cache) {
+    try {
+      cache = require(cacheFile)
+      consola.info(`Cache for assets builder enabled! To clean up, remove: ${cacheFile}`)
+    } catch (e) {
+      consola.error(`Failed to load cache data: ${cacheFile}`)
+      consola.debug(e)
+    }
   }
 
   const tasks: { ent: Dirent, entPath: string, distPath: string }[] = []
