@@ -39,8 +39,7 @@ export async function copyAssets (src: string, dist: string, option: copyAssetsO
   const findEntry = async (path: string, dist: string) => {
     const ents = await fs.readdir(path, { withFileTypes: true })
 
-    for (let i = 0; i < ents.length; i++) {
-      const ent = ents[i]
+    for (const ent of ents) {
       const entPath = join(path, ent.name)
       const distPath = join(dist, ent.name)
 
@@ -89,6 +88,7 @@ export async function copyAssets (src: string, dist: string, option: copyAssetsO
         }
       }
 
+      await fs.mkdir(dirname(distPath), { recursive: true })
       await fs.writeFile(distPath, fileContent)
 
       if (ent.name.match(/^(.+)\.(jpg|png|gif|webp)$/)) {
@@ -118,7 +118,7 @@ export async function copyAssets (src: string, dist: string, option: copyAssetsO
   process.stderr.write('\n')
   for (const { e, entPath } of errors) {
     consola.error(`Failed to convert assets: ${entPath}`)
-    consola.debug(e)
+    consola.log(e)
   }
 
   if (option.cache) {
