@@ -32,6 +32,7 @@
     "@nuxtjs/sitemap": "^2.4.0",
     "axios": "^0.19.2",
     "consola": "^2.15.0",
+    "es6-promise-pool": "^2.5.0",
     "markdown-it": "^11.0.0",
     "material-design-icons-iconfont": "^5.0.1",
     "nuxt": "^2.13.2"

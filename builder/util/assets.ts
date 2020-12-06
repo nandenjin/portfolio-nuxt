@@ -1,6 +1,8 @@
+import { cpus } from 'os'
 import { promises as fs, Dirent } from 'fs'
 import { createHash } from 'crypto'
 import { join, resolve, dirname } from 'path'
+import PromisePool from 'es6-promise-pool'
 import sharp from 'sharp'
 import consola from 'consola'
 
@@ -57,64 +59,78 @@ export async function copyAssets (src: string, dist: string, option: copyAssetsO
   // 書き出し先の作成
   await fs.mkdir(dist, { recursive: true })
 
+  const taskLength = tasks.length
   let cachedCount = 0; let errorCount = 0; let succeedCount = 0
   const errors: { e: Error, entPath: string }[] = []
-  const updateProgress = () => process.stderr.write(`\rBuilding assets: ${succeedCount} completed, ${cachedCount} from cached and ${errorCount} failed in ${tasks.length} entries.`)
-  for (const { ent, entPath, distPath } of tasks) {
-    try {
-      const fileContent = await fs.readFile(entPath)
-      let hashString: string = ''
+  const updateProgress = () => process.stderr.write(`\rBuilding assets: ${succeedCount} completed, ${cachedCount} from cached and ${errorCount} failed in ${taskLength} entries.`)
+  const taskProducer = () => {
+    const task = tasks.shift()
+    if (!task) {
+      return
+    }
 
-      // キャッシュがあれば更新判定する
-      if (option.cache) {
-        const hash = createHash('md5')
-        hash.update(fileContent)
-        hashString = hash.digest('base64')
+    const { ent, entPath, distPath } = task
 
-        if (cache.hashes[entPath]) {
-          try {
-            // 書き出し先が存在するか
-            await fs.stat(distPath)
+    return (async () => {
+      try {
+        const fileContent = await fs.readFile(entPath)
+        let hashString: string = ''
 
-            // ハッシュが一致したらスキップ
-            if (hashString === cache.hashes[entPath]) {
-              cachedCount++
-              newCache.hashes[entPath] = cache.hashes[entPath]
-              updateProgress()
-              continue
+        // キャッシュがあれば更新判定する
+        if (option.cache) {
+          const hash = createHash('md5')
+          hash.update(fileContent)
+          hashString = hash.digest('base64')
+
+          if (cache.hashes[entPath]) {
+            try {
+              // 書き出し先が存在するか
+              await fs.stat(distPath)
+
+              // ハッシュが一致したらスキップ
+              if (hashString === cache.hashes[entPath]) {
+                cachedCount++
+                newCache.hashes[entPath] = cache.hashes[entPath]
+                updateProgress()
+                return
+              }
+            } catch (_) {
             }
-          } catch (_) {
           }
         }
-      }
 
-      await fs.mkdir(dirname(distPath), { recursive: true })
-      await fs.writeFile(distPath, fileContent)
+        await fs.mkdir(dirname(distPath), { recursive: true })
+        await fs.writeFile(distPath, fileContent)
 
-      if (ent.name.match(/^(.+)\.(jpg|png|gif|webp)$/)) {
-        const input = sharp(fileContent)
-        for (const size of SIZES) {
-          const jpgDistPathWithSize = join(dist, `${RegExp.$1}_${size}w.jpg`)
-          const webpDistPathWithSize = join(dist, `${RegExp.$1}_${size}w.webp`)
-          const data = input.clone().resize(size)
-          await data.toFile(jpgDistPathWithSize)
-          await data.toFile(webpDistPathWithSize)
+        if (ent.name.match(/^(.+)\.(jpg|png|gif|webp)$/)) {
+          const input = sharp(fileContent)
+          for (const size of SIZES) {
+            const jpgDistPathWithSize = join(dist, `${RegExp.$1}_${size}w.jpg`)
+            const webpDistPathWithSize = join(dist, `${RegExp.$1}_${size}w.webp`)
+            const data = input.clone().resize(size)
+            await data.toFile(jpgDistPathWithSize)
+            await data.toFile(webpDistPathWithSize)
+          }
         }
-      }
 
-      // キャッシュの格納
-      if (option.cache) {
-        newCache.hashes[entPath] = hashString
-      }
+        // キャッシュの格納
+        if (option.cache) {
+          newCache.hashes[entPath] = hashString
+        }
 
-      succeedCount++
-      updateProgress()
-    } catch (e) {
-      errorCount++
-      errors.push({ e, entPath })
-      updateProgress()
-    }
+        succeedCount++
+        updateProgress()
+      } catch (e) {
+        errorCount++
+        errors.push({ e, entPath })
+        updateProgress()
+      }
+    })()
   }
+
+  const pool = new PromisePool(taskProducer, cpus().length)
+  await pool.start()
+
   process.stderr.write('\n')
   for (const { e, entPath } of errors) {
     consola.error(`Failed to convert assets: ${entPath}`)
