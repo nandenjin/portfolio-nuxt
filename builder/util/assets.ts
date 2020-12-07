@@ -1,122 +1,145 @@
 import { cpus } from 'os'
 import { promises as fs, Dirent } from 'fs'
 import { createHash } from 'crypto'
-import { join, resolve, dirname } from 'path'
+import { join, resolve, dirname, relative } from 'path'
 import PromisePool from 'es6-promise-pool'
 import sharp from 'sharp'
 import consola from 'consola'
 
 const SIZES = [1600, 1024, 768, 320]
 
-export interface copyAssetsCache{
+export interface Asset {
+  path: string
+  content: Buffer
+}
+
+export interface getAssetsCache{
   createdAt: number
   hashes: {
     [key: string]: string
   }
 }
 
-export interface copyAssetsOption {
+export interface getAssetsOption {
   cache?: boolean
 }
 
-const cacheFile = resolve(__dirname, '../../node_modules/.cache/builder-module/cache.json')
+const cacheDir = resolve(__dirname, '../../node_modules/.cache/builder-module')
+const cacheDbPath = join(cacheDir, 'cache.json')
 
-export async function copyAssets (src: string, dist: string, option: copyAssetsOption = {}) {
-  let cache: copyAssetsCache = { createdAt: Date.now(), hashes: {} }
+export async function getAssets (src: string, option: getAssetsOption = {}) {
+  const assets: Asset[] = []
+  let cache: getAssetsCache = { createdAt: Date.now(), hashes: {} }
   const newCache = { createdAt: Date.now(), hashes: {} }
 
   if (option.cache) {
     try {
-      cache = require(cacheFile)
-      consola.info(`Cache for assets builder enabled! To clean up, remove: ${cacheFile}`)
+      cache = require(cacheDbPath)
+      consola.info(`Cache for assets builder enabled! To clean up, remove: ${cacheDbPath}`)
     } catch (e) {
-      consola.error(`Failed to load cache data: ${cacheFile}`)
+      consola.warn(`Failed to load cache data: ${cacheDbPath}`)
       consola.debug(e)
     }
   }
 
-  const tasks: { ent: Dirent, entPath: string, distPath: string }[] = []
+  const tasks: { ent: Dirent, entPath: string }[] = []
 
   /** ディレクトリ内のエントリを再帰的に探索する */
-  const findEntry = async (path: string, dist: string) => {
+  const findEntry = async (path: string) => {
     const ents = await fs.readdir(path, { withFileTypes: true })
 
     for (const ent of ents) {
       const entPath = join(path, ent.name)
-      const distPath = join(dist, ent.name)
 
       if (ent.name.match(/^\./)) { continue }
       if (ent.isDirectory()) {
-        await findEntry(entPath, distPath)
+        await findEntry(entPath)
       } else if (ent.isFile()) {
-        tasks.push({ ent, entPath, distPath })
+        tasks.push({ ent, entPath })
       }
     }
   }
 
-  await findEntry(src, dist)
+  await findEntry(src)
 
   // 書き出し先の作成
-  await fs.mkdir(dist, { recursive: true })
+  await fs.mkdir(cacheDir, { recursive: true })
 
   const taskLength = tasks.length
-  let cachedCount = 0; let errorCount = 0; let succeedCount = 0
+  let errorCount = 0; let succeedCount = 0
   const errors: { e: Error, entPath: string }[] = []
-  const updateProgress = () => process.stderr.write(`\rBuilding assets: ${succeedCount} completed, ${cachedCount} from cached and ${errorCount} failed in ${taskLength} entries.`)
+  const updateProgress = () => process.stderr.write(`\rBuilding assets: ${succeedCount} completed and ${errorCount} failed in ${taskLength} entries.`)
   const taskProducer = () => {
     const task = tasks.shift()
     if (!task) {
       return
     }
 
-    const { ent, entPath, distPath } = task
+    const { ent, entPath } = task
 
-    return (async () => {
+    return (async (ent, entPath) => {
       try {
         const fileContent = await fs.readFile(entPath)
         let hashString: string = ''
+        const assetsTmp: typeof assets = []
 
         // キャッシュがあれば更新判定する
         if (option.cache) {
           const hash = createHash('md5')
           hash.update(fileContent)
           hashString = hash.digest('base64')
-
-          if (cache.hashes[entPath]) {
-            try {
-              // 書き出し先が存在するか
-              await fs.stat(distPath)
-
-              // ハッシュが一致したらスキップ
-              if (hashString === cache.hashes[entPath]) {
-                cachedCount++
-                newCache.hashes[entPath] = cache.hashes[entPath]
-                updateProgress()
-                return
-              }
-            } catch (_) {
-            }
-          }
         }
 
-        await fs.mkdir(dirname(distPath), { recursive: true })
-        await fs.writeFile(distPath, fileContent)
+        const getCache = async (path: string) => {
+          if (!option.cache) { return null }
+          if (cache.hashes[entPath]) {
+            try {
+              // ハッシュが一致するか
+              if (hashString === cache.hashes[entPath]) {
+                newCache.hashes[entPath] = cache.hashes[entPath]
+                return await fs.readFile(join(cacheDir, path))
+              }
+            } catch (_) {
+              return null
+            }
+          }
+          return null
+        }
+
+        assetsTmp.push({
+          path: relative(src, entPath),
+          content: fileContent
+        })
 
         if (ent.name.match(/^(.+)\.(jpg|png|gif|webp)$/)) {
-          const input = sharp(fileContent)
-          for (const size of SIZES) {
-            const jpgDistPathWithSize = join(dist, `${RegExp.$1}_${size}w.jpg`)
-            const webpDistPathWithSize = join(dist, `${RegExp.$1}_${size}w.webp`)
-            const data = input.clone().resize(size)
-            await data.toFile(jpgDistPathWithSize)
-            await data.toFile(webpDistPathWithSize)
-          }
+          const basename = RegExp.$1
+            for (const size of SIZES) {
+              const dir = dirname(relative(src, entPath))
+              const jpgDistPathWithSize = join(dir, `${basename}_${size}w.jpg`)
+              const webpDistPathWithSize = join(dir, `${basename}_${size}w.webp`)
+
+              const data = sharp(fileContent).clone().resize(size)
+              assetsTmp.push({
+                path: jpgDistPathWithSize,
+                content: await getCache(jpgDistPathWithSize) || await data.jpeg().toBuffer()
+              })
+              assetsTmp.push({
+                path: webpDistPathWithSize,
+                content: await getCache(webpDistPathWithSize) || await data.webp().toBuffer()
+              })
+            }
         }
 
         // キャッシュの格納
         if (option.cache) {
           newCache.hashes[entPath] = hashString
+          for (const { path, content } of assetsTmp) {
+            await fs.mkdir(dirname(join(cacheDir, path)), { recursive: true })
+            await fs.writeFile(join(cacheDir, path), content)
+          }
         }
+
+        assets.push(...assetsTmp)
 
         succeedCount++
         updateProgress()
@@ -125,7 +148,7 @@ export async function copyAssets (src: string, dist: string, option: copyAssetsO
         errors.push({ e, entPath })
         updateProgress()
       }
-    })()
+    })(ent, entPath)
   }
 
   const pool = new PromisePool(taskProducer, cpus().length)
@@ -140,11 +163,13 @@ export async function copyAssets (src: string, dist: string, option: copyAssetsO
   if (option.cache) {
     // キャッシュの保存
     try {
-      await fs.mkdir(dirname(cacheFile), { recursive: true })
-      await fs.writeFile(cacheFile, JSON.stringify(newCache, null, 2), { encoding: 'utf-8' })
+      await fs.mkdir(dirname(cacheDbPath), { recursive: true })
+      await fs.writeFile(cacheDbPath, JSON.stringify(newCache, null, 2), { encoding: 'utf-8' })
     } catch (e) {
       consola.debug(e)
       consola.warn('Failed to save asset builder cache.')
     }
   }
+
+  return assets
 }
