@@ -25,8 +25,9 @@
               />
             </picture>
           </div>
-          <figcaption class="title">
-            <h2>{{ content.title_ja }}</h2>
+          <figcaption class="caption">
+            <h2 class="title">{{ content.title_ja }}</h2>
+            <div class="year">{{ content.year }}</div>
           </figcaption>
         </figure>
       </nuxt-link>
