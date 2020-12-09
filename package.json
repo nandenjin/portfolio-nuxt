@@ -34,7 +34,6 @@
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.13.1",
-    "@nandenjin/md-site-conv": "https://github.com/nandenjin/md-site-conv.git#master",
     "@nuxt/typescript-build": "^2.0.3",
     "@nuxtjs/eslint-config": "^1.1.2",
     "@nuxtjs/eslint-config-typescript": "^2.0.0",
