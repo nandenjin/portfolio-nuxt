@@ -24,7 +24,7 @@ const config: NuxtConfig = {
     hostname: baseUrl,
     gzip: true,
     xslUrl: '/sitemap.xsl',
-    routes: async () => {
+    routes: async (): Promise<string[]> => {
       const pages = ((await Promise.all(
         ['news', 'works'].map(fragment =>
           $content('pages/' + fragment)
