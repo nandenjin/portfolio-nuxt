@@ -4,7 +4,7 @@ module.exports = {
     parser: '@typescript-eslint/parser',
     sourceType: 'module'
   },
-  plugins: ['@typescript-eslint', 'prettier'],
+  plugins: ['@typescript-eslint'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
@@ -15,15 +15,6 @@ module.exports = {
     'prettier/vue'
   ],
   rules: {
-    '@typescript-eslint/no-unused-vars': 'error',
-    indent: 'off',
-    'prettier/prettier': [
-      'error',
-      {
-        semi: false,
-        arrowParens: 'avoid',
-        singleQuote: true
-      }
-    ]
+    '@typescript-eslint/no-unused-vars': 'error'
   }
 }
