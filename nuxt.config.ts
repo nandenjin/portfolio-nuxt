@@ -6,6 +6,8 @@ const description =
   'Designer / developer in Japan. Web, graphic design, stage performance & lighting, etc. Creating arts inspired by technology.'
 
 const config: NuxtConfig = {
+  target: 'static',
+
   buildModules: [
     '@nuxt/typescript-build',
     resolve(__dirname, './builder/builder.ts')
