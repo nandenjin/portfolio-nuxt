@@ -25,6 +25,7 @@ export interface getAssetsOption {
 }
 
 const cacheDir = resolve(__dirname, '../../node_modules/.cache/builder-module')
+const cacheDataDir = join(cacheDir, 'data')
 const cacheDbPath = join(cacheDir, 'cache.json')
 
 export async function getAssets (src: string, option: getAssetsOption = {}) {
@@ -97,7 +98,7 @@ export async function getAssets (src: string, option: getAssetsOption = {}) {
               // ハッシュが一致するか
               if (hashString === cache.hashes[entPath]) {
                 newCache.hashes[entPath] = cache.hashes[entPath]
-                return await fs.readFile(join(cacheDir, path))
+                return await fs.readFile(join(cacheDataDir, path))
               }
             } catch (_) {
               return null
@@ -134,8 +135,8 @@ export async function getAssets (src: string, option: getAssetsOption = {}) {
         if (option.cache) {
           newCache.hashes[entPath] = hashString
           for (const { path, content } of assetsTmp) {
-            await fs.mkdir(dirname(join(cacheDir, path)), { recursive: true })
-            await fs.writeFile(join(cacheDir, path), content)
+            await fs.mkdir(dirname(join(cacheDataDir, path)), { recursive: true })
+            await fs.writeFile(join(cacheDataDir, path), content)
           }
         }
 
