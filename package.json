@@ -1,14 +1,11 @@
 {
-  "name": "nandenjin-portfolio",
-  "version": "1.1.3",
+  "name": "@nandenjin/portfolio-nuxt",
+  "version": "1.2.1",
   "description": "https://www.nandenjin.com/",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nuxt-ts",
+    "start": "nuxt-ts start",
     "dev": "nuxt-ts dev",
-    "lint": "eslint --ext .ts,.js,.vue --ignore-path .gitignore .",
-    "lintfix": "eslint --fix --ext .ts,.js,.vue --ignore-path .gitignore .",
     "build": "nuxt-ts build",
     "generate": "nuxt-ts generate",
     "deploy": "firebase deploy",
@@ -30,6 +27,7 @@
     "axios": "^0.19.2",
     "markdown-it": "^11.0.0",
     "material-design-icons-iconfont": "^5.0.1",
+    "normalize.css": "^8.0.1",
     "nuxt": "^2.13.2"
   },
   "devDependencies": {
@@ -52,14 +50,14 @@
     "eslint-plugin-promise": "^4.1.1",
     "eslint-plugin-standard": "^4.1.0",
     "eslint-plugin-vue": "^7.1.0",
-    "firebase-tools": "^8.4.3",
+    "firebase-tools": "^8.16.2",
     "npm-run-all": "^4.1.5",
-    "nuxt-property-decorator": "^2.7.2",
+    "nuxt-property-decorator": "^2.8.8",
     "rimraf": "^3.0.2",
     "sass": "^1.29.0",
     "sass-loader": "^8.0.2",
     "sharp": "^0.26.3",
-    "simple-git": "^2.11.0",
+    "simple-git": "^2.24.0",
     "vue-property-decorator": "^8.1.1"
   },
   "private": true

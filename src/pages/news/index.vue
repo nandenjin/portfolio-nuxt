@@ -1,26 +1,30 @@
-
 <template>
   <main class="theme--document">
-    <link-list :items="pages.map(p => ({title: p.title_ja, to: p.path.replace(/^\/pages/,'')}))" />
+    <ul class="link-list">
+      <nuxt-link
+        v-for="item in items"
+        :key="item.name"
+        :to="item.path.replace(/^\/pages/, '')"
+        tag="li"
+        class="item"
+      >
+        <span class="title">{{ item.meta.title_ja }}</span>
+        <span class="date">{{ item.meta.release.replace(/T.+$/, '') }}</span>
+      </nuxt-link>
+    </ul>
   </main>
 </template>
 
 <script lang="ts">
-  import { IContentDocument } from '@nuxt/content/types/content'
   import { Vue, Component } from 'vue-property-decorator'
-  import LinkList from '~/components/LinkList.vue'
 
   interface Page {
     body: Object
   }
 
   @Component({
-    components: {
-      LinkList
-    },
-
     async asyncData ({ $content }) {
-      const src = await $content('pages/news/index').fetch<Page>() as (Page & IContentDocument)
+      const src = await $content('pages/news/index').fetch<Page>() as Page
       const items: any[] = []
       const proc = (node) => {
         if (node.type === 'text') { return }
@@ -57,37 +61,36 @@
 
 <style lang="sass" scoped>
 
-  @import '~/assets/style/media.sass'
-  @import '~/assets/style/themes.sass'
+@import '~/assets/style/media.sass'
+@import '~/assets/style/themes.sass'
 
-  .link-list
-    padding: 0
-    list-style: none
+.link-list
+  padding: 0
+  list-style: none
 
-    .item
-      display: flex
-      padding: 20px 30px
-      font-size: 13px
-      line-height: 2em
-      border: 1px solid #eee
-      border-style: solid none
-      cursor: pointer
+  .item
+    display: flex
+    padding: 20px 30px
+    font-size: 13px
+    line-height: 2em
+    border: 1px solid #eee
+    border-style: solid none
+    cursor: pointer
 
-      +rmq
-        display: block
-        padding: 20px 15px
+    +rmq
+      display: block
+      padding: 20px 15px
 
-      .title
-        display: block
-        flex: 1 1 auto
+    .title
+      display: block
+      flex: 1 1 auto
 
-      .date
-        display: block
-        flex: 0 0 auto
-        color: #888
-        font-family: Helvetica
+    .date
+      display: block
+      flex: 0 0 auto
+      color: #888
+      font-family: Helvetica
 
-      &+.item
-        border-top: none
-
+    &+.item
+      border-top: none
 </style>

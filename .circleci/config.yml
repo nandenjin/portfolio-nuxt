@@ -47,16 +47,22 @@ workflows:
     jobs:
       - lint:
           filters:
+            tags:
+              only: /^v[0-9].*/
             branches:
-              only: master
+              ignore: /.*/
       - build:
           filters:
+            tags:
+              only: /^v[0-9].*/
             branches:
-              only: master
+              ignore: /.*/
       - deploy:
           requires:
             - lint
             - build
           filters:
+            tags:
+              only: /^v[0-9].*/
             branches:
-              only: master
+              ignore: /.*/

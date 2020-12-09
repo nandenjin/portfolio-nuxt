@@ -1,4 +1,3 @@
-
 <template>
   <main class="theme--document">
     <content-list :src="pages" />
@@ -6,8 +5,7 @@
 </template>
 
 <script lang="ts">
-  import { IContentDocument } from '@nuxt/content/types/content'
-  import { Vue, Component } from 'vue-property-decorator'
+  import { Vue, Component } from 'nuxt-property-decorator'
   import ContentList from '~/components/ContentList.vue'
 
   interface Page {
@@ -16,7 +14,7 @@
 
   @Component({
     async asyncData ({ $content }) {
-      const src = await $content('pages/works/index').fetch<Page>() as (Page & IContentDocument)
+      const src = await $content('pages/works/index').fetch<Page>() as Page
       const items: any[] = []
       const proc = (node) => {
         if (node.type === 'text') { return }

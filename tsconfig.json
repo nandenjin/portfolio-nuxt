@@ -27,7 +27,7 @@
     },
     "types": [
       "@types/resize-observer-browser",
-      "@nuxt/vue-app",
+      "@nuxt/types",
       "@nuxt/content"
     ]
   }

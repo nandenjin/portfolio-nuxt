@@ -1,4 +1,3 @@
-
 <template>
   <main class="main theme--document">
     <h1 class="title theme--title">
@@ -53,29 +52,27 @@
   export default class NewsPage extends Vue {
     page!: Page
   }
-
 </script>
 
 <style lang="sass">
 
-    @import '~/assets/style/themes.sass'
-    @import '~/assets/style/media.sass'
+@import '~/assets/style/themes.sass'
+@import '~/assets/style/media.sass'
 
-    .main
+.main
 
-      .theme--title
-        font-size: 20px
+  .theme--title
+    font-size: 20px
 
-        +rmq
-          text-align: left
+    +rmq
+      text-align: left
 
-      .footer
-        max-width: 800px
-        margin: 40px auto
-        font-size: 14px
-        color: #888
+  .footer
+    max-width: 800px
+    margin: 40px auto
+    font-size: 14px
+    color: #888
 
-        p
-          font-family: Helvetica
-
+    p
+      font-family: Helvetica
 </style>
