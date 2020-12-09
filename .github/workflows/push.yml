@@ -45,7 +45,7 @@ jobs:
         id: build-cache
         with:
           path: node_modules/.cache/builder-module
-          key: ${{ runner.os }}-builder-${{ steps.content-commit-id.outputs.id }}
+          key: builder-${{ steps.content-commit-id.outputs.id }}
 
       - name: Build
         run: yarn generate
