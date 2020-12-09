@@ -1,16 +1,17 @@
 <template>
   <main class="theme--document">
     <ul class="link-list">
-      <nuxt-link
-        v-for="item in pages"
-        :key="item.name"
-        :to="item.path.replace(/^\/pages/, '')"
-        tag="li"
-        class="item"
-      >
-        <span class="title">{{ item.title_ja }}</span>
-        <span class="date">{{ item.release.replace(/T.+$/, '') }}</span>
-      </nuxt-link>
+      <li class="item">
+        <nuxt-link
+          v-for="item in pages"
+          :key="item.name"
+          :to="item.path.replace(/^\/pages/, '')"
+          class="item-content"
+        >
+          <span class="title">{{ item.title_ja }}</span>
+          <span class="date">{{ item.release.replace(/T.+$/, '') }}</span>
+        </nuxt-link>
+      </li>
     </ul>
   </main>
 </template>
@@ -71,28 +72,30 @@ export default class NewsIndexPage extends Vue {
   list-style: none
 
   .item
-    display: flex
-    padding: 20px 30px
     font-size: 13px
     line-height: 2em
     border: 1px solid #eee
     border-style: solid none
     cursor: pointer
 
-    +rmq
-      display: block
-      padding: 20px 15px
+    .item-content
+      display: flex
+      padding: 20px 30px
+      color: inherit
 
-    .title
-      display: block
-      flex: 1 1 auto
+      +rmq
+        display: block
+        padding: 20px 15px
 
-    .date
-      display: block
-      flex: 0 0 auto
-      color: #888
-      font-family: Helvetica
 
-    &+.item
-      border-top: none
+      .title
+        display: block
+        flex: 1 1 auto
+
+      .date
+        display: block
+        flex: 0 0 auto
+        color: #888
+        font-family: Helvetica
+
 </style>
