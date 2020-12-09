@@ -7,40 +7,40 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    
-    - uses: actions/setup-node@v1
-      with:
-        node-version:  12.x
-          
-    - name: Install dependencies
-      run: yarn install --frozen-lockfile --network-concurrency=1
+      - uses: actions/checkout@v2
 
-    - name: Lint
-      run: yarn lint
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile --network-concurrency=1
+
+      - name: Lint
+        run: yarn lint
 
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    
-    - uses: actions/setup-node@v1
-      with:
-        node-version:  12.x
-        
-    - name: Cache build
-      uses: actions/cache@v2
-      id: build-cache
-      with:
-        path: node_modules/.cache/builder-module
-        key: ${{ runner.os }}-builder-${{ hashFiles('node_modules/.cache/builder-module/cache.json') }}
-          
-    - name: Install dependencies
-      run: yarn install --frozen-lockfile --network-concurrency=1
+      - uses: actions/checkout@v2
 
-    - name: Fetch contents
-      run: yarn content
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
 
-    - name: Build
-      run: yarn generate
+      - name: Cache build
+        uses: actions/cache@v2
+        id: build-cache
+        with:
+          path: node_modules/.cache/builder-module
+          key: ${{ runner.os }}-builder-${{ hashFiles('node_modules/.cache/builder-module/cache.json') }}
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile --network-concurrency=1
+
+      - name: Fetch contents
+        run: yarn content
+
+      - name: Build
+        run: yarn generate
