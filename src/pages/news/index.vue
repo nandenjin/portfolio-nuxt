@@ -16,11 +16,12 @@
 </template>
 
 <script lang="ts">
+import { IContentDocument } from '@nuxt/content/types/content'
 import { Vue, Component } from 'vue-property-decorator'
 
 @Component({
   async asyncData({ $content }) {
-    const src = await $content('pages/news/index').fetch()
+    const src = (await $content('pages/news/index').fetch()) as IContentDocument
     const items: string[] = []
     const proc = node => {
       if (node.type === 'text') {
