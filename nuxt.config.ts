@@ -1,5 +1,7 @@
 import { resolve } from 'path'
 import { NuxtConfig } from '@nuxt/types'
+import { $content } from '@nuxt/content'
+import { IContentDocument } from '@nuxt/content/types/content'
 
 const baseUrl = 'https://www.nandenjin.com'
 const description =
@@ -22,7 +24,15 @@ const config: NuxtConfig = {
     hostname: baseUrl,
     gzip: true,
     xslUrl: '/sitemap.xsl',
-    routes: [] // ToDo: 実装する
+    routes: async () => {
+      const pages = ((await Promise.all(
+        ['news', 'works'].map(fragment => 
+        $content('pages/' + fragment)
+          .only(['path'])
+          .fetch())
+      )) as IContentDocument[]).reduce((a, p) => a.concat(p), [] as IContentDocument[])
+      return pages.map(({path}) => path.replace(/^\/pages/, ''))
+    }
   },
 
   head: {
