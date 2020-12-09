@@ -27,6 +27,14 @@ const contentDistRoot = join('/_nuxt', 'content')
         }
       }
 
+      if (node.tag === 'nuxt-link') {
+        // 内部絶対リンクで/pagesは除去する
+        node.props.to = node.props.to?.replace(/^\/pages\//, '/')
+
+        // .mdも除去する
+        node.props.to = node.props.to?.replace(/\.md$/, '')
+      }
+
       const data = { attrs: {} }
       const rootKeys = ['class', 'style']
       for (const key in node.props) {
