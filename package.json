@@ -28,8 +28,6 @@
     "@nuxt/typescript-runtime": "^2.0.0",
     "@nuxtjs/sitemap": "^2.4.0",
     "axios": "^0.19.2",
-    "consola": "^2.15.0",
-    "es6-promise-pool": "^2.5.0",
     "markdown-it": "^11.0.0",
     "material-design-icons-iconfont": "^5.0.1",
     "nuxt": "^2.13.2"
@@ -44,6 +42,8 @@
     "@types/resize-observer-browser": "^0.1.4",
     "@types/sharp": "^0.25.0",
     "@typescript-eslint/eslint-plugin": "^3.5.0",
+    "consola": "^2.15.0",
+    "es6-promise-pool": "^2.5.0",
     "eslint": "^7.14.0",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.22.1",
@@ -59,6 +59,7 @@
     "rimraf": "^3.0.2",
     "sass": "^1.29.0",
     "sass-loader": "^8.0.2",
+    "sharp": "^0.26.3",
     "simple-git": "^2.11.0",
     "vue-property-decorator": "^8.1.1"
   },

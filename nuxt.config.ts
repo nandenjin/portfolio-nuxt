@@ -6,7 +6,10 @@ const description = 'Designer / developer in Japan. Web, graphic design, stage p
 
 const config: NuxtConfig = {
 
-  buildModules: ['@nuxt/typescript-build'],
+  buildModules: [
+    '@nuxt/typescript-build',
+    resolve(__dirname, './builder/builder.ts')
+  ],
   srcDir: 'src',
 
   env: {
@@ -83,7 +86,6 @@ const config: NuxtConfig = {
 
   modules: [
     ['@nuxtjs/google-analytics', { id: 'UA-73443235-3' }],
-    resolve(__dirname, './builder/builder.ts'),
     '@nuxtjs/sitemap',
     '@nuxt/content'
   ],
