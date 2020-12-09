@@ -14,7 +14,17 @@ const contentDistRoot = join('/_nuxt', 'content')
         return node.value
       }
 
-      // <img>はImageBoxコンポーネントを使用
+      if (node.tag === 'p') {
+        // Replace <p> -> <div> if it contains non-inline children to avoid illegal HTML tree
+        const c = (n: typeof node): boolean =>
+          (n.tag && !['a', 'nuxt-link', 'strong'].includes(n.tag)) || // <img> will be converted to <image-box> which is block element
+          (n.children || []).some(nn => c(nn))
+        if (node.children.some(n => c(n))) {
+          node.tag = 'div'
+        }
+      }
+
+      // <img> -> <image-box>
       if (node.tag === 'img') {
         return h(ImageBox, {
           props: {
@@ -27,7 +37,7 @@ const contentDistRoot = join('/_nuxt', 'content')
       }
 
       if (node.tag === 'a') {
-        // YouTubeへのリンクサムネイルであればプレーヤに置き換える
+        // Replace to <youtube-embed> if it is a link to YouTube
         const isYouTubeLink = node.props.href?.startsWith(
           'https://www.youtube.com/watch'
         )
@@ -45,10 +55,8 @@ const contentDistRoot = join('/_nuxt', 'content')
       }
 
       if (node.tag === 'nuxt-link') {
-        // 内部絶対リンクで/pagesは除去する
+        // Internal links
         node.props.to = node.props.to?.replace(/^\/pages\//, '/')
-
-        // .mdも除去する
         node.props.to = node.props.to?.replace(/\.md$/, '')
       }
 
@@ -69,7 +77,9 @@ const contentDistRoot = join('/_nuxt', 'content')
 
     return h(
       'div',
-      {},
+      {
+        class: 'content-renderer'
+      },
       content.body.children.map(n => proc(n))
     )
   }
