@@ -13,7 +13,7 @@
       />
     </div>
     <div v-else>
-      <image-box :src="src" />
+      <image-box :src="poster" />
       <button class="play-button" @click="playing = true">
         Play
       </button>

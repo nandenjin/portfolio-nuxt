@@ -48,7 +48,11 @@ const contentDistRoot = join('/_nuxt', 'content')
           return h(YoutubeEmbed, {
             props: {
               src: node.props.href,
-              poster: poster ? join(contentDistRoot, poster) : undefined
+              poster: poster
+                ? poster.match(/^(https?:)\/\//)
+                  ? poster
+                  : join(contentDistRoot, poster)
+                : undefined
             }
           })
         }
