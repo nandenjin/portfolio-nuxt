@@ -43,11 +43,6 @@
   import { Vue, Component } from 'vue-property-decorator'
 
 @Component({
-  async asyncData () {
-    return {
-      news: {}
-    }
-  },
   layout: 'plain',
   head: {
     title: 'Kazumi Inada | 稲田和巳',
@@ -55,6 +50,8 @@
   }
 })
   export default class IndexPage extends Vue {
+    news
+
     // To be implemented
     get latestNews (): null {
       return null

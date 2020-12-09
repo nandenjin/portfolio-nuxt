@@ -10,12 +10,6 @@
   </main>
 </template>
 
-<style lang="sass" scoped>
-
-  @import '~/assets/style/media.sass'
-
-</style>
-
 <script lang="ts">
   import { Component, Vue, Prop } from 'vue-property-decorator'
 
@@ -25,3 +19,9 @@
   }
 
 </script>
+
+<style lang="sass" scoped>
+
+  @import '~/assets/style/media.sass'
+
+</style>

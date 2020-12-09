@@ -5,12 +5,6 @@
   </main>
 </template>
 
-<style lang="sass" scoped>
-
-  @import '~/assets/style/themes.sass'
-
-</style>
-
 <script lang="ts">
   import { IContentDocument } from '@nuxt/content/types/content'
   import { Vue, Component } from 'vue-property-decorator'
@@ -46,3 +40,9 @@
   export default class WorksIndexPage extends Vue {
   }
 </script>
+
+<style lang="sass" scoped>
+
+  @import '~/assets/style/themes.sass'
+
+</style>

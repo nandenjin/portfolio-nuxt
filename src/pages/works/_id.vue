@@ -6,7 +6,7 @@
     </h1>
 
     <section class="content theme-text">
-      <content-renderer :content="page"/>
+      <content-renderer :content="page" />
     </section>
     <section class="info">
       <h2>Info</h2>

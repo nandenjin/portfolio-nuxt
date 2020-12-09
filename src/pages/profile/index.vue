@@ -55,12 +55,12 @@
   const jsonLD = {
     '@context': 'https://schema.org',
     '@type': 'Person',
-    'email': 'hello@nandenjin.com',
-    'name': 'Kazumi Inada',
-    'birthPlace': 'Osaka, Japan',
-    'gender': 'male',
-    'url': 'https://www.nandenjin.com',
-    'sameAs': [
+    email: 'hello@nandenjin.com',
+    name: 'Kazumi Inada',
+    birthPlace: 'Osaka, Japan',
+    gender: 'male',
+    url: 'https://www.nandenjin.com',
+    sameAs: [
       'https://www.facebook.com/nandenjin',
       'https://www.linkedin.com/in/nandenjin',
       'https://twitter.com/nandenjin',
