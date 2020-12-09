@@ -2,14 +2,14 @@
   <main class="theme--document">
     <ul class="link-list">
       <nuxt-link
-        v-for="item in items"
+        v-for="item in pages"
         :key="item.name"
         :to="item.path.replace(/^\/pages/, '')"
         tag="li"
         class="item"
       >
-        <span class="title">{{ item.meta.title_ja }}</span>
-        <span class="date">{{ item.meta.release.replace(/T.+$/, '') }}</span>
+        <span class="title">{{ item.title_ja }}</span>
+        <span class="date">{{ item.release.replace(/T.+$/, '') }}</span>
       </nuxt-link>
     </ul>
   </main>

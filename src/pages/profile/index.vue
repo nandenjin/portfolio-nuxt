@@ -39,7 +39,7 @@ const jsonLD = {
 
 @Component({
   async asyncData({ $content }) {
-    const page = await $content('pages/profile').fetch()
+    const page = await $content('pages/profile/index').fetch()
     return {
       page
     }

@@ -12,9 +12,9 @@
         <p class="aside">
           {{ page.materials }}
         </p>
-        <p class="creator">{{ meta.creator }}, {{ meta.year }}</p>
-        <p v-if="$data.meta.info">
-          {{ meta.info }}
+        <p class="creator">{{ page.creator }}, {{ page.year }}</p>
+        <p v-if="$data.page.info">
+          {{ page.info }}
         </p>
         <ul class="tags">
           <li v-for="tag in tagArray" :key="tag" class="tag">
