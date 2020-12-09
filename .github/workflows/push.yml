@@ -35,8 +35,6 @@ jobs:
       with:
         path: node_modules/.cache/builder-module
         key: ${{ runner.os }}-builder-${{ hashFiles('node_modules/.cache/builder-module/cache.json') }}
-          ${{ runner.os }}-builder-
-        restore-keys: |
           
     - name: Install dependencies
       run: yarn install --frozen-lockfile --network-concurrency=1
