@@ -16,7 +16,7 @@ const builderModule: Module = function ExampleModule () {
       apply (compiler) {
         compiler.hooks.emit.tap('assetsBuilder', (compilation) => {
           for (const { path, content } of assets) {
-            compilation.assets[join('assets', path)] = {
+            compilation.assets[join('content', 'assets', path)] = {
               source: () => content,
               size: () => content.length
             }

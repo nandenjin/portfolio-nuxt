@@ -8,7 +8,7 @@
             <picture>
               <source type="image/webp" :srcset="getSrcSet(content.thumbnail, 'webp')" sizes="(max-width: 400px) 100vw, 30vw">
               <source type="image/jpeg" :srcset="getSrcSet(content.thumbnail, 'jpg')" sizes="(max-width: 400px) 100vw, 30vw">
-              <img :src="content.thumbnail" alt="" @load="$set(loadedFlag, content.thumbnail, true)">
+              <img :src="getSrc(content.thumbnail)" alt="" @load="$set(loadedFlag, content.thumbnail, true)">
             </picture>
           </div>
           <figcaption class="title">
@@ -23,12 +23,15 @@
 <script lang="ts">
   /* eslint camelcase: 0 */
 
+  import { join } from 'path'
   import { Vue, Component, Prop } from 'vue-property-decorator'
   import { WorkMeta } from '~/types'
 
   interface Content {
     meta: WorkMeta
   }
+
+  const contentDistRoot = join('/_nuxt', 'content')
 
   @Component({
     mounted () {
@@ -53,14 +56,14 @@
         const thumbs = container.getElementsByClassName('thumbnail') as HTMLCollectionOf<HTMLElement>
 
         for (let i = 0; i < items.length; i++) {
-          items[ i ].style.width = width + 'px'
-          items[ i ].style.marginRight = (i % lengthPerRow !== lengthPerRow - 1 ? marginR : 0) + 'px'
-          items[ i ].style.marginLeft = '0px'
+          items[i].style.width = width + 'px'
+          items[i].style.marginRight = (i % lengthPerRow !== lengthPerRow - 1 ? marginR : 0) + 'px'
+          items[i].style.marginLeft = '0px'
         }
 
         for (let i = 0; i < thumbs.length; i++) {
-          thumbs[ i ].style.width = width + 'px'
-          thumbs[ i ].style.height = width / 1.6 + 'px'
+          thumbs[i].style.width = width + 'px'
+          thumbs[i].style.height = width / 1.6 + 'px'
         }
       }
 
@@ -75,10 +78,16 @@
     isDestroyed: boolean = false
     loadedFlag = {}
 
+    getSrc (src: string): string {
+      if (!src) { return '' }
+      return join(contentDistRoot, src)
+    }
+
     getSrcSet (src: string, ext: string): string {
       if (!src) { return '' }
       src.match(/^(.+)\.(jpg|png|webp|gif)$/)
-      return `${RegExp.$1}_320w.${ext} 320w, ${RegExp.$1}_768w.${ext} 768w, ${RegExp.$1}_1024w.${ext} 1024w, ${RegExp.$1}_1600w.${ext} 1600w`
+      const base = join(contentDistRoot, RegExp.$1)
+      return `${base}_320w.${ext} 320w, ${base}_768w.${ext} 768w, ${base}_1024w.${ext} 1024w, ${base}_1600w.${ext} 1600w`
     }
   }
 

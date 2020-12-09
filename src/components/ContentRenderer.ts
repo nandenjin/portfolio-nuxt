@@ -1,8 +1,11 @@
+import { join } from 'path'
 import { Vue, Component, Prop } from 'vue-property-decorator'
 // import * as compiler from 'vue-template-compiler'
 // @ts-ignore
 import ImageBox from '~/components/ImageBox'
 import YoutubeEmbed from '~/components/YoutubeEmbed.vue'
+
+const contentDistRoot = join('/_nuxt', 'content')
 
 @Component<ContentRenderer>({
   render (h) {
@@ -12,14 +15,15 @@ import YoutubeEmbed from '~/components/YoutubeEmbed.vue'
       if (node.type === 'text') { return node.value }
 
       // <img>はImageBoxコンポーネントを使用
-      if (node.tag === 'img') { return h(ImageBox, { props: node.props }) }
+      if (node.tag === 'img') { return h(ImageBox, { props: { ...node.props, src: node.props.src ? join(contentDistRoot, node.props.src) : undefined } }) }
 
       if (node.tag === 'a') {
         // YouTubeへのリンクサムネイルであればプレーヤに置き換える
         const isYouTubeLink = node.props.href?.startsWith('https://www.youtube.com/watch')
         const containsImageOnly = node.children?.length === 1 && node.children?.[0].tag === 'img'
         if (isYouTubeLink && containsImageOnly) {
-          return h(YoutubeEmbed, { props: { src: node.props.href, poster: node.children?.[0].props.src } })
+          const poster = node.children?.[0].props.src
+          return h(YoutubeEmbed, { props: { src: node.props.href, poster: poster ? join(contentDistRoot, poster) : undefined } })
         }
       }
 
