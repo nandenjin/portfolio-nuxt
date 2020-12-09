@@ -16,8 +16,8 @@ jobs:
     - name: Cache build
       uses: actions/cache@v2
       id: build-cache
-        path: 'node_modules/.cache/builder-module'
       with:
+        path: node_modules/.cache/builder-module
         key: ${{ runner.os }}-builder-${{ hashFiles('node_modules/.cache/builder-module/cache.json') }}
           ${{ runner.os }}-builder-
         restore-keys: |
