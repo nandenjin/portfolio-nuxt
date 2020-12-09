@@ -15,7 +15,7 @@ module.exports = {
     '@nuxtjs/eslint-config-typescript',
     'prettier',
     'prettier/@typescript-eslint',
-  ],{
+  ],
   rules: {
     '@typescript-eslint/no-unused-vars': 'error',
     indent: 'off',
@@ -23,9 +23,9 @@ module.exports = {
       baseIndent: 1
     }],
     'vue/no-v-html': 0,
-    'prettier/prettier': ['error', 
+    'prettier/prettier': ['error', {
       semi: false,
-      arrowParens: 'avoid'
+      arrowParens: 'avoid',
       singleQuote: true,
     }]
   }
