@@ -4,4 +4,4 @@ node_modules
 .firebase
 .nuxt
 dist
-tmp
+content
