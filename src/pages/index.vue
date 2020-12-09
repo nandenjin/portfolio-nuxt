@@ -75,7 +75,7 @@ export default class IndexPage extends Vue {
   flex: 1 1 100%
   margin: 0
   padding: 0
-  background-image: url("/assets/works/sympathy/sympathy_0.png")
+  background-image: url("/_nuxt/content/assets/works/sympathy/sympathy_0.png")
   background-color: #000
   background-position: center
   background-size: cover
