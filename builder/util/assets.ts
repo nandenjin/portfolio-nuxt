@@ -13,7 +13,7 @@ export interface Asset {
   content: Buffer
 }
 
-export interface getAssetsCache{
+export interface getAssetsCache {
   createdAt: number
   hashes: {
     [key: string]: string
@@ -28,7 +28,10 @@ const cacheDir = resolve(__dirname, '../../node_modules/.cache/builder-module')
 const cacheDataDir = join(cacheDir, 'data')
 const cacheDbPath = join(cacheDir, 'cache.json')
 
-export async function getAssets (src: string, option: getAssetsOption = {}) {
+export async function getAssets(
+  src: string,
+  option: getAssetsOption = {}
+): Promise<Asset[]> {
   const assets: Asset[] = []
   let cache: getAssetsCache = { createdAt: Date.now(), hashes: {} }
   const newCache = { createdAt: Date.now(), hashes: {} }
@@ -36,14 +39,16 @@ export async function getAssets (src: string, option: getAssetsOption = {}) {
   if (option.cache) {
     try {
       cache = require(cacheDbPath)
-      consola.info(`Cache for assets builder enabled! To clean up, remove: ${cacheDbPath}`)
+      consola.info(
+        `Cache for assets builder enabled! To clean up, remove: ${cacheDbPath}`
+      )
     } catch (e) {
       consola.warn(`Failed to load cache data: ${cacheDbPath}`)
       consola.debug(e)
     }
   }
 
-  const tasks: { ent: Dirent, entPath: string }[] = []
+  const tasks: { ent: Dirent; entPath: string }[] = []
 
   /** ディレクトリ内のエントリを再帰的に探索する */
   const findEntry = async (path: string) => {
@@ -52,7 +57,9 @@ export async function getAssets (src: string, option: getAssetsOption = {}) {
     for (const ent of ents) {
       const entPath = join(path, ent.name)
 
-      if (ent.name.match(/^\./)) { continue }
+      if (ent.name.match(/^\./)) {
+        continue
+      }
       if (ent.isDirectory()) {
         await findEntry(entPath)
       } else if (ent.isFile()) {
@@ -67,9 +74,13 @@ export async function getAssets (src: string, option: getAssetsOption = {}) {
   await fs.mkdir(cacheDir, { recursive: true })
 
   const taskLength = tasks.length
-  let errorCount = 0; let succeedCount = 0
-  const errors: { e: Error, entPath: string }[] = []
-  const updateProgress = () => process.stderr.write(`\rBuilding assets: ${succeedCount} completed and ${errorCount} failed in ${taskLength} entries.`)
+  let errorCount = 0
+  let succeedCount = 0
+  const errors: { e: Error; entPath: string }[] = []
+  const updateProgress = () =>
+    process.stderr.write(
+      `\rBuilding assets: ${succeedCount} completed and ${errorCount} failed in ${taskLength} entries.`
+    )
   const taskProducer = () => {
     const task = tasks.shift()
     if (!task) {
@@ -81,7 +92,7 @@ export async function getAssets (src: string, option: getAssetsOption = {}) {
     return (async (ent, entPath) => {
       try {
         const fileContent = await fs.readFile(entPath)
-        let hashString: string = ''
+        let hashString = ''
         const assetsTmp: typeof assets = []
 
         // キャッシュがあれば更新判定する
@@ -92,7 +103,9 @@ export async function getAssets (src: string, option: getAssetsOption = {}) {
         }
 
         const getCache = async (path: string) => {
-          if (!option.cache) { return null }
+          if (!option.cache) {
+            return null
+          }
           if (cache.hashes[entPath]) {
             try {
               // ハッシュが一致するか
@@ -114,28 +127,36 @@ export async function getAssets (src: string, option: getAssetsOption = {}) {
 
         if (ent.name.match(/^(.+)\.(jpg|png|gif|webp)$/)) {
           const basename = RegExp.$1
-            for (const size of SIZES) {
-              const dir = dirname(relative(src, entPath))
-              const jpgDistPathWithSize = join(dir, `${basename}_${size}w.jpg`)
-              const webpDistPathWithSize = join(dir, `${basename}_${size}w.webp`)
+          for (const size of SIZES) {
+            const dir = dirname(relative(src, entPath))
+            const jpgDistPathWithSize = join(dir, `${basename}_${size}w.jpg`)
+            const webpDistPathWithSize = join(dir, `${basename}_${size}w.webp`)
 
-              const data = sharp(fileContent).clone().resize(size)
-              assetsTmp.push({
-                path: jpgDistPathWithSize,
-                content: await getCache(jpgDistPathWithSize) || await data.jpeg().toBuffer()
-              })
-              assetsTmp.push({
-                path: webpDistPathWithSize,
-                content: await getCache(webpDistPathWithSize) || await data.webp().toBuffer()
-              })
-            }
+            const data = sharp(fileContent)
+              .clone()
+              .resize(size)
+            assetsTmp.push({
+              path: jpgDistPathWithSize,
+              content:
+                (await getCache(jpgDistPathWithSize)) ||
+                (await data.jpeg().toBuffer())
+            })
+            assetsTmp.push({
+              path: webpDistPathWithSize,
+              content:
+                (await getCache(webpDistPathWithSize)) ||
+                (await data.webp().toBuffer())
+            })
+          }
         }
 
         // キャッシュの格納
         if (option.cache) {
           newCache.hashes[entPath] = hashString
           for (const { path, content } of assetsTmp) {
-            await fs.mkdir(dirname(join(cacheDataDir, path)), { recursive: true })
+            await fs.mkdir(dirname(join(cacheDataDir, path)), {
+              recursive: true
+            })
             await fs.writeFile(join(cacheDataDir, path), content)
           }
         }
@@ -165,7 +186,9 @@ export async function getAssets (src: string, option: getAssetsOption = {}) {
     // キャッシュの保存
     try {
       await fs.mkdir(dirname(cacheDbPath), { recursive: true })
-      await fs.writeFile(cacheDbPath, JSON.stringify(newCache, null, 2), { encoding: 'utf-8' })
+      await fs.writeFile(cacheDbPath, JSON.stringify(newCache, null, 2), {
+        encoding: 'utf-8'
+      })
     } catch (e) {
       consola.debug(e)
       consola.warn('Failed to save asset builder cache.')

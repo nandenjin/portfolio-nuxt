@@ -29,26 +29,21 @@
 <script lang="ts">
 /* eslint camelcase: 0 */
 
-import { Vue, Component } from "vue-property-decorator";
-import { WorkMeta } from "~/types";
-import ContentRenderer from "~/components/ContentRenderer";
-
-interface Page extends WorkMeta {
-  body: Object;
-}
+import { Vue, Component } from 'vue-property-decorator'
+import ContentRenderer from '~/components/ContentRenderer'
 
 @Component({
   async asyncData({ route, $content }) {
-    const id = route.params.id;
-    const page = await $content("pages/works", id).fetch<Page>();
+    const id = route.params.id
+    const page = await $content('pages/works', id).fetch()
 
     return {
-      page,
-    };
+      page
+    }
   },
 
   components: {
-    ContentRenderer,
+    ContentRenderer
   },
 
   head(this: WorkPage) {
@@ -57,35 +52,35 @@ interface Page extends WorkMeta {
 
       meta: [
         // ToDo: description実装
-        { hid: "description", property: "description", content: "" },
+        { hid: 'description', property: 'description', content: '' },
         {
-          hid: "og:title",
-          property: "og:title",
-          content: `${this.page.title_ja} / ${this.page.title_en} - Kazumi Inada`,
+          hid: 'og:title',
+          property: 'og:title',
+          content: `${this.page.title_ja} / ${this.page.title_en} - Kazumi Inada`
         },
         {
-          hid: "og:image",
-          property: "og:image",
-          content: process.env.baseUrl + this.page.thumbnail,
+          hid: 'og:image',
+          property: 'og:image',
+          content: process.env.baseUrl + this.page.thumbnail
         },
-        { hid: "og:description", property: "og:description", content: "" },
+        { hid: 'og:description', property: 'og:description', content: '' },
         {
-          hid: "twitter:card",
-          name: "twitter:card",
-          content: "summary_large_image",
-        },
-      ],
-    };
-  },
+          hid: 'twitter:card',
+          name: 'twitter:card',
+          content: 'summary_large_image'
+        }
+      ]
+    }
+  }
 })
 export default class WorkPage extends Vue {
-  page!: Page;
+  page
 
   get tagArray(): string[] {
     if (!this.page.tags) {
-      return [];
+      return []
     }
-    return this.page.tags.split(" ");
+    return this.page.tags.split(' ')
   }
 }
 </script>

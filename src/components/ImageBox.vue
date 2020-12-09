@@ -4,7 +4,7 @@
     :class="{
       'is-loaded': loaded,
       'is-player': playerMode,
-      'is-playing': playing,
+      'is-playing': playing
     }"
     @click="playing = playerMode"
   >

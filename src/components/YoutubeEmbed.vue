@@ -1,6 +1,10 @@
 <template>
   <div class="youtube-embed">
-    <div v-if="playing && vid" class="player" :style="{ height: height + 'px' }">
+    <div
+      v-if="playing && vid"
+      class="player"
+      :style="{ height: height + 'px' }"
+    >
       <iframe
         class="ytplayer"
         type="text/html"
@@ -18,15 +22,15 @@
 </template>
 
 <script lang="ts">
-  import { Vue, Component, Prop } from 'vue-property-decorator'
-  import ImageBox from '~/components/ImageBox.vue'
+import { Vue, Component, Prop } from 'vue-property-decorator'
+import ImageBox from '~/components/ImageBox.vue'
 
 @Component<YoutubeEmbed>({
   components: {
     ImageBox
   }
 })
-  export default class YoutubeEmbed extends Vue {
+export default class YoutubeEmbed extends Vue {
   @Prop(String) src!: string
   @Prop(String) poster!: string
   height = 0
@@ -34,27 +38,27 @@
 
   private observer?: ResizeObserver
 
-  mounted () {
+  mounted(): void {
     const observer = new ResizeObserver(() => {
       const { width } = this.$el.getBoundingClientRect()
-      this.height = width / 16 * 9
+      this.height = (width / 16) * 9
     })
     observer.observe(this.$el)
     this.observer = observer
   }
 
-  beforeDestroy () {
+  beforeDestroy(): void {
     this.observer?.disconnect()
   }
 
-  get vid () {
+  get vid(): string | null {
     if (this.src.match(/watch\?v=([a-zA-Z0-9_-]+)/)) {
       return RegExp.$1
     } else {
       return null
     }
   }
-  }
+}
 </script>
 
 <style lang="sass" scoped>

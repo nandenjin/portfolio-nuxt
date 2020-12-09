@@ -1,6 +1,8 @@
 <template>
   <footer class="site-footer">
-    <div class="copyright">&copy; Kazumi Inada</div>
+    <div class="copyright">
+      &copy; Kazumi Inada
+    </div>
   </footer>
 </template>
 

@@ -37,85 +37,85 @@
 <script lang="ts">
 /* eslint camelcase: 0 */
 
-import { join } from "path";
-import { Vue, Component, Prop } from "vue-property-decorator";
-import { WorkMeta } from "~/types";
+import { join } from 'path'
+import { Vue, Component, Prop } from 'vue-property-decorator'
+import { WorkMeta } from '~/types'
 
 interface Content {
-  meta: WorkMeta;
+  meta: WorkMeta
 }
 
-const contentDistRoot = join("/_nuxt", "content");
+const contentDistRoot = join('/_nuxt', 'content')
 
 @Component({
   mounted() {
     const step = () => {
-      const container = this.$refs.container as HTMLElement;
+      const container = this.$refs.container as HTMLElement
 
       if (this.$data.isDestroyed || !container) {
-        return;
+        return
       }
-      requestAnimationFrame(step);
+      requestAnimationFrame(step)
 
-      const bounding = container.getBoundingClientRect();
-      const w = bounding.width;
+      const bounding = container.getBoundingClientRect()
+      const w = bounding.width
 
-      const lengthPerRow = Math.ceil(w / 350);
-      const scale = w / lengthPerRow / 350;
+      const lengthPerRow = Math.ceil(w / 350)
+      const scale = w / lengthPerRow / 350
 
-      const isMobile = lengthPerRow === 1;
+      const isMobile = lengthPerRow === 1
 
-      const width = (isMobile ? 350 : 300) * scale;
+      const width = (isMobile ? 350 : 300) * scale
       const marginR = isMobile
         ? 0
-        : (w - width * lengthPerRow) / (lengthPerRow - 1);
+        : (w - width * lengthPerRow) / (lengthPerRow - 1)
 
       const items = container.getElementsByClassName(
-        "item"
+        'item'
         /* eslint-disable-next-line no-undef */
-      ) as HTMLCollectionOf<HTMLElement>;
+      ) as HTMLCollectionOf<HTMLElement>
       const thumbs = container.getElementsByClassName(
-        "thumbnail"
+        'thumbnail'
         /* eslint-disable-next-line no-undef */
-      ) as HTMLCollectionOf<HTMLElement>;
+      ) as HTMLCollectionOf<HTMLElement>
 
       for (let i = 0; i < items.length; i++) {
-        items[i].style.width = width + "px";
+        items[i].style.width = width + 'px'
         items[i].style.marginRight =
-          (i % lengthPerRow !== lengthPerRow - 1 ? marginR : 0) + "px";
-        items[i].style.marginLeft = "0px";
+          (i % lengthPerRow !== lengthPerRow - 1 ? marginR : 0) + 'px'
+        items[i].style.marginLeft = '0px'
       }
 
       for (let i = 0; i < thumbs.length; i++) {
-        thumbs[i].style.width = width + "px";
-        thumbs[i].style.height = width / 1.6 + "px";
+        thumbs[i].style.width = width + 'px'
+        thumbs[i].style.height = width / 1.6 + 'px'
       }
-    };
-    requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step)
   },
   destroyed() {
-    this.$data.isDestroyed = true;
-  },
+    this.$data.isDestroyed = true
+  }
 })
 export default class ContentList extends Vue {
-  @Prop() src!: Content[];
-  isDestroyed: boolean = false;
-  loadedFlag = {};
+  @Prop() src!: Content[]
+  isDestroyed = false
+  loadedFlag = {}
 
   getSrc(src: string): string {
     if (!src) {
-      return "";
+      return ''
     }
-    return join(contentDistRoot, src);
+    return join(contentDistRoot, src)
   }
 
   getSrcSet(src: string, ext: string): string {
     if (!src) {
-      return "";
+      return ''
     }
-    src.match(/^(.+)\.(jpg|png|webp|gif)$/);
-    const base = join(contentDistRoot, RegExp.$1);
-    return `${base}_320w.${ext} 320w, ${base}_768w.${ext} 768w, ${base}_1024w.${ext} 1024w, ${base}_1600w.${ext} 1600w`;
+    src.match(/^(.+)\.(jpg|png|webp|gif)$/)
+    const base = join(contentDistRoot, RegExp.$1)
+    return `${base}_320w.${ext} 320w, ${base}_768w.${ext} 768w, ${base}_1024w.${ext} 1024w, ${base}_1600w.${ext} 1600w`
   }
 }
 </script>

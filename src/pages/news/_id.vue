@@ -12,46 +12,45 @@
 </template>
 
 <script lang="ts">
-  /* eslint camelcase: 0 */
+/* eslint camelcase: 0 */
 
-  import { Vue, Component } from 'nuxt-property-decorator'
-  import { WorkMeta } from '~/types'
-  import ContentRenderer from '~/components/ContentRenderer'
+import { Vue, Component } from 'nuxt-property-decorator'
+import ContentRenderer from '~/components/ContentRenderer'
 
-  interface Page extends WorkMeta {
-    body: Object
-  }
+@Component({
+  async asyncData({ route, $content }) {
+    const id = route.params.id
+    const page = await $content('pages/news', id).fetch()
 
-  @Component({
-    async asyncData ({ route, $content }) {
-      const id = route.params.id
-      const page = await $content('pages/news', id).fetch<Page>()
-
-      return {
-        page
-      }
-    },
-
-    components: {
-      ContentRenderer
-    },
-
-    head (this: NewsPage) {
-      return {
-        title: `${this.page.title_ja} / ${this.page.title_en}`,
-
-        meta: [
-          // ToDo: Description整備
-          { hid: 'og:description', property: 'og:description', content: '' },
-          { hid: 'og:title', property: 'og:title', content: `${this.page.title_ja} / ${this.page.title_en} - Kazumi Inada` },
-          { hid: 'og:description', property: 'og:description', content: '' }
-        ]
-      }
+    return {
+      page
     }
-  })
-  export default class NewsPage extends Vue {
-    page!: Page
+  },
+
+  components: {
+    ContentRenderer
+  },
+
+  head(this: NewsPage) {
+    return {
+      title: `${this.page.title_ja} / ${this.page.title_en}`,
+
+      meta: [
+        // ToDo: Description整備
+        { hid: 'og:description', property: 'og:description', content: '' },
+        {
+          hid: 'og:title',
+          property: 'og:title',
+          content: `${this.page.title_ja} / ${this.page.title_en} - Kazumi Inada`
+        },
+        { hid: 'og:description', property: 'og:description', content: '' }
+      ]
+    }
   }
+})
+export default class NewsPage extends Vue {
+  page
+}
 </script>
 
 <style lang="sass">

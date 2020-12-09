@@ -4,16 +4,20 @@
     <div class="content">
       <div class="centering">
         <h1>
-          <img src="~/assets/img/mini-logo.svg" alt="" class="logo">
+          <img src="~/assets/img/mini-logo.svg" alt="" class="logo" />
           <img
             src="~/assets/img/kazumi_inada.svg"
             alt="Kazumi Inada"
             class="kazumi-inada"
-          >
+          />
         </h1>
         <nav class="nav">
-          <nuxt-link class="item" to="/works"> Works </nuxt-link>
-          <nuxt-link class="item" to="/profile"> Profile </nuxt-link>
+          <nuxt-link class="item" to="/works">
+            Works
+          </nuxt-link>
+          <nuxt-link class="item" to="/profile">
+            Profile
+          </nuxt-link>
         </nav>
         <nuxt-link tag="section" class="news" :to="`/news`">
           <h3>NEWS</h3>
@@ -36,7 +40,7 @@
 </template>
 
 <script lang="ts">
-  import { Vue, Component } from 'vue-property-decorator'
+import { Vue, Component } from 'vue-property-decorator'
 
 @Component({
   layout: 'plain',
@@ -45,14 +49,14 @@
     meta: [{ hid: 'og:type', property: 'og:type', content: 'website' }]
   }
 })
-  export default class IndexPage extends Vue {
-    news
+export default class IndexPage extends Vue {
+  news
 
-    // To be implemented
-    get latestNews (): null {
-      return null
-    }
+  // To be implemented
+  get latestNews(): null {
+    return null
   }
+}
 </script>
 
 <style lang="sass" scoped>

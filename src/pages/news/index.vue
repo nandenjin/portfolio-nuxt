@@ -16,47 +16,48 @@
 </template>
 
 <script lang="ts">
-  import { Vue, Component } from 'vue-property-decorator'
+import { Vue, Component } from 'vue-property-decorator'
 
-  interface Page {
-    body: Object
-  }
-
-  @Component({
-    async asyncData ({ $content }) {
-      const src = await $content('pages/news/index').fetch<Page>() as Page
-      const items: any[] = []
-      const proc = (node) => {
-        if (node.type === 'text') { return }
-        if (node.tag === 'nuxt-link') {
-          items.push(node.props.to)
-        }
-        for (const c of node.children) { proc(c) }
+@Component({
+  async asyncData({ $content }) {
+    const src = await $content('pages/news/index').fetch()
+    const items: string[] = []
+    const proc = node => {
+      if (node.type === 'text') {
+        return
       }
-      proc(src.body)
-
-      const pages = await Promise.all(
-        items.map(
-          path => $content(path.replace(/\.md$/, '')).fetch()
-        )
-      )
-
-      return { pages }
-    },
-
-    head () {
-      return {
-        title: 'News',
-        meta: [
-          { hid: 'og:title', property: 'og:title', content: 'News - Kazumi Inada' }
-        ]
+      if (node.tag === 'nuxt-link') {
+        items.push(node.props.to)
+      }
+      for (const c of node.children) {
+        proc(c)
       }
     }
-  })
-  export default class NewsIndexPage extends Vue {
-    pages!: any[]
-  }
+    proc(src.body)
 
+    const pages = await Promise.all(
+      items.map(path => $content(path.replace(/\.md$/, '')).fetch())
+    )
+
+    return { pages }
+  },
+
+  head() {
+    return {
+      title: 'News',
+      meta: [
+        {
+          hid: 'og:title',
+          property: 'og:title',
+          content: 'News - Kazumi Inada'
+        }
+      ]
+    }
+  }
+})
+export default class NewsIndexPage extends Vue {
+  pages
+}
 </script>
 
 <style lang="sass" scoped>

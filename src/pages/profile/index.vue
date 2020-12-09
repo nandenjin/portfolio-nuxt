@@ -6,33 +6,36 @@
       </div>
       <div>
         <h1>Kazumi Inada / 稲田 和巳</h1>
-        <div class="title">Designer / Engineer</div>
+        <div class="title">
+          Designer / Engineer
+        </div>
         <content-renderer :content="page" />
       </div>
     </div>
+    <!-- eslint-disable-next-line vue/no-v-html -->
     <script type="application/ld+json" v-html="jsonLD" />
   </main>
 </template>
 
 <script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
-import ContentRenderer from "~/components/ContentRenderer";
+import { Vue, Component } from 'vue-property-decorator'
+import ContentRenderer from '~/components/ContentRenderer'
 
 const jsonLD = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  email: "hello@nandenjin.com",
-  name: "Kazumi Inada",
-  birthPlace: "Osaka, Japan",
-  gender: "male",
-  url: "https://www.nandenjin.com",
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  email: 'hello@nandenjin.com',
+  name: 'Kazumi Inada',
+  birthPlace: 'Osaka, Japan',
+  gender: 'male',
+  url: 'https://www.nandenjin.com',
   sameAs: [
-    "https://www.facebook.com/nandenjin",
-    "https://www.linkedin.com/in/nandenjin",
-    "https://twitter.com/nandenjin",
-    "https://instagram.com/nandenjin",
-  ],
-};
+    'https://www.facebook.com/nandenjin',
+    'https://www.linkedin.com/in/nandenjin',
+    'https://twitter.com/nandenjin',
+    'https://instagram.com/nandenjin'
+  ]
+}
 
 @Component({
   async asyncData({ $content }) {
@@ -42,21 +45,21 @@ const jsonLD = {
     }
   },
   head: {
-    title: "Profile",
+    title: 'Profile',
     meta: [
       {
-        hid: "og:title",
-        property: "og:title",
-        content: "Profile - Kazumi Inada",
-      },
-    ],
+        hid: 'og:title',
+        property: 'og:title',
+        content: 'Profile - Kazumi Inada'
+      }
+    ]
   },
   components: {
-    ContentRenderer,
-  },
+    ContentRenderer
+  }
 })
 export default class ProfilePage extends Vue {
-  jsonLD: string = JSON.stringify(jsonLD);
+  jsonLD: string = JSON.stringify(jsonLD)
 }
 </script>
 

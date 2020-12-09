@@ -5,42 +5,48 @@
 </template>
 
 <script lang="ts">
-  import { Vue, Component } from 'nuxt-property-decorator'
-  import ContentList from '~/components/ContentList.vue'
+import { Vue, Component } from 'nuxt-property-decorator'
+import ContentList from '~/components/ContentList.vue'
 
-  interface Page {
-    body
-  }
+interface Page {
+  body
+}
 
-  @Component({
-    async asyncData ({ $content }) {
-      const src = await $content('pages/works/index').fetch<Page>() as Page
-      const items: any[] = []
-      const proc = (node) => {
-        if (node.type === 'text') { return }
-        if (node.tag === 'nuxt-link') {
-          items.push(node.props.to)
-        }
-        for (const c of node.children) { proc(c) }
+@Component({
+  async asyncData({ $content }) {
+    const src = (await $content('pages/works/index').fetch<Page>()) as Page
+    const items: string[] = []
+    const proc = node => {
+      if (node.type === 'text') {
+        return
       }
-      proc(src.body)
+      if (node.tag === 'nuxt-link') {
+        items.push(node.props.to)
+      }
+      for (const c of node.children) {
+        proc(c)
+      }
+    }
+    proc(src.body)
 
-      return { pages: await Promise.all(items.map(path => $content(path.replace(/\.md$/, '')).fetch())) }
-    },
-    head: {
-      title: 'Works',
-      meta: [
-        { hid: 'og:title', property: 'og:title', content: 'Works - Kazumi Inada' }
-      ]
-    },
-    components: { ContentList }
-  })
-  export default class WorksIndexPage extends Vue {
-  }
+    return {
+      pages: await Promise.all(
+        items.map(path => $content(path.replace(/\.md$/, '')).fetch())
+      )
+    }
+  },
+  head: {
+    title: 'Works',
+    meta: [
+      { hid: 'og:title', property: 'og:title', content: 'Works - Kazumi Inada' }
+    ]
+  },
+  components: { ContentList }
+})
+export default class WorksIndexPage extends Vue {}
 </script>
 
 <style lang="sass" scoped>
 
-  @import '~/assets/style/themes.sass'
-
+@import '~/assets/style/themes.sass'
 </style>
