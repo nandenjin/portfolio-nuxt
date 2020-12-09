@@ -97,5 +97,4 @@ export default class NewsIndexPage extends Vue {
         flex: 0 0 auto
         color: #888
         font-family: Helvetica
-
 </style>

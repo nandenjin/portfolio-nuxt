@@ -26,12 +26,16 @@ const config: NuxtConfig = {
     xslUrl: '/sitemap.xsl',
     routes: async () => {
       const pages = ((await Promise.all(
-        ['news', 'works'].map(fragment => 
-        $content('pages/' + fragment)
-          .only(['path'])
-          .fetch())
-      )) as IContentDocument[]).reduce((a, p) => a.concat(p), [] as IContentDocument[])
-      return pages.map(({path}) => path.replace(/^\/pages/, ''))
+        ['news', 'works'].map(fragment =>
+          $content('pages/' + fragment)
+            .only(['path'])
+            .fetch()
+        )
+      )) as IContentDocument[]).reduce(
+        (a, p) => a.concat(p),
+        [] as IContentDocument[]
+      )
+      return pages.map(({ path }) => path.replace(/^\/pages/, ''))
     }
   },
 
