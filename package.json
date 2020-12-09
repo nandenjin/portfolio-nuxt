@@ -31,7 +31,6 @@
     "nuxt": "^2.13.2"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.13.1",
     "@nuxt/typescript-build": "^2.0.3",
     "@nuxtjs/eslint-config": "^1.1.2",
     "@nuxtjs/eslint-config-typescript": "^2.0.0",
@@ -58,7 +57,7 @@
     "sass-loader": "^8.0.2",
     "sharp": "^0.26.3",
     "simple-git": "^2.24.0",
-    "vue-property-decorator": "^8.1.1"
+    "vue-property-decorator": "^9.1.2"
   },
   "private": true
 }
