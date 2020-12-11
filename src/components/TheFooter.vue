@@ -8,7 +8,8 @@
 
 <style lang="scss" scoped>
 .site-footer {
-  padding: 40px 0;
+  margin-top: 100px;
+  padding: 50px 0;
   text-align: center;
 
   .copyright {
