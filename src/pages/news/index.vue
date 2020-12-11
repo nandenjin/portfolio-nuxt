@@ -13,48 +13,50 @@
 
 <script lang="ts">
 import { IContentDocument } from '@nuxt/content/types/content'
-import { Vue, Component } from 'vue-property-decorator'
+import { defineComponent, useAsync, useContext } from '@nuxtjs/composition-api'
+import { NuxtRootContext } from '~/types'
 
-@Component({
-  async asyncData({ $content }) {
-    const src = (await $content('pages/news/index').fetch()) as IContentDocument
-    const items: string[] = []
-    const proc = node => {
-      if (node.type === 'text') {
-        return
+export default defineComponent({
+  setup() {
+    const { $content } = useContext() as NuxtRootContext
+    const pages = useAsync(async () => {
+      const src = (await $content(
+        'pages/news/index'
+      ).fetch()) as IContentDocument // ToDo: make typed correctly
+      const items: string[] = []
+      const proc = node => {
+        if (node.type === 'text') {
+          return
+        }
+        if (node.tag === 'nuxt-link') {
+          items.push(node.props.to)
+        }
+        for (const c of node.children) {
+          proc(c)
+        }
       }
-      if (node.tag === 'nuxt-link') {
-        items.push(node.props.to)
-      }
-      for (const c of node.children) {
-        proc(c)
-      }
-    }
-    proc(src.body)
+      proc(src.body)
 
-    const pages = await Promise.all(
-      items.map(path => $content(path.replace(/\.md$/, '')).fetch())
-    )
+      const pages = await Promise.all(
+        items.map(path => $content(path.replace(/\.md$/, '')).fetch())
+      )
+
+      return pages
+    })
 
     return { pages }
   },
-
-  head() {
-    return {
-      title: 'News',
-      meta: [
-        {
-          hid: 'og:title',
-          property: 'og:title',
-          content: 'News - Kazumi Inada'
-        }
-      ]
-    }
+  head: {
+    title: 'News',
+    meta: [
+      {
+        hid: 'og:title',
+        property: 'og:title',
+        content: 'News - Kazumi Inada'
+      }
+    ]
   }
 })
-export default class NewsIndexPage extends Vue {
-  pages
-}
 </script>
 
 <style lang="sass" scoped>

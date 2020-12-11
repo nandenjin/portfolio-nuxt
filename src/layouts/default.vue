@@ -9,15 +9,16 @@
 </template>
 
 <script>
+import { defineComponent } from '@nuxtjs/composition-api'
 import TheFooter from '~/components/TheFooter.vue'
 import TheHeader from '~/components/TheHeader'
 
-export default {
+export default defineComponent({
   components: {
     TheHeader,
     TheFooter
   }
-}
+})
 </script>
 
 TheFooter

@@ -26,6 +26,7 @@
     "@nuxt/content": "^1.11.1",
     "@nuxt/types": "^2.14.9",
     "@nuxt/typescript-runtime": "^2.0.0",
+    "@nuxtjs/composition-api": "^0.16.4",
     "@nuxtjs/sitemap": "^2.4.0",
     "normalize.css": "^8.0.1",
     "nuxt": "^2.13.2"

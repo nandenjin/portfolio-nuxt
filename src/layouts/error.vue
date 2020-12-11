@@ -10,13 +10,17 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
 import { NuxtError } from '@nuxt/types'
+import { defineComponent, PropType } from '@nuxtjs/composition-api'
 
-@Component
-export default class ErrorPage extends Vue {
-  @Prop({ type: Object, required: true }) error!: NuxtError
-}
+export default defineComponent({
+  props: {
+    error: {
+      type: Object as PropType<NuxtError>,
+      required: true
+    }
+  }
+})
 </script>
 
 <style lang="sass" scoped>

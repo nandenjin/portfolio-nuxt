@@ -18,8 +18,9 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator'
+import { defineComponent, useAsync, useContext } from '@nuxtjs/composition-api'
 import ContentRenderer from '~/components/ContentRenderer'
+import { NuxtRootContext } from '~/types'
 
 const jsonLD = {
   '@context': 'https://schema.org',
@@ -37,11 +38,17 @@ const jsonLD = {
   ]
 }
 
-@Component({
-  async asyncData({ $content }) {
-    const page = await $content('pages/profile/index').fetch()
+export default defineComponent({
+  components: {
+    ContentRenderer
+  },
+  setup() {
+    const { $content } = useContext() as NuxtRootContext
+    const page = useAsync(() => $content('pages/profile/index').fetch())
+
     return {
-      page
+      page,
+      jsonLD: JSON.stringify(jsonLD)
     }
   },
   head: {
@@ -53,14 +60,8 @@ const jsonLD = {
         content: 'Profile - Kazumi Inada'
       }
     ]
-  },
-  components: {
-    ContentRenderer
   }
 })
-export default class ProfilePage extends Vue {
-  jsonLD: string = JSON.stringify(jsonLD)
-}
 </script>
 
 <style lang="sass" scoped>

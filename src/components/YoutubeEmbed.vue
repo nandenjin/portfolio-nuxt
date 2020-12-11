@@ -1,5 +1,5 @@
 <template>
-  <div class="youtube-embed">
+  <div ref="el" class="youtube-embed">
     <div
       v-if="playing && vid"
       class="player"
@@ -22,43 +22,60 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator'
+import {
+  computed,
+  defineComponent,
+  onBeforeUnmount,
+  onMounted,
+  PropType,
+  ref
+} from '@nuxtjs/composition-api'
 import ImageBox from '~/components/ImageBox.vue'
 
-@Component<YoutubeEmbed>({
+export default defineComponent({
   components: {
     ImageBox
-  }
-})
-export default class YoutubeEmbed extends Vue {
-  @Prop(String) src!: string
-  @Prop(String) poster!: string
-  height = 0
-  playing = false
+  },
+  props: {
+    src: {
+      type: String as PropType<string>,
+      required: true
+    },
+    poster: {
+      type: String as PropType<string>,
+      required: true
+    }
+  },
+  setup({ src }) {
+    const el = ref<HTMLDivElement>()
+    const height = ref(0)
+    const playing = ref(false)
 
-  private observer?: ResizeObserver
+    let observer: ResizeObserver
 
-  mounted(): void {
-    const observer = new ResizeObserver(() => {
-      const { width } = this.$el.getBoundingClientRect()
-      this.height = (width / 16) * 9
+    onMounted(() => {
+      observer = new ResizeObserver(() => {
+        if (!el.value) return
+        const { width } = el.value.getBoundingClientRect()
+        height.value = (width / 16) * 9
+      })
+
+      if (el.value) {
+        observer.observe(el.value)
+      }
     })
-    observer.observe(this.$el)
-    this.observer = observer
-  }
 
-  beforeDestroy(): void {
-    this.observer?.disconnect()
-  }
+    onBeforeUnmount(() => observer.disconnect())
 
-  get vid(): string | null {
-    if (this.src.match(/watch\?v=([a-zA-Z0-9_-]+)/)) {
-      return RegExp.$1
-    } else {
-      return null
+    return {
+      height,
+      playing,
+      vid: computed(() =>
+        src.match(/watch\?v=([a-zA-Z0-9_-]+)/) ? RegExp.$1 : null
+      )
     }
   }
-}
+})
 </script>
 
 <style lang="sass" scoped>
