@@ -10,12 +10,12 @@
             <picture>
               <source
                 type="image/webp"
-                :srcset="getSrcset(content.thumbnail, 'webp')"
+                :srcset="getSrcSet(content.thumbnail, 'webp')"
                 sizes="(max-width: 400px) 100vw, 30vw"
               />
               <source
                 type="image/jpeg"
-                :srcset="getSrcset(content.thumbnail, 'jpg')"
+                :srcset="getSrcSet(content.thumbnail, 'jpg')"
                 sizes="(max-width: 400px) 100vw, 30vw"
               />
               <img
@@ -39,7 +39,7 @@
 /* eslint camelcase: 0 */
 
 import { join } from 'path'
-import { defineComponent, PropType, ref } from '@nuxtjs/composition-api'
+import { Vue, Component, Prop } from 'vue-property-decorator'
 import { WorkMeta } from '~/types'
 
 interface Content {
@@ -47,27 +47,29 @@ interface Content {
 }
 
 const contentDistRoot = join('/_nuxt', 'content')
-const SIZES = [320, 768, 1024, 1600]
 
-export default defineComponent({
-  props: {
-    src: {
-      type: Array as PropType<Content[]>,
-      required: true
+@Component({})
+export default class ContentList extends Vue {
+  @Prop() src!: Content[]
+  isDestroyed = false
+  loadedFlag = {}
+
+  getSrc(src: string): string {
+    if (!src) {
+      return ''
     }
-  },
-  setup() {
-    return {
-      loadedFlag: ref<Record<string, boolean>>({}),
-      getSrc: (src: string) => join(contentDistRoot, src),
-      getSrcset: (src: string, ext: string) => {
-        src.match(/^(.+)\.(jpg|png|webp|gif)$/)
-        const base = join(contentDistRoot, RegExp.$1)
-        return SIZES.map(size => `${base}_${size}w.${ext} ${size}w`).join(',')
-      }
-    }
+    return join(contentDistRoot, src)
   }
-})
+
+  getSrcSet(src: string, ext: string): string {
+    if (!src) {
+      return ''
+    }
+    src.match(/^(.+)\.(jpg|png|webp|gif)$/)
+    const base = join(contentDistRoot, RegExp.$1)
+    return `${base}_320w.${ext} 320w, ${base}_768w.${ext} 768w, ${base}_1024w.${ext} 1024w, ${base}_1600w.${ext} 1600w`
+  }
+}
 </script>
 
 <style lang="sass" scoped>

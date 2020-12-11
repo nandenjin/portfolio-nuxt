@@ -18,7 +18,7 @@
           {{ page.materials }}
         </p>
         <p class="creator">{{ page.creator }}, {{ page.year }}</p>
-        <p v-if="page.info">
+        <p v-if="$data.page.info">
           {{ page.info }}
         </p>
         <ul class="tags">
@@ -34,28 +34,26 @@
 <script lang="ts">
 /* eslint camelcase: 0 */
 
-import {
-  computed,
-  defineComponent,
-  useAsync,
-  useContext,
-  useMeta
-} from '@nuxtjs/composition-api'
+import { Vue, Component } from 'vue-property-decorator'
 import ContentRenderer from '~/components/ContentRenderer'
-import { NuxtRootContext, WorkMeta } from '~/types'
 
-export default defineComponent({
-  components: { ContentRenderer },
-  setup() {
-    const { route, $content } = useContext() as NuxtRootContext
+@Component({
+  async asyncData({ route, $content }) {
+    const id = route.params.id
+    const page = await $content('pages/works', id).fetch()
 
-    const page = useAsync(() => {
-      const id = route.value.params.id
-      return $content('pages/works', id).fetch<WorkMeta>() as Promise<WorkMeta>
-    })
+    return {
+      page
+    }
+  },
 
-    useMeta({
-      title: `${page.value?.title_ja} / ${page.value?.title_en}`,
+  components: {
+    ContentRenderer
+  },
+
+  head(this: WorkPage) {
+    return {
+      title: `${this.page.title_ja} / ${this.page.title_en}`,
 
       meta: [
         // ToDo: description実装
@@ -63,12 +61,12 @@ export default defineComponent({
         {
           hid: 'og:title',
           property: 'og:title',
-          content: `${page.value?.title_ja} / ${page.value?.title_en} - Kazumi Inada`
+          content: `${this.page.title_ja} / ${this.page.title_en} - Kazumi Inada`
         },
         {
           hid: 'og:image',
           property: 'og:image',
-          content: (process.env.baseUrl || '') + page.value?.thumbnail
+          content: process.env.baseUrl + this.page.thumbnail
         },
         { hid: 'og:description', property: 'og:description', content: '' },
         {
@@ -77,12 +75,19 @@ export default defineComponent({
           content: 'summary_large_image'
         }
       ]
-    })
-
-    return { page, tagArray: computed(() => page.value?.tags?.split(',')) }
-  },
-  head: {}
+    }
+  }
 })
+export default class WorkPage extends Vue {
+  page
+
+  get tagArray(): string[] {
+    if (!this.page.tags) {
+      return []
+    }
+    return this.page.tags.split(' ')
+  }
+}
 </script>
 
 <style lang="sass">

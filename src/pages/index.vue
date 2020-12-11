@@ -29,15 +29,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { Vue, Component } from 'vue-property-decorator'
 
-export default defineComponent({
+@Component({
   layout: 'plain',
   head: {
     title: 'Kazumi Inada | 稲田和巳',
     meta: [{ hid: 'og:type', property: 'og:type', content: 'website' }]
   }
 })
+export default class IndexPage extends Vue {}
 </script>
 
 <style lang="sass" scoped>

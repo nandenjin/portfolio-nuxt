@@ -46,8 +46,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
-export default defineComponent({})
+import { Vue, Component } from 'vue-property-decorator'
+
+@Component
+export default class TheHeader extends Vue {
+  opened = false
+}
 </script>
 
 <style lang="scss" scoped>

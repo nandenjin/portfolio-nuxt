@@ -19,27 +19,26 @@
 <script lang="ts">
 /* eslint camelcase: 0 */
 
-import {
-  defineComponent,
-  useAsync,
-  useContext,
-  useMeta
-} from '@nuxtjs/composition-api'
+import { Vue, Component } from 'nuxt-property-decorator'
 import ContentRenderer from '~/components/ContentRenderer'
-import { NuxtRootContext, WorkMeta } from '~/types'
 
-export default defineComponent({
+@Component({
+  async asyncData({ route, $content }) {
+    const id = route.params.id
+    const page = await $content('pages/news', id).fetch()
+
+    return {
+      page
+    }
+  },
+
   components: {
     ContentRenderer
   },
-  setup() {
-    const { route, $content } = useContext() as NuxtRootContext
-    const page = useAsync(() => {
-      const id = route.value.params.id
-      return $content('pages/news', id).fetch<WorkMeta>() as Promise<WorkMeta>
-    })
-    useMeta({
-      title: `${page.value?.title_ja} / ${page.value?.title_en}`,
+
+  head(this: NewsPage) {
+    return {
+      title: `${this.page.title_ja} / ${this.page.title_en}`,
 
       meta: [
         // ToDo: Description整備
@@ -47,14 +46,14 @@ export default defineComponent({
         {
           hid: 'og:title',
           property: 'og:title',
-          content: `${page.value?.title_ja} / ${page.value?.title_en} - Kazumi Inada`
+          content: `${this.page.title_ja} / ${this.page.title_en} - Kazumi Inada`
         },
         { hid: 'og:description', property: 'og:description', content: '' }
       ]
-    })
-
-    return { page }
-  },
-  head: {}
+    }
+  }
 })
+export default class NewsPage extends Vue {
+  page
+}
 </script>

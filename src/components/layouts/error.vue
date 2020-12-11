@@ -1,16 +1,12 @@
 <template>
   <main>
-    <h1 v-if="error.statusCode === 404">
-      ページが見つかりません
-    </h1>
-    <h1 v-else>
-      エラーが発生しました
-    </h1>
+    <h1 v-if="error.statusCode === 404">ページが見つかりません</h1>
+    <h1 v-else>エラーが発生しました</h1>
   </main>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Component, Vue, Prop } from 'nuxt-property-decorator'
 import { NuxtError } from '@nuxt/types'
 
 @Component

@@ -1,5 +1,5 @@
 <template>
-  <div ref="el" class="youtube-embed">
+  <div class="youtube-embed">
     <div
       v-if="playing && vid"
       class="player"
@@ -22,60 +22,43 @@
 </template>
 
 <script lang="ts">
-import {
-  computed,
-  defineComponent,
-  onBeforeUnmount,
-  onMounted,
-  PropType,
-  ref
-} from '@nuxtjs/composition-api'
+import { Vue, Component, Prop } from 'vue-property-decorator'
 import ImageBox from '~/components/ImageBox.vue'
 
-export default defineComponent({
+@Component<YoutubeEmbed>({
   components: {
     ImageBox
-  },
-  props: {
-    src: {
-      type: String as PropType<string>,
-      required: true
-    },
-    poster: {
-      type: String as PropType<string>,
-      required: true
-    }
-  },
-  setup({ src }) {
-    const el = ref<HTMLDivElement>()
-    const height = ref(0)
-    const playing = ref(false)
-
-    let observer: ResizeObserver
-
-    onMounted(() => {
-      observer = new ResizeObserver(() => {
-        if (!el.value) return
-        const { width } = el.value.getBoundingClientRect()
-        height.value = (width / 16) * 9
-      })
-
-      if (el.value) {
-        observer.observe(el.value)
-      }
-    })
-
-    onBeforeUnmount(() => observer.disconnect())
-
-    return {
-      height,
-      playing,
-      vid: computed(() =>
-        src.match(/watch\?v=([a-zA-Z0-9_-]+)/) ? RegExp.$1 : null
-      )
-    }
   }
 })
+export default class YoutubeEmbed extends Vue {
+  @Prop(String) src!: string
+  @Prop(String) poster!: string
+  height = 0
+  playing = false
+
+  private observer?: ResizeObserver
+
+  mounted(): void {
+    const observer = new ResizeObserver(() => {
+      const { width } = this.$el.getBoundingClientRect()
+      this.height = (width / 16) * 9
+    })
+    observer.observe(this.$el)
+    this.observer = observer
+  }
+
+  beforeDestroy(): void {
+    this.observer?.disconnect()
+  }
+
+  get vid(): string | null {
+    if (this.src.match(/watch\?v=([a-zA-Z0-9_-]+)/)) {
+      return RegExp.$1
+    } else {
+      return null
+    }
+  }
+}
 </script>
 
 <style lang="sass" scoped>
