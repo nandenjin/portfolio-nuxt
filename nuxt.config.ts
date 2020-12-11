@@ -12,6 +12,7 @@ const config: NuxtConfig = {
 
   buildModules: [
     '@nuxt/typescript-build',
+    '@nuxtjs/composition-api',
     resolve(__dirname, './builder/builder.ts')
   ],
   srcDir: resolve(__dirname, './src'),
@@ -141,15 +142,6 @@ const config: NuxtConfig = {
           'image-box': 'src',
           'work-page-renderer': 'thumbnail'
         }
-      }
-    },
-
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    extend(config) {
-      // contents/pluginでfsのロードエラーが起きる
-      // https://github.com/nuxt-community/dotenv-module/issues/11
-      config.node = {
-        fs: 'empty'
       }
     }
   },

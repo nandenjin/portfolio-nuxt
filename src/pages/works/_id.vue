@@ -18,7 +18,7 @@
           {{ page.materials }}
         </p>
         <p class="creator">{{ page.creator }}, {{ page.year }}</p>
-        <p v-if="$data.page.info">
+        <p v-if="page.info">
           {{ page.info }}
         </p>
         <ul class="tags">
@@ -34,26 +34,28 @@
 <script lang="ts">
 /* eslint camelcase: 0 */
 
-import { Vue, Component } from 'vue-property-decorator'
+import {
+  computed,
+  defineComponent,
+  useAsync,
+  useContext,
+  useMeta
+} from '@nuxtjs/composition-api'
 import ContentRenderer from '~/components/ContentRenderer'
+import { NuxtRootContext, WorkMeta } from '~/types'
 
-@Component({
-  async asyncData({ route, $content }) {
-    const id = route.params.id
-    const page = await $content('pages/works', id).fetch()
+export default defineComponent({
+  components: { ContentRenderer },
+  setup() {
+    const { route, $content } = useContext() as NuxtRootContext
 
-    return {
-      page
-    }
-  },
+    const page = useAsync(() => {
+      const id = route.value.params.id
+      return $content('pages/works', id).fetch<WorkMeta>() as Promise<WorkMeta>
+    })
 
-  components: {
-    ContentRenderer
-  },
-
-  head(this: WorkPage) {
-    return {
-      title: `${this.page.title_ja} / ${this.page.title_en}`,
+    useMeta({
+      title: `${page.value?.title_ja} / ${page.value?.title_en}`,
 
       meta: [
         // ToDo: description実装
@@ -61,12 +63,12 @@ import ContentRenderer from '~/components/ContentRenderer'
         {
           hid: 'og:title',
           property: 'og:title',
-          content: `${this.page.title_ja} / ${this.page.title_en} - Kazumi Inada`
+          content: `${page.value?.title_ja} / ${page.value?.title_en} - Kazumi Inada`
         },
         {
           hid: 'og:image',
           property: 'og:image',
-          content: process.env.baseUrl + this.page.thumbnail
+          content: (process.env.baseUrl || '') + page.value?.thumbnail
         },
         { hid: 'og:description', property: 'og:description', content: '' },
         {
@@ -75,19 +77,12 @@ import ContentRenderer from '~/components/ContentRenderer'
           content: 'summary_large_image'
         }
       ]
-    }
-  }
-})
-export default class WorkPage extends Vue {
-  page
+    })
 
-  get tagArray(): string[] {
-    if (!this.page.tags) {
-      return []
-    }
-    return this.page.tags.split(' ')
-  }
-}
+    return { page, tagArray: computed(() => page.value?.tags?.split(',')) }
+  },
+  head: {}
+})
 </script>
 
 <style lang="sass">
