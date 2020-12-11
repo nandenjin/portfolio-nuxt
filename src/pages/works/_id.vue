@@ -1,13 +1,18 @@
 <template>
-  <main class="main theme--document">
-    <h1 class="title theme--title">
-      {{ page.title_ja }}
-    </h1>
+  <main class="main doc">
+    <div class="header">
+      <h1 class="title">
+        {{ page.title_ja }}
+      </h1>
+      <div class="info">
+        {{ page.creator }}, {{ page.year }} / {{ page.materials }}
+      </div>
+    </div>
 
-    <section class="content theme-text">
+    <section class="content">
       <content-renderer :content="page" />
     </section>
-    <section class="info">
+    <section class="work-info">
       <div class="text">
         <p class="aside">
           {{ page.materials }}
@@ -87,7 +92,6 @@ export default class WorkPage extends Vue {
 
 <style lang="sass">
 
-@import '~/assets/style/themes.sass'
 @import '~/assets/style/media.sass'
 
 .main
@@ -101,8 +105,8 @@ export default class WorkPage extends Vue {
       margin-top: 85px
       margin-bottom: 85px
 
-  .info
-    max-width: 800px
+  .work-info
+    max-width: 700px
     margin: 100px auto
     font-size: 13px
     line-height: 1.8em

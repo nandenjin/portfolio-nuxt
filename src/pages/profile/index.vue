@@ -1,5 +1,5 @@
 <template>
-  <main class="theme--document">
+  <main class="main doc">
     <div class="profile">
       <div>
         <img class="avatar" src="~/assets/img/profile.jpg" alt="" />
@@ -66,11 +66,10 @@ export default class ProfilePage extends Vue {
 <style lang="sass" scoped>
 
 @import '~/assets/style/media.sass'
-@import '~/assets/style/themes.sass'
 
 .profile
   font-size: 13px
-  margin: 0 30px
+  margin: 100px 30px 0
 
   .avatar
     display: block

@@ -1,5 +1,5 @@
 <template>
-  <main class="theme--document">
+  <main class="main main-with-margin">
     <content-list :src="pages" />
   </main>
 </template>
@@ -45,8 +45,3 @@ interface Page {
 })
 export default class WorksIndexPage extends Vue {}
 </script>
-
-<style lang="sass" scoped>
-
-@import '~/assets/style/themes.sass'
-</style>

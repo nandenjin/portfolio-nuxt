@@ -61,9 +61,9 @@ export default class TheHeader extends Vue {
   display: grid;
   grid-template-columns: 200px 1fr;
   grid-gap: 55px;
-  max-width: 1000px;
-  width: calc(100vw - 30px * 2);
-  margin: 50px auto 0;
+  // max-width: 1000px;
+  width: calc(100vw - 50px * 2);
+  margin: 50px auto;
 
   @include rmq() {
     display: block;

@@ -1,13 +1,8 @@
 <template>
-  <main class="theme--document">
+  <main class="maiin doc">
     <ul class="link-list">
-      <li class="item">
-        <nuxt-link
-          v-for="item in pages"
-          :key="item.name"
-          :to="item.path.replace(/^\/pages/, '')"
-          class="item-content"
-        >
+      <li v-for="item in pages" :key="item.name" class="item">
+        <nuxt-link :to="item.path.replace(/^\/pages/, '')" class="item-content">
           <span class="title">{{ item.title_ja }}</span>
           <span class="date">{{ item.release.replace(/T.+$/, '') }}</span>
         </nuxt-link>
@@ -65,7 +60,6 @@ export default class NewsIndexPage extends Vue {
 <style lang="sass" scoped>
 
 @import '~/assets/style/media.sass'
-@import '~/assets/style/themes.sass'
 
 .link-list
   padding: 0
@@ -77,6 +71,9 @@ export default class NewsIndexPage extends Vue {
     border: 1px solid #eee
     border-style: solid none
     cursor: pointer
+
+    & + .item
+      border-top: none
 
     .item-content
       display: flex

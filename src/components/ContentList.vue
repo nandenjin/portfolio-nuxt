@@ -48,56 +48,7 @@ interface Content {
 
 const contentDistRoot = join('/_nuxt', 'content')
 
-@Component({
-  mounted() {
-    const step = () => {
-      const container = this.$refs.container as HTMLElement
-
-      if (this.$data.isDestroyed || !container) {
-        return
-      }
-      requestAnimationFrame(step)
-
-      const bounding = container.getBoundingClientRect()
-      const w = bounding.width
-
-      const lengthPerRow = Math.ceil(w / 350)
-      const scale = w / lengthPerRow / 350
-
-      const isMobile = lengthPerRow === 1
-
-      const width = (isMobile ? 350 : 300) * scale
-      const marginR = isMobile
-        ? 0
-        : (w - width * lengthPerRow) / (lengthPerRow - 1)
-
-      const items = container.getElementsByClassName(
-        'item'
-        /* eslint-disable-next-line no-undef */
-      ) as HTMLCollectionOf<HTMLElement>
-      const thumbs = container.getElementsByClassName(
-        'thumbnail'
-        /* eslint-disable-next-line no-undef */
-      ) as HTMLCollectionOf<HTMLElement>
-
-      for (let i = 0; i < items.length; i++) {
-        items[i].style.width = width + 'px'
-        items[i].style.marginRight =
-          (i % lengthPerRow !== lengthPerRow - 1 ? marginR : 0) + 'px'
-        items[i].style.marginLeft = '0px'
-      }
-
-      for (let i = 0; i < thumbs.length; i++) {
-        thumbs[i].style.width = width + 'px'
-        thumbs[i].style.height = width / 1.6 + 'px'
-      }
-    }
-    requestAnimationFrame(step)
-  },
-  destroyed() {
-    this.$data.isDestroyed = true
-  }
-})
+@Component({})
 export default class ContentList extends Vue {
   @Prop() src!: Content[]
   isDestroyed = false
@@ -126,14 +77,15 @@ export default class ContentList extends Vue {
 @import '~/assets/style/media.sass'
 
 .list-container
+  display: grid
+  grid-gap: 50px
+
+  +mq
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr))
 
   & > .item
     display: inline-block
     transition: transform 0.3s ease 0s
-    margin: 15px
-
-    +mq(md)
-      margin: 30px 25px
 
     &:hover
       transform: scale3d(1.05, 1.05, 1)
@@ -144,15 +96,20 @@ export default class ContentList extends Vue {
 
     .thumbnail
       position: relative
-      width: 300px
-      height: (300px / 1.67)
       overflow: hidden
       border-radius: 7px
       background-color: #eee
       border: 1px solid rgba(0, 0, 0, .05)
 
+      &::before
+        content: ''
+        display: block
+        margin-top: (100% / 8 * 5)
+
       img
         position: absolute
+        top: 0
+        left: 0
         width: 100%
         height: 100%
         object-fit: cover

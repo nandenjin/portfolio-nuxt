@@ -1,12 +1,17 @@
 <template>
-  <main class="main theme--document">
-    <h1 class="title theme--title">
-      {{ page.title_ja }}
-    </h1>
+  <main class="main doc">
+    <div class="header">
+      <h1 class="title">
+        {{ page.title_ja }}
+      </h1>
+      <div class="info">{{ page.release }}</div>
+    </div>
 
-    <content-renderer :content="page" />
+    <section class="content">
+      <content-renderer :content="page" />
+    </section>
     <div class="footer">
-      <p>{{ page.release }}</p>
+      <div class="gray">{{ page.release }}</div>
     </div>
   </main>
 </template>
@@ -52,26 +57,3 @@ export default class NewsPage extends Vue {
   page
 }
 </script>
-
-<style lang="sass">
-
-@import '~/assets/style/themes.sass'
-@import '~/assets/style/media.sass'
-
-.main
-
-  .theme--title
-    font-size: 20px
-
-    +rmq
-      text-align: left
-
-  .footer
-    max-width: 800px
-    margin: 40px auto
-    font-size: 14px
-    color: #888
-
-    p
-      font-family: Helvetica
-</style>
