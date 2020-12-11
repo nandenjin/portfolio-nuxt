@@ -19,17 +19,6 @@
             Profile
           </nuxt-link>
         </nav>
-        <nuxt-link tag="section" class="news" :to="`/news`">
-          <h3>NEWS</h3>
-          <p class="news--text">
-            <span class="news--ja">{{
-              latestNews ? latestNews.meta.title_ja : ''
-            }}</span>
-            <span class="news--en">{{
-              latestNews ? latestNews.meta.title_en : ''
-            }}</span>
-          </p>
-        </nuxt-link>
       </div>
       <nuxt-link tag="section" class="eye-catch-info" to="/works/residents">
         <h3>"Instant Sympathy"</h3>
@@ -49,14 +38,7 @@ import { Vue, Component } from 'vue-property-decorator'
     meta: [{ hid: 'og:type', property: 'og:type', content: 'website' }]
   }
 })
-export default class IndexPage extends Vue {
-  news
-
-  // To be implemented
-  get latestNews(): null {
-    return null
-  }
-}
+export default class IndexPage extends Vue {}
 </script>
 
 <style lang="sass" scoped>
@@ -128,67 +110,7 @@ export default class IndexPage extends Vue {
           font-size: 15px
 
         &:hover
-          color: #aaa
-    .news
-      display: flex
-      margin: 30px 0
-      cursor: pointer
-      transition: color 0.15s ease 0s
-
-      &:hover
-        color: #aaa
-
-      h3
-        display: flex
-        flex: 0 0 auto
-        margin-right: 20px
-        font-size: 11px
-        -webkit-align-items: center
-        align-items: center
-
-        +mq(md)
-          font-size: 13px
-
-      p
-        position: relative
-        float: 1 1 auto
-        font-size: 11px
-
-        +mq(md)
-          font-size: 13px
-
-      p
-        position: relative
-        float: 1 1 auto
-        font-size: 11px
-
-        +mq(md)
-          font-size: 13px
-
-        .news--ja, .news--en
-          display: block
-          width: 100%
-
-        .news--ja
-          transform: translateY(50%)
-          animation: news-sw 8s linear 0s infinite
-
-        .news--en
-          opacity: 0
-          transform: translateY(-50%)
-          animation: news-sw 8s linear 4s infinite
-
-        @keyframes news-sw
-          0%
-            opacity: 0
-          5%
-            opacity: 1
-          40%
-            opacity: 1
-          45%
-            opacity: 0
-          100%
-            opacity: 0
+          color: #aaaaaa
 
   .eye-catch-info
     position: absolute
