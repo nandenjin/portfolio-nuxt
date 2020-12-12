@@ -9,7 +9,7 @@
         <div class="title">
           Designer / Engineer
         </div>
-        <content-renderer :content="page" />
+        <content-renderer v-if="page" :content="page" />
       </div>
     </div>
     <!-- eslint-disable-next-line vue/no-v-html -->
@@ -18,7 +18,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useAsync, useContext } from '@nuxtjs/composition-api'
+import { IContentDocument } from '@nuxt/content/types/content'
+import {
+  defineComponent,
+  reactive,
+  useContext,
+  useFetch
+} from '@nuxtjs/composition-api'
 import ContentRenderer from '~/components/ContentRenderer'
 import { NuxtRootContext } from '~/types'
 
@@ -39,17 +45,25 @@ const jsonLD = {
 }
 
 export default defineComponent({
+  name: 'ProfilePage',
   components: {
     ContentRenderer
   },
   setup() {
     const { $content } = useContext() as NuxtRootContext
-    const page = useAsync(() => $content('pages/profile/index').fetch())
-
-    return {
-      page,
+    const state = reactive<{ page: IContentDocument | null; jsonLD: string }>({
+      page: null,
       jsonLD: JSON.stringify(jsonLD)
-    }
+    })
+    const { fetch } = useFetch(async () => {
+      state.page = (await $content(
+        'pages/profile/index'
+      ).fetch()) as IContentDocument
+    })
+
+    fetch()
+
+    return state
   },
   head: {
     title: 'Profile',

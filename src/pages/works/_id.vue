@@ -1,6 +1,6 @@
 <template>
   <main class="main doc">
-    <div class="header">
+    <div v-if="page" class="header">
       <h1 class="title">
         {{ page.title_ja }}
       </h1>
@@ -10,9 +10,9 @@
     </div>
 
     <section class="content">
-      <content-renderer :content="page" />
+      <content-renderer v-if="page" :content="page" />
     </section>
-    <section class="work-info">
+    <section v-if="page" class="work-info">
       <div class="text">
         <p class="aside">
           {{ page.materials }}
@@ -35,27 +35,33 @@
 /* eslint camelcase: 0 */
 
 import {
-  computed,
   defineComponent,
-  useAsync,
+  reactive,
+  toRefs,
   useContext,
+  useFetch,
   useMeta
 } from '@nuxtjs/composition-api'
 import ContentRenderer from '~/components/ContentRenderer'
 import { NuxtRootContext, WorkMeta } from '~/types'
 
 export default defineComponent({
+  name: 'WorksItemPage',
   components: { ContentRenderer },
   setup() {
     const { route, $content } = useContext() as NuxtRootContext
+    const state = reactive<{ page: WorkMeta | null }>({ page: null })
+    const id = route.value.params.id
 
-    const page = useAsync(() => {
-      const id = route.value.params.id
-      return $content('pages/works', id).fetch<WorkMeta>() as Promise<WorkMeta>
+    const { fetch } = useFetch(async () => {
+      state.page = (await $content('pages/works', id).fetch<
+        WorkMeta
+      >()) as WorkMeta
     })
+    fetch()
 
-    useMeta({
-      title: `${page.value?.title_ja} / ${page.value?.title_en}`,
+    useMeta(() => ({
+      title: `${state.page?.title_ja} / ${state.page?.title_en}`,
 
       meta: [
         // ToDo: description実装
@@ -63,12 +69,12 @@ export default defineComponent({
         {
           hid: 'og:title',
           property: 'og:title',
-          content: `${page.value?.title_ja} / ${page.value?.title_en} - Kazumi Inada`
+          content: `${state.page?.title_ja} / ${state.page?.title_en} - Kazumi Inada`
         },
         {
           hid: 'og:image',
           property: 'og:image',
-          content: (process.env.baseUrl || '') + page.value?.thumbnail
+          content: (process.env.baseUrl || '') + state.page?.thumbnail
         },
         { hid: 'og:description', property: 'og:description', content: '' },
         {
@@ -77,9 +83,9 @@ export default defineComponent({
           content: 'summary_large_image'
         }
       ]
-    })
+    }))
 
-    return { page, tagArray: computed(() => page.value?.tags?.split(',')) }
+    return { ...toRefs(state), tagArray: state.page?.tags.split(',') || [] }
   },
   head: {}
 })

@@ -1,6 +1,6 @@
 <template>
   <main class="maiin doc">
-    <ul class="link-list">
+    <ul v-if="pages" class="link-list">
       <li v-for="item in pages" :key="item.name" class="item">
         <nuxt-link :to="item.path.replace(/^\/pages/, '')" class="item-content">
           <span class="title">{{ item.title_ja }}</span>
@@ -13,16 +13,25 @@
 
 <script lang="ts">
 import { IContentDocument } from '@nuxt/content/types/content'
-import { defineComponent, useAsync, useContext } from '@nuxtjs/composition-api'
+import {
+  defineComponent,
+  reactive,
+  useContext,
+  useFetch
+} from '@nuxtjs/composition-api'
 import { NuxtRootContext } from '~/types'
 
 export default defineComponent({
+  name: 'NewsIndexPage',
   setup() {
     const { $content } = useContext() as NuxtRootContext
-    const pages = useAsync(async () => {
+    const state = reactive<{ pages: IContentDocument[] | null }>({
+      pages: null
+    })
+    const { fetch } = useFetch(async () => {
       const src = (await $content(
         'pages/news/index'
-      ).fetch()) as IContentDocument // ToDo: make typed correctly
+      ).fetch()) as IContentDocument // ToDo: make this typed correctly
       const items: string[] = []
       const proc = node => {
         if (node.type === 'text') {
@@ -37,14 +46,19 @@ export default defineComponent({
       }
       proc(src.body)
 
-      const pages = await Promise.all(
-        items.map(path => $content(path.replace(/\.md$/, '')).fetch())
+      state.pages = await Promise.all(
+        items.map(
+          path =>
+            $content(path.replace(/\.md$/, '')).fetch() as Promise<
+              IContentDocument
+            >
+        )
       )
-
-      return pages
     })
 
-    return { pages }
+    fetch()
+
+    return state
   },
   head: {
     title: 'News',

@@ -130,7 +130,8 @@ const config: NuxtConfig = {
 
   generate: {
     dir: 'dist',
-    fallback: true
+    fallback: true,
+    devtools: true
   },
 
   build: {
@@ -139,8 +140,7 @@ const config: NuxtConfig = {
     loaders: {
       vue: {
         transformAssetUrls: {
-          'image-box': 'src',
-          'work-page-renderer': 'thumbnail'
+          'image-box': 'src'
         }
       }
     }
@@ -149,6 +149,12 @@ const config: NuxtConfig = {
   content: {
     dir: resolve(__dirname, 'content'),
     fullTextSearchFields: []
+  },
+  vue: {
+    config: {
+      productionTip: false,
+      devtools: true
+    }
   }
 }
 

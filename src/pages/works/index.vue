@@ -1,14 +1,15 @@
 <template>
   <main class="main main-with-margin">
-    <content-list :src="pages" />
+    <content-list v-if="pages" :src="pages" />
   </main>
 </template>
 
 <script lang="ts">
 import {
   defineComponent,
-  useAsync,
+  reactive,
   useContext,
+  useFetch,
   useMeta
 } from '@nuxtjs/composition-api'
 import ContentList from '~/components/ContentList.vue'
@@ -19,6 +20,7 @@ interface Page {
 }
 
 export default defineComponent({
+  name: 'WorksIndexPage',
   components: { ContentList },
   setup() {
     useMeta({
@@ -32,8 +34,10 @@ export default defineComponent({
       ]
     })
 
+    const state = reactive<{ pages: Page[] | null }>({ pages: null })
+
     const { $content } = useContext() as NuxtRootContext
-    const pages = useAsync(async () => {
+    const { fetch } = useFetch(async () => {
       const src = (await $content('pages/works/index').fetch<Page>()) as Page
       const items: string[] = []
       const proc = node => {
@@ -48,14 +52,18 @@ export default defineComponent({
         }
       }
       proc(src.body)
-      return await Promise.all(
-        items.map(path => $content(path.replace(/\.md$/, '')).fetch())
+      state.pages = await Promise.all(
+        items.map(
+          path =>
+            $content(path.replace(/\.md$/, '')).fetch<Page>() as Promise<Page>
+        )
       )
+      console.log(state.pages)
     })
 
-    return {
-      pages
-    }
+    fetch()
+
+    return state
   },
   head: {}
 })

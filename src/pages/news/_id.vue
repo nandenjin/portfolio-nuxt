@@ -1,6 +1,6 @@
 <template>
   <main class="main doc">
-    <div class="header">
+    <div v-if="page" class="header">
       <h1 class="title">
         {{ page.title_ja }}
       </h1>
@@ -8,9 +8,9 @@
     </div>
 
     <section class="content">
-      <content-renderer :content="page" />
+      <content-renderer v-if="page" :content="page" />
     </section>
-    <div class="footer">
+    <div v-if="page" class="footer">
       <div class="gray">{{ page.release }}</div>
     </div>
   </main>
@@ -21,25 +21,33 @@
 
 import {
   defineComponent,
-  useAsync,
   useContext,
-  useMeta
+  useMeta,
+  useFetch,
+  reactive
 } from '@nuxtjs/composition-api'
 import ContentRenderer from '~/components/ContentRenderer'
 import { NuxtRootContext, WorkMeta } from '~/types'
 
 export default defineComponent({
+  name: 'NewsItemPage',
   components: {
     ContentRenderer
   },
   setup() {
     const { route, $content } = useContext() as NuxtRootContext
-    const page = useAsync(() => {
-      const id = route.value.params.id
-      return $content('pages/news', id).fetch<WorkMeta>() as Promise<WorkMeta>
+    const id = route.value.params.id
+    const state = reactive<{ page: WorkMeta | null }>({ page: null })
+    const { fetch } = useFetch(async () => {
+      state.page = (await $content('pages/news', id).fetch<
+        WorkMeta
+      >()) as WorkMeta
     })
-    useMeta({
-      title: `${page.value?.title_ja} / ${page.value?.title_en}`,
+
+    fetch()
+
+    useMeta(() => ({
+      title: `${state.page?.title_ja} / ${state.page?.title_en}`,
 
       meta: [
         // ToDo: Description整備
@@ -47,13 +55,13 @@ export default defineComponent({
         {
           hid: 'og:title',
           property: 'og:title',
-          content: `${page.value?.title_ja} / ${page.value?.title_en} - Kazumi Inada`
+          content: `${state.page?.title_ja} / ${state.page?.title_en} - Kazumi Inada`
         },
         { hid: 'og:description', property: 'og:description', content: '' }
       ]
-    })
+    }))
 
-    return { page }
+    return state
   },
   head: {}
 })
