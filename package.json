@@ -1,6 +1,6 @@
 {
   "name": "@nandenjin/portfolio-nuxt",
-  "version": "2.2.1",
+  "version": "2.3.0",
   "description": "https://www.nandenjin.com/",
   "main": "index.js",
   "scripts": {
