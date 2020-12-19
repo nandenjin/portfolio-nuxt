@@ -14,7 +14,7 @@
       <div class="gray">{{ releaseStr }}</div>
     </div>
     <!-- eslint-disable-next-line vue/no-v-html -->
-    <script type="application/ld+json" v-html="JSON.stringify(jsonLD)" />
+    <script type="application/ld+json" v-html="jsonLD" />
   </main>
 </template>
 
@@ -58,13 +58,33 @@ import ContentRenderer from '~/components/ContentRenderer'
 export default class NewsPage extends Vue {
   page
 
-  get jsonLD(): Record<string, any> {
-    return {
-      '@context': 'https://schema.org',
-      '@type': 'Article',
-      headline: this.page.title_ja,
-      dateModified: new Date(this.page.release).toISOString()
-    }
+  get jsonLD(): string {
+    return JSON.stringify([
+      {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: this.page.title_ja,
+        dateModified: new Date(this.page.release).toISOString()
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'News',
+            item: process.env.baseUrl + '/news'
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: this.page.title_ja,
+            item: process.env.baseUrl + this.$route.path
+          }
+        ]
+      }
+    ])
   }
 
   get releaseStr(): string {

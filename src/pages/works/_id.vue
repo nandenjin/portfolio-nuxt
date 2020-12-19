@@ -28,6 +28,8 @@
         </ul>
       </div>
     </section>
+    <!-- eslint-disable-next-line vue/no-v-html -->
+    <script type="application/ld+json" v-html="jsonLD" />
   </main>
 </template>
 
@@ -86,6 +88,29 @@ export default class WorkPage extends Vue {
       return []
     }
     return this.page.tags.split(' ')
+  }
+
+  get jsonLD(): string {
+    return JSON.stringify([
+      {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Works',
+            item: process.env.baseUrl + '/works'
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: this.page.title_ja,
+            item: process.env.baseUrl + this.$route.path
+          }
+        ]
+      }
+    ])
   }
 }
 </script>

@@ -1,6 +1,8 @@
 <template>
   <main class="main main-with-margin">
     <content-list :src="pages" />
+    <!-- eslint-disable-next-line vue/no-v-html -->
+    <script type="application/ld+json" v-html="jsonLD" />
   </main>
 </template>
 
@@ -43,5 +45,21 @@ interface Page {
   },
   components: { ContentList }
 })
-export default class WorksIndexPage extends Vue {}
+export default class WorksIndexPage extends Vue {
+  get jsonLD(): string {
+    return JSON.stringify([
+      {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Works'
+          }
+        ]
+      }
+    ])
+  }
+}
 </script>

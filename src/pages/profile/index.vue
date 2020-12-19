@@ -21,22 +21,6 @@
 import { Vue, Component } from 'vue-property-decorator'
 import ContentRenderer from '~/components/ContentRenderer'
 
-const jsonLD = {
-  '@context': 'https://schema.org',
-  '@type': 'Person',
-  email: 'hello@nandenjin.com',
-  name: 'Kazumi Inada',
-  birthPlace: 'Osaka, Japan',
-  gender: 'male',
-  url: 'https://www.nandenjin.com',
-  sameAs: [
-    'https://www.facebook.com/nandenjin',
-    'https://www.linkedin.com/in/nandenjin',
-    'https://twitter.com/nandenjin',
-    'https://instagram.com/nandenjin'
-  ]
-}
-
 @Component({
   async asyncData({ $content }) {
     const page = await $content('pages/profile/index').fetch()
@@ -59,7 +43,37 @@ const jsonLD = {
   }
 })
 export default class ProfilePage extends Vue {
-  jsonLD: string = JSON.stringify(jsonLD)
+  get jsonLD(): string {
+    return JSON.stringify([
+      {
+        '@context': 'https://schema.org',
+        '@type': 'Person',
+        email: 'hello@nandenjin.com',
+        name: 'Kazumi Inada',
+        birthPlace: 'Osaka, Japan',
+        gender: 'male',
+        url: 'https://www.nandenjin.com',
+        sameAs: [
+          'https://www.facebook.com/nandenjin',
+          'https://www.linkedin.com/in/nandenjin',
+          'https://twitter.com/nandenjin',
+          'https://instagram.com/nandenjin',
+          'https://github.com/nandenjin'
+        ]
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Profile'
+          }
+        ]
+      }
+    ])
+  }
 }
 </script>
 

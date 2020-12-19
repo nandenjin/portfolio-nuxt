@@ -8,6 +8,8 @@
         </nuxt-link>
       </li>
     </ul>
+    <!-- eslint-disable-next-line vue/no-v-html -->
+    <script type="application/ld+json" v-html="jsonLD" />
   </main>
 </template>
 
@@ -54,6 +56,22 @@ import { Vue, Component } from 'vue-property-decorator'
 })
 export default class NewsIndexPage extends Vue {
   pages
+
+  get jsonLD(): string {
+    return JSON.stringify([
+      {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'News'
+          }
+        ]
+      }
+    ])
+  }
 }
 </script>
 
