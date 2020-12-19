@@ -66,7 +66,7 @@ import ContentRenderer from '~/components/ContentRenderer'
         {
           hid: 'og:image',
           property: 'og:image',
-          content: process.env.baseUrl + this.page.thumbnail
+          content: process.env.baseUrl + '/_nuxt/content' + this.page.thumbnail
         },
         { hid: 'og:description', property: 'og:description', content: '' },
         {
