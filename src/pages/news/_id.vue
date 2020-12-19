@@ -13,6 +13,8 @@
     <div class="footer">
       <div class="gray">{{ page.release }}</div>
     </div>
+    <!-- eslint-disable-next-line vue/no-v-html -->
+    <script type="application/ld+json" v-html="JSON.stringify(jsonLD)" />
   </main>
 </template>
 
@@ -55,5 +57,14 @@ import ContentRenderer from '~/components/ContentRenderer'
 })
 export default class NewsPage extends Vue {
   page
+
+  get jsonLD(): Record<string, any> {
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: this.page.title_ja,
+      dateModified: new Date(this.page.release).toISOString()
+    }
+  }
 }
 </script>
