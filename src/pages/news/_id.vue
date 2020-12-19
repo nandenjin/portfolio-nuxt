@@ -4,14 +4,14 @@
       <h1 class="title">
         {{ page.title_ja }}
       </h1>
-      <div class="info">{{ page.release }}</div>
+      <div class="info">{{ releaseStr }}</div>
     </div>
 
     <section class="content">
       <content-renderer :content="page" />
     </section>
     <div class="footer">
-      <div class="gray">{{ page.release }}</div>
+      <div class="gray">{{ releaseStr }}</div>
     </div>
     <!-- eslint-disable-next-line vue/no-v-html -->
     <script type="application/ld+json" v-html="JSON.stringify(jsonLD)" />
@@ -65,6 +65,13 @@ export default class NewsPage extends Vue {
       headline: this.page.title_ja,
       dateModified: new Date(this.page.release).toISOString()
     }
+  }
+
+  get releaseStr(): string {
+    const d = new Date(this.page.release)
+    return `${d.getFullYear()}/${('00' + d.getMonth()).slice(-2)}/${(
+      '00' + d.getDate()
+    ).slice(-2)}`
   }
 }
 </script>
