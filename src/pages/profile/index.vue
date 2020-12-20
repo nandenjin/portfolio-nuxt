@@ -2,9 +2,6 @@
   <main class="main doc">
     <div class="profile">
       <div>
-        <img class="avatar" src="~/assets/img/profile.jpg" alt="" />
-      </div>
-      <div>
         <h1>Kazumi Inada / 稲田 和巳</h1>
         <div class="title">
           Designer / Engineer
@@ -84,43 +81,4 @@ export default class ProfilePage extends Vue {
 .profile
   font-size: 13px
   margin: 100px 30px 0
-
-  .avatar
-    display: block
-    width: 200px
-    height: 200px
-    margin: 30px 0
-    border-radius: 15px
-
-    +rmq(md)
-      width: 80vw
-      height: 80vw
-      margin: 100px auto 30px auto
-
-  & ::v-deep
-    .title
-      margin: 40px 0
-      color: #888
-      font-size: 1.05em
-
-    h1
-      margin-top: 80px
-      margin-bottom: 20px
-      font-size: 1.6em
-
-    h2
-      margin: 50px 0 30px
-      font-size: 1.5em
-
-    p
-      margin: 15px 0
-      line-height: 2em
-
-    ul
-      margin: 10px 0
-      padding-right: 15px
-
-    li
-      margin: 10px 0
-      line-height: 1.7em
 </style>
