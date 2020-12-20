@@ -10,8 +10,18 @@
   >
     <figure class="hidden-in-playing">
       <picture>
-        <source v-if="!isExternalSrc" type="image/webp" :srcset="srcsetWebP" />
-        <source v-if="!isExternalSrc" type="image/jpeg" :srcset="srcset" />
+        <source
+          v-if="!isExternalSrc"
+          type="image/webp"
+          :srcset="srcsetWebP"
+          :sizes="sizes"
+        />
+        <source
+          v-if="!isExternalSrc"
+          type="image/jpeg"
+          :srcset="srcset"
+          :sizes="sizes"
+        />
         <img
           v-if="src"
           :src="src"
@@ -46,6 +56,7 @@ export default class ImageBox extends Vue {
   @Prop(String) readonly src!: string
   @Prop(String) readonly alt: string | undefined
   @Prop(String) readonly playerSrc: string | undefined
+  @Prop({ default: '100vw' }) readonly sizes!: string
   loaded = false
   playing = false
 

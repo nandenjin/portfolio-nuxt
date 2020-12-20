@@ -4,6 +4,7 @@ import ImageBox from '~/components/ImageBox.vue'
 import YoutubeEmbed from '~/components/YoutubeEmbed.vue'
 
 const contentDistRoot = join('/_nuxt', 'content')
+const IMAGE_SIZES_RULE = '(max-width: 700px) 100vw, 700px'
 
 @Component<ContentRenderer>({
   render(h) {
@@ -31,7 +32,8 @@ const contentDistRoot = join('/_nuxt', 'content')
             ...node.props,
             src: node.props.src
               ? join(contentDistRoot, node.props.src)
-              : undefined
+              : undefined,
+            sizes: IMAGE_SIZES_RULE
           }
         })
       }
@@ -52,7 +54,8 @@ const contentDistRoot = join('/_nuxt', 'content')
                 ? poster.match(/^(https?:)\/\//)
                   ? poster
                   : join(contentDistRoot, poster)
-                : undefined
+                : undefined,
+              posterSizes: IMAGE_SIZES_RULE
             }
           })
         }

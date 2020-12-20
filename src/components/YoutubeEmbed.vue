@@ -13,7 +13,7 @@
       />
     </div>
     <div v-else>
-      <image-box :src="poster" />
+      <image-box :src="poster" :sizes="posterSizes" />
       <button class="play-button" @click="playing = true">
         Play
       </button>
@@ -33,6 +33,7 @@ import ImageBox from '~/components/ImageBox.vue'
 export default class YoutubeEmbed extends Vue {
   @Prop(String) src!: string
   @Prop(String) poster!: string
+  @Prop(String) posterSizes: string | undefined
   height = 0
   playing = false
 
