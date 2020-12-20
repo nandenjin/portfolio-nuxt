@@ -52,6 +52,8 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
 
+const SIZES = [320, 768, 1024, 1600]
+
 @Component
 export default class ImageBox extends Vue {
   @Prop(String) readonly src!: string
@@ -67,7 +69,9 @@ export default class ImageBox extends Vue {
       return ''
     }
     this.src.match(/^(.+)\.(jpg|png|webp|gif)$/)
-    return `${RegExp.$1}_320w.${RegExp.$2} 320w, ${RegExp.$1}_768w.${RegExp.$2} 768w, ${RegExp.$1}_1024w.${RegExp.$2} 1024w, ${RegExp.$1}_1600w.${RegExp.$2} 1600w`
+    return SIZES.map(
+      size => `${RegExp.$1}_${size}w.${RegExp.$2} ${size}w`
+    ).join(',')
   }
 
   get srcsetWebP(): string {
@@ -75,7 +79,7 @@ export default class ImageBox extends Vue {
       return ''
     }
     this.src.match(/^(.+)\.(jpg|png|webp|gif)$/)
-    return `${RegExp.$1}_320w.webp 320w, ${RegExp.$1}_768w.webp 768w, ${RegExp.$1}_1024w.webp 1024w, ${RegExp.$1}_1600w.webp 1600w`
+    return SIZES.map(size => `${RegExp.$1}_${size}w.webp ${size}w`).join(',')
   }
 
   get isExternalSrc(): boolean {
