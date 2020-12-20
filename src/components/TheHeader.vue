@@ -67,6 +67,7 @@ export default class TheHeader extends Vue {
 
   @include rmq() {
     display: block;
+    width: calc(100vw - 25px * 2);
   }
 
   * {
@@ -77,6 +78,10 @@ export default class TheHeader extends Vue {
     display: inline-block;
     width: 200px;
     transform: translateY(7px);
+
+    @include rmq() {
+      display: block;
+    }
   }
 
   .menu {

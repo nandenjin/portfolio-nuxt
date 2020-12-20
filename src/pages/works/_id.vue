@@ -131,11 +131,15 @@ export default class WorkPage extends Vue {
       margin-bottom: 85px
 
   .work-info
+    width: calc(100vw - 50px * 2)
     max-width: 700px
     margin: 100px auto
     font-size: 13px
     line-height: 1.8em
     color: #888
+
+    @include rmq()
+      width: calc(100vw - 25px * 2)
 
     .text
       p

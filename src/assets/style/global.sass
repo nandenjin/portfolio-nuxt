@@ -1,6 +1,7 @@
 
 @import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
-
+@import './media.sass'
+  
 *
   font-family: 'Helvetica Neue', Arial, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', '游ゴシック', 'Yu Gothic', '游ゴシック体', 'YuGothic', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', 'MS P Gothic', sans-serif
   font-weight: 400
@@ -46,13 +47,20 @@ p
 .main-with-margin
   margin: 80px 50px 50px
 
+  @include rmq()
+    margin: 50px 25px 25px
+
 .doc
   max-width: 800px
   margin: 30px auto
 
   .header, .footer
+    width: calc(100vw - 50px * 2)
     max-width: 700px
     margin: 60px auto
+
+    @include rmq()
+      width: calc(100vw - 25px * 2)
 
   .header
     margin-top: 100px
@@ -78,9 +86,16 @@ p
   .image-box, .youtube-embed
     margin: 60px auto
 
+    @include rmq()
+      margin: 30px 0
+
   p, h2, h3, h4, ul, ol
+    width: calc(100vw - 50px * 2)
     max-width: 700px
     margin: 15px auto
+
+    @include rmq()
+      width: calc(100vw - 25px * 2)
 
   h2
     margin-top: 60px
