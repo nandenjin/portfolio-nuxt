@@ -4,11 +4,12 @@
     :class="{
       'is-loaded': loaded,
       'is-player': playerMode,
-      'is-playing': playing
+      'is-playing': playing,
+      'is-cover': cover
     }"
     @click="playing = playerMode"
   >
-    <figure class="hidden-in-playing">
+    <figure class="fig">
       <picture>
         <source
           v-if="!isExternalSrc"
@@ -57,6 +58,7 @@ export default class ImageBox extends Vue {
   @Prop(String) readonly alt: string | undefined
   @Prop(String) readonly playerSrc: string | undefined
   @Prop({ default: '100vw' }) readonly sizes!: string
+  @Prop({ default: false }) readonly cover!: boolean
   loaded = false
   playing = false
 
@@ -109,10 +111,19 @@ export default class ImageBox extends Vue {
   // <picture>のぶん画像下に謎の空白が開く対処
   line-height: 0
 
+
   &::before
     content: ''
     display: inline-block
     padding-top: 9 / 16 * 100%
+
+  &.is-loaded
+    &::before
+      display: none
+
+  .fig
+    width: 100%
+    height: 100%
 
   .src-img
     width: 100%
@@ -121,16 +132,16 @@ export default class ImageBox extends Vue {
     opacity: 0
     transition: opacity 1s ease 0s
 
-  .play-button
-    display: none
-
-  &.is-loaded
-    .src-img
+  &.is-loaded .src-img
       height: auto
       opacity: 1
 
-    &::before
-      display: none
+  &.is-loaded.is-cover .src-img
+      height: 100%
+
+  .play-button
+    display: none
+
 
   &.is-player
     cursor: pointer

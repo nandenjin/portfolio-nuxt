@@ -1,6 +1,12 @@
 <template>
   <main class="top-container">
-    <figure class="eye-catch" />
+    <image-box
+      class="eye-catch"
+      src="/_nuxt/content/assets/works/sympathy/sympathy_0.png"
+      alt=""
+      sizes="(max-width: 768px) 100vw 38vw"
+      :cover="true"
+    />
     <div class="content">
       <div class="centering">
         <h1>
@@ -30,9 +36,13 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
+import ImageBox from '~/components/ImageBox.vue'
 
 @Component({
   layout: 'plain',
+  components: {
+    ImageBox
+  },
   head: {
     title: 'Kazumi Inada | 稲田和巳',
     meta: [{ hid: 'og:type', property: 'og:type', content: 'website' }]
@@ -57,7 +67,6 @@ export default class IndexPage extends Vue {}
   flex: 1 1 100%
   margin: 0
   padding: 0
-  background-image: url("/_nuxt/content/assets/works/sympathy/sympathy_0.png")
   background-color: #000
   background-position: center
   background-size: cover
