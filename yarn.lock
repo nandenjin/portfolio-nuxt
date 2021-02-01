@@ -1776,12 +1776,7 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.11.tgz#fc25a4248a5e8d0837019b1d170146d07334abe0"
   integrity sha512-BJ97wAUuU3NUiUCp44xzUFquQEvnk1wu7q4CMEUYKJWjdkr0YWYDsm4RFtAvxYsNjLsKcrFt6RvK8r+mnzMbEQ==
 
-"@types/node@^12.0.2", "@types/node@^12.19.8":
-  version "12.19.8"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.19.8.tgz#efd6d1a90525519fc608c9db16c8a78f7693a978"
-  integrity sha512-D4k2kNi0URNBxIRCb1khTnkWNHv8KSL1owPmS/K5e5t8B2GzMReY7AsJIY1BnP5KdlgC4rj9jk2IkDMasIE7xg==
-
-"@types/node@^12.12.47":
+"@types/node@^12.0.2", "@types/node@^12.12.47", "@types/node@^12.19.8":
   version "12.19.11"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.19.11.tgz#9220ab4b20d91169eb78f456dbfcbabee89dfb50"
   integrity sha512-bwVfNTFZOrGXyiQ6t4B9sZerMSShWNsGRw8tC5DY1qImUNczS9SjT4G6PnzjCnxsu5Ubj6xjL2lgwddkxtQl5w==
@@ -1858,10 +1853,10 @@
     "@types/mime" "*"
     "@types/node" "*"
 
-"@types/sharp@^0.26.1":
-  version "0.26.1"
-  resolved "https://registry.yarnpkg.com/@types/sharp/-/sharp-0.26.1.tgz#92f6b3e65fb02a54ac7027cea0d17cf64f0d2958"
-  integrity sha512-vOFcnP0+aQFDb+ToKVIj8ZV6xQ7pNYGGPeYweLHxyjoQUcIGj8iY9R3OVmJyRR5KUkb0Y4obBbMjoTrBXw6AQA==
+"@types/sharp@^0.27.1":
+  version "0.27.1"
+  resolved "https://registry.yarnpkg.com/@types/sharp/-/sharp-0.27.1.tgz#26212ceb191b3de654a898a06577869afc200c57"
+  integrity sha512-RbYmyPjDUzi3lI9Qm68I+82I+DNOe/jW5w+EC1FvpT/f2TYXDG6mmPZQQohy98ufq+u6OB6pQkqpcNMDxzVclg==
   dependencies:
     "@types/node" "*"
 
