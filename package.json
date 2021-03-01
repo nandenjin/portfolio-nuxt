@@ -23,7 +23,7 @@
   "author": "Kazumi Inada <hello@nandenjin.com>",
   "license": "UNLICENSED",
   "dependencies": {
-    "@nuxt/content": "^1.12.0",
+    "@nuxt/content": "^1.13.1",
     "@nuxt/types": "^2.14.12",
     "@nuxt/typescript-runtime": "^2.0.1",
     "@nuxtjs/sitemap": "^2.4.0",
