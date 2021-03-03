@@ -50,7 +50,7 @@
     "rimraf": "^3.0.2",
     "sass": "^1.32.6",
     "sass-loader": "^10.1.1",
-    "sharp": "^0.27.1",
+    "sharp": "^0.27.2",
     "simple-git": "^2.35.2",
     "vue-property-decorator": "^9.1.2"
   },
