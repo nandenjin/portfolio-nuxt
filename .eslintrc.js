@@ -9,9 +9,7 @@ module.exports = {
     'eslint:recommended',
     'plugin:nuxt/recommended',
     '@nuxtjs/eslint-config-typescript',
-    'prettier',
-    'prettier/@typescript-eslint',
-    'prettier/vue'
+    'prettier'
   ],
   rules: {
     'import/order': 'error'
