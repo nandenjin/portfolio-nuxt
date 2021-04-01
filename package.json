@@ -24,7 +24,7 @@
   "license": "UNLICENSED",
   "dependencies": {
     "@nuxt/content": "^1.14.0",
-    "@nuxt/types": "^2.15.2",
+    "@nuxt/types": "^2.15.4",
     "@nuxt/typescript-runtime": "^2.1.0",
     "@nuxtjs/sitemap": "^2.4.0",
     "normalize.css": "^8.0.1",
